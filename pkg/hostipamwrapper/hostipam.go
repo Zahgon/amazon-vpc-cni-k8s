@@ -17,7 +17,6 @@ package hostipamwrapper
 import (
 	"github.com/containernetworking/cni/pkg/types"
 	current "github.com/containernetworking/cni/pkg/types/100"
-	_ipam "github.com/containernetworking/plugins/pkg/ipam"
 )
 
 // HostIpam is an interface created to make code unit testable.
@@ -35,21 +34,24 @@ type HostIpam interface {
 type hostipam struct{}
 
 // NewIpam return a new HostIpam object
-func NewIpam() HostIpam {
-	return &hostipam{}
-}
+func NewIpam() HostIpam { _ = "STUB: not implemented"; return *new(HostIpam) }
+
 func (h *hostipam) ExecAdd(plugin string, netconf []byte) (types.Result, error) {
-	return _ipam.ExecAdd(plugin, netconf)
+	_ = "STUB: not implemented"
+	return *new(types.Result), nil
 }
 
 func (h *hostipam) ExecCheck(plugin string, netconf []byte) error {
-	return _ipam.ExecCheck(plugin, netconf)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (h *hostipam) ExecDel(plugin string, netconf []byte) error {
-	return _ipam.ExecDel(plugin, netconf)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (h *hostipam) ConfigureIface(ifName string, res *current.Result) error {
-	return _ipam.ConfigureIface(ifName, res)
+	_ = "STUB: not implemented"
+	return nil
 }

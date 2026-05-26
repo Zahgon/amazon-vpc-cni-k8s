@@ -19,8 +19,6 @@
 package mock_netlink
 
 import (
-	reflect "reflect"
-
 	gomock "github.com/golang/mock/gomock"
 	netlink "github.com/vishvananda/netlink"
 )
@@ -37,41 +35,23 @@ type MockLinkMockRecorder struct {
 }
 
 // NewMockLink creates a new mock instance.
-func NewMockLink(ctrl *gomock.Controller) *MockLink {
-	mock := &MockLink{ctrl: ctrl}
-	mock.recorder = &MockLinkMockRecorder{mock}
-	return mock
-}
+func NewMockLink(ctrl *gomock.Controller) *MockLink { _ = "STUB: not implemented"; return nil }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockLink) EXPECT() *MockLinkMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// Attrs mocks base method.
+	return nil
 }
 
-// Attrs mocks base method.
-func (m *MockLink) Attrs() *netlink.LinkAttrs {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Attrs")
-	ret0, _ := ret[0].(*netlink.LinkAttrs)
-	return ret0
-}
+func (m *MockLink) Attrs() *netlink.LinkAttrs { _ = "STUB: not implemented"; return nil }
 
 // Attrs indicates an expected call of Attrs.
-func (mr *MockLinkMockRecorder) Attrs() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Attrs", reflect.TypeOf((*MockLink)(nil).Attrs))
-}
+func (mr *MockLinkMockRecorder) Attrs() *gomock.Call { _ = "STUB: not implemented"; return nil }
 
 // Type mocks base method.
-func (m *MockLink) Type() string {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Type")
-	ret0, _ := ret[0].(string)
-	return ret0
-}
+func (m *MockLink) Type() string { _ = "STUB: not implemented"; return "" }
 
 // Type indicates an expected call of Type.
-func (mr *MockLinkMockRecorder) Type() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Type", reflect.TypeOf((*MockLink)(nil).Type))
-}
+func (mr *MockLinkMockRecorder) Type() *gomock.Call { _ = "STUB: not implemented"; return nil }

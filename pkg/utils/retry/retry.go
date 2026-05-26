@@ -25,29 +25,15 @@ var _time ttime.Time = &ttime.DefaultTime{}
 // WithBackoff takes a Backoff and a function to call that returns an error
 // If the error is nil then the function will no longer be called
 // If the error is Retriable then that will be used to determine if it should be retried
-func WithBackoff(backoff Backoff, fn func() error) error {
-	return WithBackoffCtx(context.Background(), backoff, fn)
-}
+func WithBackoff(backoff Backoff, fn func() error) error { _ = "STUB: not implemented"; return nil }
 
 // WithBackoffCtx takes a context, a Backoff, and a function to call that returns an error
 // If the context is done, nil will be returned
 // If the error is nil then the function will no longer be called
 // If the error is Retriable then that will be used to determine if it should be retried
 func WithBackoffCtx(ctx context.Context, backoff Backoff, fn func() error) error {
-	var err error
-	for {
-		select {
-		case <-ctx.Done():
-			return nil
-		default:
-		}
-		err = fn()
-		retriableErr, isRetriableErr := err.(Retriable)
-		if err == nil || (isRetriableErr && !retriableErr.Retry()) {
-			return err
-		}
-		_time.Sleep(backoff.Duration())
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NWithBackoff takes a Backoff, a maximum number of tries 'n', and a
@@ -56,7 +42,8 @@ func WithBackoffCtx(ctx context.Context, backoff Backoff, fn func() error) error
 // If the error returned is Retriable, the Retriability of it will be respected.
 // If the number of tries is exhausted, the last error will be returned.
 func NWithBackoff(backoff Backoff, n int, fn func() error) error {
-	return NWithBackoffCtx(context.Background(), backoff, n, fn)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NWithBackoffCtx takes a context, a Backoff, a maximum number of tries 'n', and a function that returns an error.
@@ -65,15 +52,8 @@ func NWithBackoff(backoff Backoff, n int, fn func() error) error {
 // If the error returned is Retriable, the Retriability of it will be respected.
 // If the number of tries is exhausted, the last error will be returned.
 func NWithBackoffCtx(ctx context.Context, backoff Backoff, n int, fn func() error) error {
-	var err error
-	_ = WithBackoffCtx(ctx, backoff, func() error {
-		err = fn()
-		n--
-		if n == 0 {
-			// Break out after n tries
-			return nil
-		}
-		return err
-	})
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// Break out after n tries

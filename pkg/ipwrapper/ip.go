@@ -17,7 +17,6 @@ package ipwrapper
 import (
 	"net"
 
-	"github.com/containernetworking/plugins/pkg/ip"
 	"github.com/vishvananda/netlink"
 )
 
@@ -30,10 +29,9 @@ type ipRoute struct {
 }
 
 // NewIP returns a new IP
-func NewIP() IP {
-	return &ipRoute{}
-}
+func NewIP() IP { _ = "STUB: not implemented"; return *new(IP) }
 
 func (*ipRoute) AddDefaultRoute(gw net.IP, dev netlink.Link) error {
-	return ip.AddDefaultRoute(gw, dev)
+	_ = "STUB: not implemented"
+	return nil
 }

@@ -13,10 +13,6 @@
 
 package logger
 
-import (
-	"os"
-)
-
 const (
 	defaultLogFilePath = "/host/var/log/aws-routed-eni/ipamd.log"
 	defaultLogLevel    = "Debug"
@@ -31,30 +27,10 @@ type Configuration struct {
 }
 
 // LoadLogConfig returns the log configuration
-func LoadLogConfig() *Configuration {
-	return &Configuration{
-		LogLevel:    GetLogLevel(),
-		LogLocation: GetLogLocation(),
-	}
-}
+func LoadLogConfig() *Configuration { _ = "STUB: not implemented"; return nil }
 
 // GetLogLocation returns the log file path
-func GetLogLocation() string {
-	logFilePath := os.Getenv(envLogFilePath)
-	if logFilePath == "" {
-		logFilePath = defaultLogFilePath
-	}
-	return logFilePath
-}
+func GetLogLocation() string { _ = "STUB: not implemented"; return "" }
 
 // GetLogLevel returns the log level
-func GetLogLevel() string {
-	logLevel := os.Getenv(envLogLevel)
-	switch logLevel {
-	case "":
-		logLevel = defaultLogLevel
-		return logLevel
-	default:
-		return logLevel
-	}
-}
+func GetLogLevel() string { _ = "STUB: not implemented"; return "" }

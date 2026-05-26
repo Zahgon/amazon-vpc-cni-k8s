@@ -14,8 +14,6 @@
 package utils
 
 import (
-	"fmt"
-
 	v1 "k8s.io/api/core/v1"
 )
 
@@ -23,63 +21,19 @@ import (
 // specified container name
 func AddOrUpdateEnvironmentVariable(containers []v1.Container, containerName string,
 	envVars map[string]string) error {
-
-	containerIndex := -1
-	// Update existing environment variable first
-	for i, container := range containers {
-		if container.Name != containerName {
-			continue
-		}
-		containerIndex = i
-		for j, env := range container.Env {
-			if val, alreadyPresent := envVars[env.Name]; alreadyPresent {
-				container.Env[j].Value = val
-				// Delete, so we don't add the environment variable multiple times
-				delete(envVars, env.Name)
-			}
-		}
-	}
-
-	if containerIndex < 0 {
-		return fmt.Errorf("failed to find container %s in the passed containers",
-			containerName)
-	}
-
-	// Add the environment variables that were not already present
-	for key, val := range envVars {
-		containers[containerIndex].Env = append(containers[containerIndex].Env,
-			v1.EnvVar{
-				Name:  key,
-				Value: val,
-			})
-	}
-
+	_ = "STUB: not implemented"
 	return nil
+
+	// Update existing environment variable first
 }
+
+// Delete, so we don't add the environment variable multiple times
+
+// Add the environment variables that were not already present
 
 // RemoveEnvironmentVariables removes the environment variable from the specified container
 func RemoveEnvironmentVariables(containers []v1.Container, containerName string,
 	envVars map[string]struct{}) error {
-	var updatedEnvVar []v1.EnvVar
-	containerIndex := -1
-	for i, container := range containers {
-		if container.Name != containerName {
-			continue
-		}
-		containerIndex = i
-		for j := 0; j < len(container.Env); j++ {
-			if _, ok := envVars[container.Env[j].Name]; !ok {
-				updatedEnvVar = append(updatedEnvVar, container.Env[j])
-			}
-		}
-	}
-
-	if containerIndex < 0 {
-		return fmt.Errorf("failed to find cotnainer %s in list of containers",
-			containerName)
-	}
-
-	containers[containerIndex].Env = updatedEnvVar
-
+	_ = "STUB: not implemented"
 	return nil
 }

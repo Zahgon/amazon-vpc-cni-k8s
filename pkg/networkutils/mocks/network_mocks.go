@@ -20,7 +20,6 @@ package mock_networkutils
 
 import (
 	net "net"
-	reflect "reflect"
 	time "time"
 
 	gomock "github.com/golang/mock/gomock"
@@ -40,213 +39,172 @@ type MockNetworkAPIsMockRecorder struct {
 
 // NewMockNetworkAPIs creates a new mock instance.
 func NewMockNetworkAPIs(ctrl *gomock.Controller) *MockNetworkAPIs {
-	mock := &MockNetworkAPIs{ctrl: ctrl}
-	mock.recorder = &MockNetworkAPIsMockRecorder{mock}
-	return mock
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockNetworkAPIs) EXPECT() *MockNetworkAPIsMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// CleanUpStaleAWSChains mocks base method.
+	return nil
 }
 
-// CleanUpStaleAWSChains mocks base method.
 func (m *MockNetworkAPIs) CleanUpStaleAWSChains(arg0, arg1 bool) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CleanUpStaleAWSChains", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // CleanUpStaleAWSChains indicates an expected call of CleanUpStaleAWSChains.
 func (mr *MockNetworkAPIsMockRecorder) CleanUpStaleAWSChains(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CleanUpStaleAWSChains", reflect.TypeOf((*MockNetworkAPIs)(nil).CleanUpStaleAWSChains), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DeleteRulesBySrc mocks base method.
 func (m *MockNetworkAPIs) DeleteRulesBySrc(arg0 string, arg1 bool) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteRulesBySrc", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DeleteRulesBySrc indicates an expected call of DeleteRulesBySrc.
 func (mr *MockNetworkAPIsMockRecorder) DeleteRulesBySrc(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteRulesBySrc", reflect.TypeOf((*MockNetworkAPIs)(nil).DeleteRulesBySrc), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetExcludeSNATCIDRs mocks base method.
-func (m *MockNetworkAPIs) GetExcludeSNATCIDRs() []string {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetExcludeSNATCIDRs")
-	ret0, _ := ret[0].([]string)
-	return ret0
-}
+func (m *MockNetworkAPIs) GetExcludeSNATCIDRs() []string { _ = "STUB: not implemented"; return nil }
 
 // GetExcludeSNATCIDRs indicates an expected call of GetExcludeSNATCIDRs.
 func (mr *MockNetworkAPIsMockRecorder) GetExcludeSNATCIDRs() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetExcludeSNATCIDRs", reflect.TypeOf((*MockNetworkAPIs)(nil).GetExcludeSNATCIDRs))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetExternalServiceCIDRs mocks base method.
-func (m *MockNetworkAPIs) GetExternalServiceCIDRs() []string {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetExternalServiceCIDRs")
-	ret0, _ := ret[0].([]string)
-	return ret0
-}
+func (m *MockNetworkAPIs) GetExternalServiceCIDRs() []string { _ = "STUB: not implemented"; return nil }
 
 // GetExternalServiceCIDRs indicates an expected call of GetExternalServiceCIDRs.
 func (mr *MockNetworkAPIsMockRecorder) GetExternalServiceCIDRs() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetExternalServiceCIDRs", reflect.TypeOf((*MockNetworkAPIs)(nil).GetExternalServiceCIDRs))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetLinkByMac mocks base method.
 func (m *MockNetworkAPIs) GetLinkByMac(arg0 string, arg1 time.Duration) (netlink.Link, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetLinkByMac", arg0, arg1)
-	ret0, _ := ret[0].(netlink.Link)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return *new(netlink.Link), nil
 }
 
 // GetLinkByMac indicates an expected call of GetLinkByMac.
 func (mr *MockNetworkAPIsMockRecorder) GetLinkByMac(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLinkByMac", reflect.TypeOf((*MockNetworkAPIs)(nil).GetLinkByMac), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetRuleList mocks base method.
 func (m *MockNetworkAPIs) GetRuleList(arg0 bool) ([]netlink.Rule, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetRuleList", arg0)
-	ret0, _ := ret[0].([]netlink.Rule)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetRuleList indicates an expected call of GetRuleList.
 func (mr *MockNetworkAPIsMockRecorder) GetRuleList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetRuleList", reflect.TypeOf((*MockNetworkAPIs)(nil).GetRuleList), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetRuleListBySrc mocks base method.
 func (m *MockNetworkAPIs) GetRuleListBySrc(arg0 []netlink.Rule, arg1 net.IPNet) ([]netlink.Rule, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetRuleListBySrc", arg0, arg1)
-	ret0, _ := ret[0].([]netlink.Rule)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetRuleListBySrc indicates an expected call of GetRuleListBySrc.
 func (mr *MockNetworkAPIsMockRecorder) GetRuleListBySrc(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetRuleListBySrc", reflect.TypeOf((*MockNetworkAPIs)(nil).GetRuleListBySrc), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetupENINetwork mocks base method.
 func (m *MockNetworkAPIs) SetupENINetwork(arg0, arg1 string, arg2 int, arg3 string, arg4 int, arg5 bool, arg6 int, arg7 bool) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SetupENINetwork", arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetupENINetwork indicates an expected call of SetupENINetwork.
 func (mr *MockNetworkAPIsMockRecorder) SetupENINetwork(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetupENINetwork", reflect.TypeOf((*MockNetworkAPIs)(nil).SetupENINetwork), arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetupHostNetwork mocks base method.
 func (m *MockNetworkAPIs) SetupHostNetwork(arg0 []string, arg1 string, arg2 *net.IP, arg3, arg4 bool) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SetupHostNetwork", arg0, arg1, arg2, arg3, arg4)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetupHostNetwork indicates an expected call of SetupHostNetwork.
 func (mr *MockNetworkAPIsMockRecorder) SetupHostNetwork(arg0, arg1, arg2, arg3, arg4 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetupHostNetwork", reflect.TypeOf((*MockNetworkAPIs)(nil).SetupHostNetwork), arg0, arg1, arg2, arg3, arg4)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // UpdateExternalServiceIpRules mocks base method.
 func (m *MockNetworkAPIs) UpdateExternalServiceIpRules(arg0 []netlink.Rule, arg1 []string) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateExternalServiceIpRules", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // UpdateExternalServiceIpRules indicates an expected call of UpdateExternalServiceIpRules.
 func (mr *MockNetworkAPIsMockRecorder) UpdateExternalServiceIpRules(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateExternalServiceIpRules", reflect.TypeOf((*MockNetworkAPIs)(nil).UpdateExternalServiceIpRules), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // UpdateHostIptablesRules mocks base method.
 func (m *MockNetworkAPIs) UpdateHostIptablesRules(arg0 []string, arg1 string, arg2 *net.IP, arg3 bool) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateHostIptablesRules", arg0, arg1, arg2, arg3)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // UpdateHostIptablesRules indicates an expected call of UpdateHostIptablesRules.
 func (mr *MockNetworkAPIsMockRecorder) UpdateHostIptablesRules(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateHostIptablesRules", reflect.TypeOf((*MockNetworkAPIs)(nil).UpdateHostIptablesRules), arg0, arg1, arg2, arg3)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // UpdateRuleListBySrc mocks base method.
 func (m *MockNetworkAPIs) UpdateRuleListBySrc(arg0 []netlink.Rule, arg1 net.IPNet) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateRuleListBySrc", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // UpdateRuleListBySrc indicates an expected call of UpdateRuleListBySrc.
 func (mr *MockNetworkAPIsMockRecorder) UpdateRuleListBySrc(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateRuleListBySrc", reflect.TypeOf((*MockNetworkAPIs)(nil).UpdateRuleListBySrc), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // UseExternalSNAT mocks base method.
-func (m *MockNetworkAPIs) UseExternalSNAT() bool {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UseExternalSNAT")
-	ret0, _ := ret[0].(bool)
-	return ret0
-}
+func (m *MockNetworkAPIs) UseExternalSNAT() bool { _ = "STUB: not implemented"; return false }
 
 // UseExternalSNAT indicates an expected call of UseExternalSNAT.
 func (mr *MockNetworkAPIsMockRecorder) UseExternalSNAT() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UseExternalSNAT", reflect.TypeOf((*MockNetworkAPIs)(nil).UseExternalSNAT))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetRouteTableNumberForENI mocks base method.
 func (m *MockNetworkAPIs) GetRouteTableNumberForENI(arg0 int, arg1 string, arg2 int, arg3 int, arg4 bool) (int, bool, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetRouteTableNumberForENI", arg0, arg1, arg2, arg3, arg4)
-	ret0, _ := ret[0].(int)
-	ret1, _ := ret[1].(bool)
-	ret2, _ := ret[2].(error)
-	return ret0, ret1, ret2
+	_ = "STUB: not implemented"
+	return 0, false, nil
 }
 
 // GetRouteTableNumberForENI indicates an expected call of GetRouteTableNumberForENI.
 func (mr *MockNetworkAPIsMockRecorder) GetRouteTableNumberForENI(arg0, arg1, arg2, arg3, arg4 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetRouteTableNumberForENI", reflect.TypeOf((*MockNetworkAPIs)(nil).GetRouteTableNumberForENI), arg0, arg1, arg2, arg3, arg4)
+	_ = "STUB: not implemented"
+	return nil
 }

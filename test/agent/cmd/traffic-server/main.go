@@ -48,99 +48,12 @@ func main() {
 	}
 }
 
-func StartTCPServer(serverAddr string) {
-	log.Printf("starting TCP listener on %s", serverAddr)
+func StartTCPServer(serverAddr string) { _ = "STUB: not implemented"; return }
 
-	listener, err := net.Listen("tcp", serverAddr)
-	if err != nil {
-		log.Fatalf("failed to start server: %v", err)
-	}
+func readAndWriteFromConnection(conn net.Conn) error { _ = "STUB: not implemented"; return nil }
 
-	defer listener.Close()
+func StartUDPServer(serverAddr string) { _ = "STUB: not implemented"; return }
 
-	for {
-		log.Printf("waiting for incomming connection")
-		conn, err := listener.Accept()
-		if err != nil {
-			log.Printf("failed to accept connection %v", err)
-			continue
-		}
+func h(w http.ResponseWriter, r *http.Request) { _ = "STUB: not implemented"; return }
 
-		log.Printf("succesffuly established connection with client %v", conn.RemoteAddr())
-
-		err = readAndWriteFromConnection(conn)
-		if err != nil {
-			log.Printf("failed to read/write from connection: %v", err)
-			continue
-		}
-
-		log.Printf("sucessfully read and wrote response to tcp client %v", conn.RemoteAddr())
-	}
-}
-
-func readAndWriteFromConnection(conn net.Conn) error {
-	defer conn.Close()
-
-	buff := make([]byte, 1024)
-	_, err := conn.Read(buff)
-	if err != nil {
-		return fmt.Errorf("failed to read from connection stream: %v", err)
-	}
-
-	log.Printf("successfully received message from client %s", string(buff))
-
-	_, err = conn.Write([]byte(ServerResponse))
-	if err != nil {
-		return fmt.Errorf("failed to write back to the client: %v", err)
-	}
-
-	log.Printf("successfully wrote back to the client")
-
-	return nil
-}
-
-func StartUDPServer(serverAddr string) {
-	log.Printf("starting UDP listener on address %s", serverAddr)
-
-	udpAddr, err := net.ResolveUDPAddr("udp", serverAddr)
-	if err != nil {
-		log.Fatalf("failed to resolve udp address: %v", err)
-	}
-
-	conn, err := net.ListenUDP("udp", udpAddr)
-	if err != nil {
-		log.Fatalf("failed to lisent for udp packets: %v", err)
-	}
-	defer conn.Close()
-
-	for {
-		log.Print("waiting for incoming requests")
-
-		buffer := make([]byte, 1024)
-		_, clientAddr, err := conn.ReadFromUDP(buffer)
-		if err != nil {
-			log.Printf("failed to read udp packets: %v", err)
-			continue
-		}
-
-		log.Printf("successfully recieved request from remote client %v: %s",
-			clientAddr.String(), string(buffer))
-
-		_, err = conn.WriteToUDP([]byte(ServerResponse), clientAddr)
-		if err != nil {
-			log.Printf("failed to write back to the client: %v", err)
-			continue
-		}
-
-		log.Printf("sucessfully wrote back to remote client %v", clientAddr)
-	}
-}
-
-func h(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, ServerResponse)
-}
-
-func StartHTTPServer() {
-	http.HandleFunc("/", h)
-	http.ListenAndServe(":80", nil)
-}
+func StartHTTPServer() { _ = "STUB: not implemented"; return }

@@ -20,7 +20,6 @@ package mock_rpc
 
 import (
 	context "context"
-	reflect "reflect"
 
 	rpc "github.com/aws/amazon-vpc-cni-k8s/rpc"
 	gomock "github.com/golang/mock/gomock"
@@ -41,54 +40,39 @@ type MockCNIBackendClientMockRecorder struct {
 
 // NewMockCNIBackendClient creates a new mock instance.
 func NewMockCNIBackendClient(ctrl *gomock.Controller) *MockCNIBackendClient {
-	mock := &MockCNIBackendClient{ctrl: ctrl}
-	mock.recorder = &MockCNIBackendClientMockRecorder{mock}
-	return mock
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockCNIBackendClient) EXPECT() *MockCNIBackendClientMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// AddNetwork mocks base method.
+	return nil
 }
 
-// AddNetwork mocks base method.
 func (m *MockCNIBackendClient) AddNetwork(arg0 context.Context, arg1 *rpc.AddNetworkRequest, arg2 ...grpc.CallOption) (*rpc.AddNetworkReply, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "AddNetwork", varargs...)
-	ret0, _ := ret[0].(*rpc.AddNetworkReply)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // AddNetwork indicates an expected call of AddNetwork.
 func (mr *MockCNIBackendClientMockRecorder) AddNetwork(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddNetwork", reflect.TypeOf((*MockCNIBackendClient)(nil).AddNetwork), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DelNetwork mocks base method.
 func (m *MockCNIBackendClient) DelNetwork(arg0 context.Context, arg1 *rpc.DelNetworkRequest, arg2 ...grpc.CallOption) (*rpc.DelNetworkReply, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "DelNetwork", varargs...)
-	ret0, _ := ret[0].(*rpc.DelNetworkReply)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // DelNetwork indicates an expected call of DelNetwork.
 func (mr *MockCNIBackendClientMockRecorder) DelNetwork(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DelNetwork", reflect.TypeOf((*MockCNIBackendClient)(nil).DelNetwork), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // MockNPBackendClient is a mock of NPBackendClient interface.
@@ -104,54 +88,39 @@ type MockNPBackendClientMockRecorder struct {
 
 // NewMockNPBackendClient creates a new mock instance.
 func NewMockNPBackendClient(ctrl *gomock.Controller) *MockNPBackendClient {
-	mock := &MockNPBackendClient{ctrl: ctrl}
-	mock.recorder = &MockNPBackendClientMockRecorder{mock}
-	return mock
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockNPBackendClient) EXPECT() *MockNPBackendClientMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// DeletePodNp mocks base method.
+	return nil
 }
 
-// DeletePodNp mocks base method.
 func (m *MockNPBackendClient) DeletePodNp(arg0 context.Context, arg1 *rpc.DeleteNpRequest, arg2 ...grpc.CallOption) (*rpc.DeleteNpReply, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "DeletePodNp", varargs...)
-	ret0, _ := ret[0].(*rpc.DeleteNpReply)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // DeletePodNp indicates an expected call of DeletePodNp.
 func (mr *MockNPBackendClientMockRecorder) DeletePodNp(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeletePodNp", reflect.TypeOf((*MockNPBackendClient)(nil).DeletePodNp), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // EnforceNpToPod mocks base method.
 func (m *MockNPBackendClient) EnforceNpToPod(arg0 context.Context, arg1 *rpc.EnforceNpRequest, arg2 ...grpc.CallOption) (*rpc.EnforceNpReply, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "EnforceNpToPod", varargs...)
-	ret0, _ := ret[0].(*rpc.EnforceNpReply)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // EnforceNpToPod indicates an expected call of EnforceNpToPod.
 func (mr *MockNPBackendClientMockRecorder) EnforceNpToPod(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "EnforceNpToPod", reflect.TypeOf((*MockNPBackendClient)(nil).EnforceNpToPod), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // MockConfigServerBackendClient is a mock of ConfigServerBackendClient interface.
@@ -167,32 +136,25 @@ type MockConfigServerBackendClientMockRecorder struct {
 
 // NewMockConfigServerBackendClient creates a new mock instance.
 func NewMockConfigServerBackendClient(ctrl *gomock.Controller) *MockConfigServerBackendClient {
-	mock := &MockConfigServerBackendClient{ctrl: ctrl}
-	mock.recorder = &MockConfigServerBackendClientMockRecorder{mock}
-	return mock
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockConfigServerBackendClient) EXPECT() *MockConfigServerBackendClientMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// GetNetworkPolicyConfigs mocks base method.
+	return nil
 }
 
-// GetNetworkPolicyConfigs mocks base method.
 func (m *MockConfigServerBackendClient) GetNetworkPolicyConfigs(arg0 context.Context, arg1 *emptypb.Empty, arg2 ...grpc.CallOption) (*rpc.NetworkPolicyAgentConfigReply, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "GetNetworkPolicyConfigs", varargs...)
-	ret0, _ := ret[0].(*rpc.NetworkPolicyAgentConfigReply)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetNetworkPolicyConfigs indicates an expected call of GetNetworkPolicyConfigs.
 func (mr *MockConfigServerBackendClientMockRecorder) GetNetworkPolicyConfigs(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetNetworkPolicyConfigs", reflect.TypeOf((*MockConfigServerBackendClient)(nil).GetNetworkPolicyConfigs), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }

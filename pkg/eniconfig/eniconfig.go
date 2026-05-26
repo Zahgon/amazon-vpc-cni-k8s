@@ -16,16 +16,12 @@ package eniconfig
 
 import (
 	"context"
-	"os"
-
-	"k8s.io/apimachinery/pkg/types"
 
 	"github.com/pkg/errors"
 	corev1 "k8s.io/api/core/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
 	"github.com/aws/amazon-vpc-cni-k8s/pkg/apis/crd/v1alpha1"
-	"github.com/aws/amazon-vpc-cni-k8s/pkg/k8sapi"
 	"github.com/aws/amazon-vpc-cni-k8s/pkg/utils/logger"
 )
 
@@ -70,73 +66,20 @@ type ENIConfigInfo struct {
 
 // MyENIConfig returns the ENIConfig applicable to the particular node
 func MyENIConfig(ctx context.Context, k8sClient client.Client) (*v1alpha1.ENIConfigSpec, error) {
-	node, err := k8sapi.GetNode(ctx, k8sClient)
-	if err != nil {
-		log.Debugf("Error while retrieving Node")
-	}
-
-	eniConfigName, err := GetNodeSpecificENIConfigName(node)
-	if err != nil {
-		log.Debugf("Error while retrieving Node ENIConfig name")
-	}
-
-	log.Infof("Found ENI Config Name: %s", eniConfigName)
-	var eniConfig v1alpha1.ENIConfig
-	err = k8sClient.Get(ctx, types.NamespacedName{Name: eniConfigName}, &eniConfig)
-	if err != nil {
-		log.Errorf("error while retrieving eniconfig: %s", err)
-		return nil, ErrNoENIConfig
-	}
-
-	return &v1alpha1.ENIConfigSpec{
-		SecurityGroups: eniConfig.Spec.SecurityGroups,
-		Subnet:         eniConfig.Spec.Subnet,
-	}, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // getEniConfigAnnotationDef returns eniConfigAnnotation
-func getEniConfigAnnotationDef() string {
-	inputStr, found := os.LookupEnv(envEniConfigAnnotationDef)
-
-	if !found {
-		return defaultEniConfigAnnotationDef
-	}
-	if len(inputStr) > 0 {
-		log.Debugf("Using ENI_CONFIG_ANNOTATION_DEF %v", inputStr)
-		return inputStr
-	}
-	return defaultEniConfigAnnotationDef
-}
+func getEniConfigAnnotationDef() string { _ = "STUB: not implemented"; return "" }
 
 // getEniConfigLabelDef returns eniConfigLabel name
-func getEniConfigLabelDef() string {
-	inputStr, found := os.LookupEnv(envEniConfigLabelDef)
-
-	if !found {
-		return defaultEniConfigLabelDef
-	}
-	if len(inputStr) > 0 {
-		log.Debugf("Using ENI_CONFIG_LABEL_DEF %v", inputStr)
-		return inputStr
-	}
-	return defaultEniConfigLabelDef
-}
+func getEniConfigLabelDef() string { _ = "STUB: not implemented"; return "" }
 
 func GetNodeSpecificENIConfigName(node corev1.Node) (string, error) {
-	var eniConfigName string
+	_ = "STUB: not implemented"
+	return "",
 
-	//Derive ENIConfig Name from either externally managed label, Node Annotations or Labels
-	labels := node.GetLabels()
-	eniConfigName, ok := labels[externalEniConfigLabel]
-	if !ok {
-		eniConfigName, ok = node.GetAnnotations()[getEniConfigAnnotationDef()]
-		if !ok {
-			eniConfigName, ok = node.GetLabels()[getEniConfigLabelDef()]
-			if !ok {
-				eniConfigName = EniConfigDefault
-			}
-		}
-	}
-
-	return eniConfigName, nil
+		//Derive ENIConfig Name from either externally managed label, Node Annotations or Labels
+		nil
 }

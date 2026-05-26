@@ -19,15 +19,9 @@ import (
 	"sync"
 	"time"
 
-	ec2metadata "github.com/aws/aws-sdk-go-v2/feature/ec2/imds"
-
-	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/cloudwatch"
 	types "github.com/aws/aws-sdk-go-v2/service/cloudwatch/types"
-	"github.com/pkg/errors"
 
-	"github.com/aws/amazon-vpc-cni-k8s/pkg/awsutils/awssession"
-	"github.com/aws/amazon-vpc-cni-k8s/pkg/ec2metadatawrapper"
 	"github.com/aws/amazon-vpc-cni-k8s/pkg/ec2wrapper"
 	"github.com/aws/amazon-vpc-cni-k8s/pkg/utils/logger"
 )
@@ -95,172 +89,72 @@ type cloudWatchPublisher struct {
 // not specified clusterID then its a Cx error
 // New returns a new instance of `Publisher`
 func New(ctx context.Context, region string, clusterID string, log logger.Logger) (Publisher, error) {
-	cfg, err := awssession.New(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	// If Customers have explicitly specified clusterID then skip generating it
-	if clusterID == "" {
-		ec2client, err := ec2wrapper.NewMetricsClient()
-		if err != nil {
-			return nil, errors.Wrap(err, "publisher: unable to obtain EC2 service client")
-		}
-		clusterID = getClusterID(ec2client, log)
-	}
-
-	// Try to fetch region if not available
-	if region == "" {
-		// Get ec2metadata client
-		ec2Metadataclient, err := ec2metadatawrapper.New(ctx)
-		if err != nil {
-			return nil, err
-		}
-		output, err := ec2Metadataclient.GetRegion(ctx, &ec2metadata.GetRegionInput{})
-		region = output.Region
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	log.Infof("Using REGION=%s and CLUSTER_ID=%s", region, clusterID)
-
-	cfg.Region = region
-	cloudwatchClient := cloudwatch.NewFromConfig(cfg)
-
-	// Build derived context
-	derivedContext, cancel := context.WithCancel(ctx)
-
-	return &cloudWatchPublisher{
-		ctx:              derivedContext,
-		cancel:           cancel,
-		cloudwatchClient: cloudwatchClient,
-		clusterID:        clusterID,
-		localMetricData:  make([]types.MetricDatum, 0, localMetricDataSize),
-		log:              log,
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(Publisher), nil
 }
+
+// If Customers have explicitly specified clusterID then skip generating it
+
+// Try to fetch region if not available
+
+// Get ec2metadata client
+
+// Build derived context
 
 // Start is used to set up the monitor loop
-func (p *cloudWatchPublisher) Start(publishInterval int) {
-	p.log.Infof("Starting monitor loop for CloudWatch publisher with push interval of %d seconds", publishInterval)
-	publishIntervalDuration := time.Second * time.Duration(publishInterval)
-	p.monitor(publishIntervalDuration)
-}
+func (p *cloudWatchPublisher) Start(publishInterval int) { _ = "STUB: not implemented"; return }
 
 // Stop is used to cancel the monitor loop
-func (p *cloudWatchPublisher) Stop() {
-	p.log.Info("Stopping monitor loop for CloudWatch publisher")
-	p.cancel()
-}
+func (p *cloudWatchPublisher) Stop() { _ = "STUB: not implemented"; return }
 
 // Publish is a variadic function to publish one or more metric data points
 func (p *cloudWatchPublisher) Publish(metricDataPoints ...types.MetricDatum) {
+	_ = "STUB: not implemented"
 	// Fetch dimensions for override
-	p.log.Info("Fetching CloudWatch dimensions")
-	dimensions := p.getCloudWatchMetricDatumDimensions()
-	// Grab lock
-	p.lock.Lock()
-	defer p.lock.Unlock()
-
-	// NOTE: Iteration is used to override the metric dimensions
-	for _, metricDatum := range metricDataPoints {
-		metricDatum.Dimensions = dimensions
-		p.localMetricData = append(p.localMetricData, metricDatum)
-	}
+	return
 }
 
-func (p *cloudWatchPublisher) pushLocal() {
-	p.lock.Lock()
-	data := p.localMetricData[:]
-	p.localMetricData = make([]types.MetricDatum, 0, localMetricDataSize)
-	p.lock.Unlock()
-	p.push(data)
-}
+// Grab lock
+
+// NOTE: Iteration is used to override the metric dimensions
+
+func (p *cloudWatchPublisher) pushLocal() { _ = "STUB: not implemented"; return }
 
 func (p *cloudWatchPublisher) push(metricData []types.MetricDatum) {
-	if len(metricData) == 0 {
-		p.log.Info("Missing data for publishing CloudWatch metrics")
-		return
-	}
-
-	// Setup input
-	input := &cloudwatch.PutMetricDataInput{
-		Namespace: aws.String(cloudwatchMetricNamespace),
-	}
-
-	for len(metricData) > 0 {
-		input.MetricData = metricData[:min(maxDataPoints, len(metricData))]
-
-		// Publish data
-		err := p.send(input)
-		if err != nil {
-			p.log.Warnf("Unable to publish CloudWatch metrics: %v", err)
-		}
-
-		// Mutate slice
-
-		metricData = metricData[min(maxDataPoints, len(metricData)):]
-
-		// Reset Input
-		input.MetricData = nil
-	}
+	_ = "STUB: not implemented"
+	return
 }
+
+// Setup input
+
+// Publish data
+
+// Mutate slice
+
+// Reset Input
 
 // Why is there a *cloudwatch.PutMetricDataInput and cloudwatch.PutMetricDataInput?
 func (p *cloudWatchPublisher) send(input *cloudwatch.PutMetricDataInput) error {
-	p.log.Info("Sending data to CloudWatch metrics")
-	_, err := p.cloudwatchClient.PutMetricData(p.ctx, input)
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (p *cloudWatchPublisher) monitor(interval time.Duration) {
-	p.updateIntervalTicker = time.NewTicker(interval)
-	for {
-		select {
-		case <-p.updateIntervalTicker.C:
-			p.pushLocal()
-
-		case <-p.ctx.Done():
-			p.Stop()
-			return
-		}
-	}
-}
+func (p *cloudWatchPublisher) monitor(interval time.Duration) { _ = "STUB: not implemented"; return }
 
 func (p *cloudWatchPublisher) getCloudWatchMetricNamespace() *string {
-	return aws.String(cloudwatchMetricNamespace)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func getClusterID(ec2Client *ec2wrapper.EC2Wrapper, log logger.Logger) string {
-	var clusterID string
-	var err error
-	for _, tag := range clusterIDTags {
-		clusterID, err = ec2Client.GetClusterTag(tag)
-		if err == nil && clusterID != "" {
-			break
-		}
-	}
-	if clusterID == "" {
-		clusterID = defaultClusterID
-	}
-	log.Infof("Using cluster ID ", clusterID)
-	return clusterID
+	_ = "STUB: not implemented"
+	return ""
 }
 
 func (p *cloudWatchPublisher) getCloudWatchMetricDatumDimensions() []types.Dimension {
-	return []types.Dimension{
-		{
-			Name:  aws.String(clusterIDDimension),
-			Value: aws.String(p.clusterID),
-		},
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // min is a helper to compute the min of two integers
-func min(x, y int) int {
-	if x < y {
-		return x
-	}
-	return y
-}
+func min(x, y int) int { _ = "STUB: not implemented"; return 0 }

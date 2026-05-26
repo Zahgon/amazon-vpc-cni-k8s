@@ -19,8 +19,6 @@
 package mock_iptableswrapper
 
 import (
-	reflect "reflect"
-
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -37,209 +35,154 @@ type MockIPTablesIfaceMockRecorder struct {
 
 // NewMockIPTablesIface creates a new mock instance.
 func NewMockIPTablesIface(ctrl *gomock.Controller) *MockIPTablesIface {
-	mock := &MockIPTablesIface{ctrl: ctrl}
-	mock.recorder = &MockIPTablesIfaceMockRecorder{mock}
-	return mock
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockIPTablesIface) EXPECT() *MockIPTablesIfaceMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// Append mocks base method.
+	return nil
 }
 
-// Append mocks base method.
 func (m *MockIPTablesIface) Append(arg0, arg1 string, arg2 ...string) error {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "Append", varargs...)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Append indicates an expected call of Append.
 func (mr *MockIPTablesIfaceMockRecorder) Append(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Append", reflect.TypeOf((*MockIPTablesIface)(nil).Append), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // AppendUnique mocks base method.
 func (m *MockIPTablesIface) AppendUnique(arg0, arg1 string, arg2 ...string) error {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "AppendUnique", varargs...)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // AppendUnique indicates an expected call of AppendUnique.
 func (mr *MockIPTablesIfaceMockRecorder) AppendUnique(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AppendUnique", reflect.TypeOf((*MockIPTablesIface)(nil).AppendUnique), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ChainExists mocks base method.
 func (m *MockIPTablesIface) ChainExists(arg0, arg1 string) (bool, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ChainExists", arg0, arg1)
-	ret0, _ := ret[0].(bool)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
 // ChainExists indicates an expected call of ChainExists.
 func (mr *MockIPTablesIfaceMockRecorder) ChainExists(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ChainExists", reflect.TypeOf((*MockIPTablesIface)(nil).ChainExists), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ClearChain mocks base method.
 func (m *MockIPTablesIface) ClearChain(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ClearChain", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ClearChain indicates an expected call of ClearChain.
 func (mr *MockIPTablesIfaceMockRecorder) ClearChain(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ClearChain", reflect.TypeOf((*MockIPTablesIface)(nil).ClearChain), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Delete mocks base method.
 func (m *MockIPTablesIface) Delete(arg0, arg1 string, arg2 ...string) error {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "Delete", varargs...)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Delete indicates an expected call of Delete.
 func (mr *MockIPTablesIfaceMockRecorder) Delete(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockIPTablesIface)(nil).Delete), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DeleteChain mocks base method.
 func (m *MockIPTablesIface) DeleteChain(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteChain", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DeleteChain indicates an expected call of DeleteChain.
 func (mr *MockIPTablesIfaceMockRecorder) DeleteChain(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteChain", reflect.TypeOf((*MockIPTablesIface)(nil).DeleteChain), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Exists mocks base method.
 func (m *MockIPTablesIface) Exists(arg0, arg1 string, arg2 ...string) (bool, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "Exists", varargs...)
-	ret0, _ := ret[0].(bool)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
 // Exists indicates an expected call of Exists.
 func (mr *MockIPTablesIfaceMockRecorder) Exists(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Exists", reflect.TypeOf((*MockIPTablesIface)(nil).Exists), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // HasRandomFully mocks base method.
-func (m *MockIPTablesIface) HasRandomFully() bool {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "HasRandomFully")
-	ret0, _ := ret[0].(bool)
-	return ret0
-}
+func (m *MockIPTablesIface) HasRandomFully() bool { _ = "STUB: not implemented"; return false }
 
 // HasRandomFully indicates an expected call of HasRandomFully.
 func (mr *MockIPTablesIfaceMockRecorder) HasRandomFully() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "HasRandomFully", reflect.TypeOf((*MockIPTablesIface)(nil).HasRandomFully))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Insert mocks base method.
 func (m *MockIPTablesIface) Insert(arg0, arg1 string, arg2 int, arg3 ...string) error {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1, arg2}
-	for _, a := range arg3 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "Insert", varargs...)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Insert indicates an expected call of Insert.
 func (mr *MockIPTablesIfaceMockRecorder) Insert(arg0, arg1, arg2 interface{}, arg3 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1, arg2}, arg3...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Insert", reflect.TypeOf((*MockIPTablesIface)(nil).Insert), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // List mocks base method.
 func (m *MockIPTablesIface) List(arg0, arg1 string) ([]string, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "List", arg0, arg1)
-	ret0, _ := ret[0].([]string)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // List indicates an expected call of List.
 func (mr *MockIPTablesIfaceMockRecorder) List(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "List", reflect.TypeOf((*MockIPTablesIface)(nil).List), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ListChains mocks base method.
 func (m *MockIPTablesIface) ListChains(arg0 string) ([]string, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ListChains", arg0)
-	ret0, _ := ret[0].([]string)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // ListChains indicates an expected call of ListChains.
 func (mr *MockIPTablesIfaceMockRecorder) ListChains(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListChains", reflect.TypeOf((*MockIPTablesIface)(nil).ListChains), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewChain mocks base method.
 func (m *MockIPTablesIface) NewChain(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "NewChain", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewChain indicates an expected call of NewChain.
 func (mr *MockIPTablesIfaceMockRecorder) NewChain(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewChain", reflect.TypeOf((*MockIPTablesIface)(nil).NewChain), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }

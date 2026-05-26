@@ -27,11 +27,9 @@ type nsType struct {
 }
 
 // NewNS returns a new NS
-func NewNS() NS {
-	return &nsType{}
-}
+func NewNS() NS { _ = "STUB: not implemented"; return *new(NS) }
 
 func (*nsType) WithNetNSPath(nspath string, toRun func(ns.NetNS) error) error {
-	return ns.WithNetNSPath(nspath, toRun)
-
+	_ = "STUB: not implemented"
+	return nil
 }

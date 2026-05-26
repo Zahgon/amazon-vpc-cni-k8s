@@ -4,8 +4,6 @@ package ec2metadatawrapper
 import (
 	"context"
 
-	"github.com/aws/amazon-vpc-cni-k8s/pkg/awsutils/awssession"
-	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/feature/ec2/imds"
 )
 
@@ -27,28 +25,24 @@ type ec2MetadataClientImpl struct {
 
 // New creates an ec2metadata client to retrieve metadata
 func New(ctx context.Context) (EC2MetadataClient, error) {
-	cfg, err := config.LoadDefaultConfig(ctx,
-		config.WithHTTPClient(awssession.NewAWSSDKHTTPClient()),
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	client := imds.NewFromConfig(cfg)
-	return NewMetadataService(client), nil
+	_ = "STUB: not implemented"
+	return *new(EC2MetadataClient), nil
 }
 
 // NewMetadataService creates an ec2metadata client to retrieve metadata
 func NewMetadataService(client HTTPClient) EC2MetadataClient {
-	return &ec2MetadataClientImpl{client: client}
+	_ = "STUB: not implemented"
+	return *new(EC2MetadataClient)
 }
 
 // GetInstanceIdentityDocument returns instance identity documents
 func (c *ec2MetadataClientImpl) GetInstanceIdentityDocument(ctx context.Context, params *imds.GetInstanceIdentityDocumentInput, optFns ...func(*imds.Options)) (*imds.GetInstanceIdentityDocumentOutput, error) {
-	return c.client.GetInstanceIdentityDocument(ctx, params, optFns...)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetRegion returns the AWS Region the instance is running in
 func (c *ec2MetadataClientImpl) GetRegion(ctx context.Context, params *imds.GetRegionInput, optFns ...func(*imds.Options)) (*imds.GetRegionOutput, error) {
-	return c.client.GetRegion(ctx, params, optFns...)
+	_ = "STUB: not implemented"
+	return nil, nil
 }

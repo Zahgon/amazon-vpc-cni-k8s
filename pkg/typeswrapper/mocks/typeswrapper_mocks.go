@@ -19,8 +19,6 @@
 package mock_typeswrapper
 
 import (
-	reflect "reflect"
-
 	types "github.com/containernetworking/cni/pkg/types"
 	gomock "github.com/golang/mock/gomock"
 )
@@ -37,41 +35,35 @@ type MockCNITYPESMockRecorder struct {
 }
 
 // NewMockCNITYPES creates a new mock instance.
-func NewMockCNITYPES(ctrl *gomock.Controller) *MockCNITYPES {
-	mock := &MockCNITYPES{ctrl: ctrl}
-	mock.recorder = &MockCNITYPESMockRecorder{mock}
-	return mock
-}
+func NewMockCNITYPES(ctrl *gomock.Controller) *MockCNITYPES { _ = "STUB: not implemented"; return nil }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockCNITYPES) EXPECT() *MockCNITYPESMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// LoadArgs mocks base method.
+	return nil
 }
 
-// LoadArgs mocks base method.
 func (m *MockCNITYPES) LoadArgs(arg0 string, arg1 interface{}) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "LoadArgs", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // LoadArgs indicates an expected call of LoadArgs.
 func (mr *MockCNITYPESMockRecorder) LoadArgs(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LoadArgs", reflect.TypeOf((*MockCNITYPES)(nil).LoadArgs), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // PrintResult mocks base method.
 func (m *MockCNITYPES) PrintResult(arg0 types.Result, arg1 string) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "PrintResult", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // PrintResult indicates an expected call of PrintResult.
 func (mr *MockCNITYPESMockRecorder) PrintResult(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "PrintResult", reflect.TypeOf((*MockCNITYPES)(nil).PrintResult), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }

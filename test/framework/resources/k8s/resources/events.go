@@ -14,8 +14,6 @@
 package resources
 
 import (
-	"context"
-
 	eventsv1 "k8s.io/api/events/v1"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
@@ -29,11 +27,11 @@ type defaultEventManager struct {
 }
 
 func NewEventManager(k8sClient client.Client) EventManager {
-	return &defaultEventManager{k8sClient: k8sClient}
+	_ = "STUB: not implemented"
+	return *new(EventManager)
 }
 
 func (d defaultEventManager) GetEventsWithOptions(opts *client.ListOptions) (eventsv1.EventList, error) {
-	eventList := eventsv1.EventList{}
-	err := d.k8sClient.List(context.Background(), &eventList, opts)
-	return eventList, err
+	_ = "STUB: not implemented"
+	return *new(eventsv1.EventList), nil
 }

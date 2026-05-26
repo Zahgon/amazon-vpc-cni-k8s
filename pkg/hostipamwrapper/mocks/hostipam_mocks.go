@@ -19,8 +19,6 @@
 package mock_hostipamwrapper
 
 import (
-	reflect "reflect"
-
 	types "github.com/containernetworking/cni/pkg/types"
 	types100 "github.com/containernetworking/cni/pkg/types/100"
 	gomock "github.com/golang/mock/gomock"
@@ -38,70 +36,59 @@ type MockHostIpamMockRecorder struct {
 }
 
 // NewMockHostIpam creates a new mock instance.
-func NewMockHostIpam(ctrl *gomock.Controller) *MockHostIpam {
-	mock := &MockHostIpam{ctrl: ctrl}
-	mock.recorder = &MockHostIpamMockRecorder{mock}
-	return mock
-}
+func NewMockHostIpam(ctrl *gomock.Controller) *MockHostIpam { _ = "STUB: not implemented"; return nil }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockHostIpam) EXPECT() *MockHostIpamMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// ConfigureIface mocks base method.
+	return nil
 }
 
-// ConfigureIface mocks base method.
 func (m *MockHostIpam) ConfigureIface(arg0 string, arg1 *types100.Result) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ConfigureIface", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ConfigureIface indicates an expected call of ConfigureIface.
 func (mr *MockHostIpamMockRecorder) ConfigureIface(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ConfigureIface", reflect.TypeOf((*MockHostIpam)(nil).ConfigureIface), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ExecAdd mocks base method.
 func (m *MockHostIpam) ExecAdd(arg0 string, arg1 []byte) (types.Result, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ExecAdd", arg0, arg1)
-	ret0, _ := ret[0].(types.Result)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return *new(types.Result), nil
 }
 
 // ExecAdd indicates an expected call of ExecAdd.
 func (mr *MockHostIpamMockRecorder) ExecAdd(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ExecAdd", reflect.TypeOf((*MockHostIpam)(nil).ExecAdd), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ExecCheck mocks base method.
 func (m *MockHostIpam) ExecCheck(arg0 string, arg1 []byte) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ExecCheck", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ExecCheck indicates an expected call of ExecCheck.
 func (mr *MockHostIpamMockRecorder) ExecCheck(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ExecCheck", reflect.TypeOf((*MockHostIpam)(nil).ExecCheck), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ExecDel mocks base method.
 func (m *MockHostIpam) ExecDel(arg0 string, arg1 []byte) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ExecDel", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ExecDel indicates an expected call of ExecDel.
 func (mr *MockHostIpamMockRecorder) ExecDel(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ExecDel", reflect.TypeOf((*MockHostIpam)(nil).ExecDel), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }

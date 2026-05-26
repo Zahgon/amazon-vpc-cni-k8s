@@ -15,7 +15,6 @@ package controller
 
 import (
 	"github.com/aws/amazon-vpc-cni-k8s/test/framework/helm"
-	"github.com/aws/amazon-vpc-cni-k8s/test/framework/utils"
 )
 
 type InstallationManager interface {
@@ -26,7 +25,8 @@ type InstallationManager interface {
 }
 
 func NewDefaultInstallationManager(manager helm.ReleaseManager) InstallationManager {
-	return &defaultInstallationManager{releaseManager: manager}
+	_ = "STUB: not implemented"
+	return *new(InstallationManager)
 }
 
 type defaultInstallationManager struct {
@@ -34,33 +34,21 @@ type defaultInstallationManager struct {
 }
 
 func (d *defaultInstallationManager) InstallCNIMetricsHelper(image string, tag string, clusterId string) error {
-	values := map[string]interface{}{
-		"env": map[string]interface{}{
-			"AWS_CLUSTER_ID": clusterId,
-		},
-		"image": map[string]interface{}{
-			"repository": image,
-			"tag":        tag,
-		},
-	}
-
-	projectRoot := utils.GetProjectRoot()
-	_, err := d.releaseManager.InstallUnPackagedRelease(projectRoot+CNIMetricsHelperChartDir,
-		CNIMetricsHelperReleaseName, CNIMetricHelperNamespace, values)
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (d *defaultInstallationManager) UnInstallCNIMetricsHelper() error {
-	_, err := d.releaseManager.UninstallRelease(CNIMetricHelperNamespace, CNIMetricsHelperReleaseName)
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (d *defaultInstallationManager) InstallTigeraOperator(version string) error {
-	_, err := d.releaseManager.InstallPackagedRelease(TigeraOperatorHelmCharts, TigeraOperatorReleaseName, version, TigeraOperatorNamespace, map[string]interface{}{})
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (d *defaultInstallationManager) UninstallTigeraOperator() error {
-	_, err := d.releaseManager.UninstallRelease(TigeraOperatorNamespace, TigeraOperatorReleaseName)
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }

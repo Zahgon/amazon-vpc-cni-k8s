@@ -14,23 +14,15 @@
 package datastore
 
 import (
-	"fmt"
 	"net"
-	"os"
-	"strings"
 	"sync"
 	"time"
 
 	"github.com/aws/amazon-vpc-cni-k8s/pkg/netlinkwrapper"
-	"github.com/aws/amazon-vpc-cni-k8s/pkg/networkutils"
 	"github.com/vishvananda/netlink"
-	"golang.org/x/sys/unix"
 
 	"github.com/aws/amazon-vpc-cni-k8s/pkg/utils/logger"
-	"github.com/aws/amazon-vpc-cni-k8s/utils"
-	"github.com/aws/amazon-vpc-cni-k8s/utils/prometheusmetrics"
 	"github.com/pkg/errors"
-	"github.com/prometheus/client_golang/prometheus"
 )
 
 const (
@@ -93,14 +85,10 @@ type IPAMKey struct {
 }
 
 // IsZero returns true if object is equal to the golang zero/null value.
-func (k IPAMKey) IsZero() bool {
-	return k == IPAMKey{}
-}
+func (k IPAMKey) IsZero() bool { _ = "STUB: not implemented"; return false }
 
 // String() implements the fmt.Stringer interface.
-func (k IPAMKey) String() string {
-	return fmt.Sprintf("%s/%s/%s", k.NetworkName, k.ContainerID, k.IfName)
-}
+func (k IPAMKey) String() string { _ = "STUB: not implemented"; return "" }
 
 // IPAMMetadata is the metadata associated with IP allocations.
 type IPAMMetadata struct {
@@ -158,62 +146,30 @@ type CidrInfo struct {
 	AddressFamily string
 }
 
-func (cidr *CidrInfo) Size() int {
-	ones, bits := cidr.Cidr.Mask.Size()
-	return (1 << (bits - ones))
-}
+func (cidr *CidrInfo) Size() int { _ = "STUB: not implemented"; return 0 }
 
 func (e *ENI) findAddressForSandbox(ipamKey IPAMKey) (*CidrInfo, *AddressInfo) {
+	_ = "STUB: not implemented"
 	// Either v4 or v6 for now.
 	// Check in V4 prefixes
-	for _, availableCidr := range e.AvailableIPv4Cidrs {
-		for _, addr := range availableCidr.IPAddresses {
-			if addr.IPAMKey == ipamKey {
-				return availableCidr, addr
-			}
-		}
-	}
-
-	// Check in V6 prefixes
-	for _, availableCidr := range e.IPv6Cidrs {
-		for _, addr := range availableCidr.IPAddresses {
-			if addr.IPAMKey == ipamKey {
-				return availableCidr, addr
-			}
-		}
-	}
 	return nil, nil
 }
 
+// Check in V6 prefixes
+
 // AssignedIPv4Addresses is the number of IP addresses already assigned
-func (e *ENI) AssignedIPv4Addresses() int {
-	count := 0
-	for _, availableCidr := range e.AvailableIPv4Cidrs {
-		count += availableCidr.AssignedIPAddressesInCidr()
-	}
-	return count
-}
+func (e *ENI) AssignedIPv4Addresses() int { _ = "STUB: not implemented"; return 0 }
 
 // AssignedIPv6Addresses is the number of IPv6 addresses already assigned
-func (e *ENI) AssignedIPv6Addresses() int {
-	count := 0
-	for _, availableCidr := range e.IPv6Cidrs {
-		count += availableCidr.AssignedIPAddressesInCidr()
-	}
-	return count
-}
+func (e *ENI) AssignedIPv6Addresses() int { _ = "STUB: not implemented"; return 0 }
 
 // AssignedIPAddressesInCidr is the number of IP addresses already assigned in the IPv4 CIDR
 func (cidr *CidrInfo) AssignedIPAddressesInCidr() int {
-	count := 0
-	//SIP : This will run just once and count will be 0 if addr is not assigned or addr is not allocated yet(unused IP)
-	//PD : This will return count of number /32 assigned in /28 CIDR.
-	for _, addr := range cidr.IPAddresses {
-		if addr.Assigned() {
-			count++
-		}
-	}
-	return count
+	_ = "STUB: not implemented"
+
+	// SIP : This will run just once and count will be 0 if addr is not assigned or addr is not allocated yet(unused IP)
+	// PD : This will return count of number /32 assigned in /28 CIDR.
+	return 0
 }
 
 type CidrStats struct {
@@ -223,55 +179,31 @@ type CidrStats struct {
 
 // Gets number of assigned IPs and the IPs in cooldown from a given CIDR
 func (cidr *CidrInfo) GetIPStatsFromCidr(ipCooldownPeriod time.Duration) CidrStats {
-	stats := CidrStats{}
-	for _, addr := range cidr.IPAddresses {
-		if addr.Assigned() {
-			stats.AssignedIPs++
-		} else if addr.inCoolingPeriod(ipCooldownPeriod) {
-			stats.CooldownIPs++
-		}
-	}
-	return stats
+	_ = "STUB: not implemented"
+	return *new(CidrStats)
 }
 
 // Assigned returns true iff the address is allocated to a pod/sandbox.
-func (addr AddressInfo) Assigned() bool {
-	return !addr.IPAMKey.IsZero()
-}
+func (addr AddressInfo) Assigned() bool { _ = "STUB: not implemented"; return false }
 
 // getCooldownPeriod returns the time duration in seconds configured by the IP_COOLDOWN_PERIOD env variable
-func getCooldownPeriod() time.Duration {
-	cooldownVal, err, _ := utils.GetIntFromStringEnvVar(envIPCooldownPeriod, 30)
-	if err != nil {
-		return 30 * time.Second
-	}
-	return time.Duration(cooldownVal) * time.Second
-}
+func getCooldownPeriod() time.Duration { _ = "STUB: not implemented"; return *new(time.Duration) }
 
 // InCoolingPeriod checks whether an addr is in ipCooldownPeriod
 func (addr AddressInfo) inCoolingPeriod(ipCooldownPeriod time.Duration) bool {
-	return time.Since(addr.UnassignedTime) <= ipCooldownPeriod
+	_ = "STUB: not implemented"
+	return false
 }
 
 // ENIPool is a collection of ENI, keyed by ENI ID
 type ENIPool map[string]*ENI
 
 // AssignedIPv4Addresses is the number of IP addresses already assigned
-func (p *ENIPool) AssignedIPv4Addresses() int {
-	count := 0
-	for _, eni := range *p {
-		count += eni.AssignedIPv4Addresses()
-	}
-	return count
-}
+func (p *ENIPool) AssignedIPv4Addresses() int { _ = "STUB: not implemented"; return 0 }
 
 // FindAddressForSandbox returns ENI and AddressInfo or (nil, nil) if not found
 func (p *ENIPool) FindAddressForSandbox(ipamKey IPAMKey) (*ENI, *CidrInfo, *AddressInfo) {
-	for _, eni := range *p {
-		if availableCidr, addr := eni.findAddressForSandbox(ipamKey); addr != nil && availableCidr != nil {
-			return eni, availableCidr, addr
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil, nil, nil
 }
 
@@ -311,15 +243,8 @@ type ENIInfos struct {
 
 // NewDataStore returns DataStore structure
 func NewDataStore(log logger.Logger, backingStore Checkpointer, isPDEnabled bool, networkCard int) *DataStore {
-	return &DataStore{
-		eniPool:          make(ENIPool),
-		log:              log,
-		backingStore:     backingStore,
-		netLink:          netlinkwrapper.NewNetLink(),
-		isPDEnabled:      isPDEnabled,
-		ipCooldownPeriod: getCooldownPeriod(),
-		networkCard:      networkCard,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // CheckpointFormatVersion is the version stamp used on stored checkpoints.
@@ -346,550 +271,165 @@ type CheckpointEntry struct {
 // ReadBackingStore initializes the IP allocation state from the
 // configured backing store. Should be called before using data store.
 func (ds *DataStore) ReadBackingStore(isv6Enabled bool) error {
-	var data CheckpointData
+	_ = "STUB: not implemented"
+	return nil
 
 	// Read from checkpoint file
-	ds.log.Infof("Begin ipam state recovery from backing store")
-
-	if err := ds.backingStore.Restore(&data); err != nil {
-		// Assume that no file == no containers are currently in use, e.g. a fresh reboot just cleared everything out.
-		// This is ok, and no-op.
-		if os.IsNotExist(err) {
-			ds.log.Debugf("backing store doesn't exists, assuming bootstrap on a new node")
-			return nil
-		}
-		return errors.Wrap(err, "failed ipam state recovery from backing store")
-	}
-	if data.Version != CheckpointFormatVersion {
-		return errors.Errorf("failed ipam state recovery due to unexpected checkpointVersion: %v/%v", data.Version, CheckpointFormatVersion)
-	}
-	if normalizedData, err := ds.normalizeCheckpointDataByPodVethExistence(data); err != nil {
-		return errors.Wrap(err, "failed normalize checkpoint data with veth check")
-	} else {
-		data = normalizedData
-	}
-
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	for _, allocation := range data.Allocations {
-		ipv4Addr := net.ParseIP(allocation.IPv4)
-		ipv6Addr := net.ParseIP(allocation.IPv6)
-		var ipAddr net.IP
-		found := false
-	eniloop:
-		for _, eni := range ds.eniPool {
-			eniCidrs := eni.AvailableIPv4Cidrs
-			ipAddr = ipv4Addr
-			if isv6Enabled {
-				ds.log.Debugf("v6 is enabled")
-				eniCidrs = eni.IPv6Cidrs
-				ipAddr = ipv6Addr
-			}
-			for _, cidr := range eniCidrs {
-				ds.log.Debugf("Checking if IP: %v belongs to CIDR: %v", ipAddr, cidr.Cidr)
-				if cidr.Cidr.Contains(ipAddr) {
-					// Found!
-					found = true
-					if _, ok := cidr.IPAddresses[ipAddr.String()]; ok {
-						return errors.New(IPAlreadyInStoreError)
-					}
-					addr := &AddressInfo{Address: ipAddr.String()}
-					cidr.IPAddresses[ipAddr.String()] = addr
-					ds.assignPodIPAddressUnsafe(addr, allocation.IPAMKey, allocation.Metadata, time.Unix(0, allocation.AllocationTimestamp))
-					ds.log.Debugf("Recovered %s => %s/%s", allocation.IPAMKey, eni.ID, addr.Address)
-					// Increment ENI IP usage upon finding assigned ips
-					prometheusmetrics.EniIPsInUse.WithLabelValues(eni.ID).Inc()
-					// Update prometheus for ips per cidr
-					// Secondary IP mode will have /32:1 and Prefix mode will have /28:<number of /32s>
-					prometheusmetrics.IpsPerCidr.With(prometheus.Labels{"cidr": cidr.Cidr.String()}).Inc()
-					break eniloop
-				}
-			}
-		}
-		if !found {
-			ds.log.Infof("datastore: Sandbox %s uses unknown IP Address %s - presuming stale/dead",
-				allocation.IPAMKey, ipAddr.String())
-		}
-	}
-
-	// Some entries may have been purged during recovery, so write to backing store
-	if err := ds.writeBackingStoreUnsafe(); err != nil {
-		ds.log.Warnf("Unable to update backing store after restoration: %v", err)
-	}
-
-	ds.log.Debugf("Completed ipam state recovery")
-	return nil
 }
 
-func (ds *DataStore) writeBackingStoreUnsafe() error {
-	allocations := make([]CheckpointEntry, 0, ds.assigned)
+// Assume that no file == no containers are currently in use, e.g. a fresh reboot just cleared everything out.
+// This is ok, and no-op.
 
-	for _, eni := range ds.eniPool {
-		// Loop through ENI's v4 prefixes
-		for _, assignedAddr := range eni.AvailableIPv4Cidrs {
-			for _, addr := range assignedAddr.IPAddresses {
-				if addr.Assigned() {
-					entry := CheckpointEntry{
-						IPAMKey:             addr.IPAMKey,
-						IPv4:                addr.Address,
-						AllocationTimestamp: addr.AssignedTime.UnixNano(),
-						Metadata:            addr.IPAMMetadata,
-					}
-					allocations = append(allocations, entry)
-				}
-			}
-		}
-		// Loop through ENI's v6 prefixes
-		for _, assignedAddr := range eni.IPv6Cidrs {
-			for _, addr := range assignedAddr.IPAddresses {
-				if addr.Assigned() {
-					entry := CheckpointEntry{
-						IPAMKey:             addr.IPAMKey,
-						IPv6:                addr.Address,
-						AllocationTimestamp: addr.AssignedTime.UnixNano(),
-						Metadata:            addr.IPAMMetadata,
-					}
-					allocations = append(allocations, entry)
-				}
-			}
-		}
-	}
+// Found!
 
-	data := CheckpointData{
-		Version:     CheckpointFormatVersion,
-		Allocations: allocations,
-	}
+// Increment ENI IP usage upon finding assigned ips
 
-	return ds.backingStore.Checkpoint(&data)
-}
+// Update prometheus for ips per cidr
+// Secondary IP mode will have /32:1 and Prefix mode will have /28:<number of /32s>
+
+// Some entries may have been purged during recovery, so write to backing store
+
+func (ds *DataStore) writeBackingStoreUnsafe() error { _ = "STUB: not implemented"; return nil }
+
+// Loop through ENI's v4 prefixes
+
+// Loop through ENI's v6 prefixes
 
 // AddENI add ENI to data store
 func (ds *DataStore) AddENI(eniID string, deviceNumber int, isPrimary, isTrunk, isEFA bool, routeTableID int, subnetID string) error {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	ds.log.Debugf("DataStore add an ENI %s", eniID)
-
-	_, ok := ds.eniPool[eniID]
-	if ok {
-		return errors.New(DuplicatedENIError)
-	}
-	ds.eniPool[eniID] = &ENI{
-		createTime:         time.Now(),
-		IsPrimary:          isPrimary,
-		IsTrunk:            isTrunk,
-		IsEFA:              isEFA,
-		ID:                 eniID,
-		DeviceNumber:       deviceNumber,
-		AvailableIPv4Cidrs: make(map[string]*CidrInfo),
-		IPv6Cidrs:          make(map[string]*CidrInfo),
-		RouteTableID:       routeTableID,
-		SubnetID:           subnetID,
-	}
-
-	prometheusmetrics.Enis.Set(float64(len(ds.eniPool)))
-	// Initialize ENI IPs In Use to 0 when an ENI is created
-	prometheusmetrics.EniIPsInUse.WithLabelValues(eniID).Set(0)
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// Initialize ENI IPs In Use to 0 when an ENI is created
+
 // SetENIExcludedForPodIPs marks an ENI as excluded from pod IP allocation
 func (ds *DataStore) SetENIExcludedForPodIPs(eniID string, excluded bool) error {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	eni, ok := ds.eniPool[eniID]
-	if !ok {
-		return errors.New(UnknownENIError)
-	}
-
-	eni.IsExcludedForPodIPs = excluded
-	if excluded {
-		ds.log.Infof("ENI %s marked as excluded from pod IP allocation", eniID)
-	} else {
-		ds.log.Infof("ENI %s marked as available for pod IP allocation", eniID)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // IsENIExcludedForPodIPs returns whether an ENI is excluded from pod IP allocation
 func (ds *DataStore) IsENIExcludedForPodIPs(eniID string) bool {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	eni, ok := ds.eniPool[eniID]
-	if !ok {
-		return false
-	}
-
-	return eni.IsExcludedForPodIPs
+	_ = "STUB: not implemented"
+	return false
 }
 
 // AddIPv4AddressToStore adds IPv4 CIDR of an ENI to data store
 func (ds *DataStore) AddIPv4CidrToStore(eniID string, ipv4Cidr net.IPNet, isPrefix bool) error {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	strIPv4Cidr := ipv4Cidr.String()
-	ds.log.Infof("Adding %s to DS for %s", strIPv4Cidr, eniID)
-	curENI, ok := ds.eniPool[eniID]
-	if !ok {
-		ds.log.Infof("unknown ENI")
-		return errors.New("add ENI's IP to datastore: unknown ENI")
-	}
-	// Already there
-	_, ok = curENI.AvailableIPv4Cidrs[strIPv4Cidr]
-	if ok {
-		ds.log.Infof("IP already in DS")
-		return errors.New(IPAlreadyInStoreError)
-	}
-
-	newCidrInfo := &CidrInfo{
-		Cidr:          ipv4Cidr,
-		IPAddresses:   make(map[string]*AddressInfo),
-		IsPrefix:      isPrefix,
-		AddressFamily: "4",
-	}
-
-	curENI.AvailableIPv4Cidrs[strIPv4Cidr] = newCidrInfo
-
-	ds.total += newCidrInfo.Size()
-	if isPrefix {
-		ds.allocatedPrefix++
-		prometheusmetrics.TotalPrefixes.Set(float64(ds.allocatedPrefix))
-	}
-	prometheusmetrics.TotalIPs.Set(float64(ds.total))
-
-	ds.log.Infof("Added ENI(%s)'s IP/Prefix %s to datastore", eniID, strIPv4Cidr)
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// Already there
 
 func (ds *DataStore) DelIPv4CidrFromStore(eniID string, cidr net.IPNet, force bool) error {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	curENI, ok := ds.eniPool[eniID]
-	if !ok {
-		ds.log.Debugf("Unknown ENI %s while deleting the CIDR", eniID)
-		return errors.New(UnknownENIError)
-	}
-	strIPv4Cidr := cidr.String()
-
-	var deletableCidr *CidrInfo
-	deletableCidr, ok = curENI.AvailableIPv4Cidrs[strIPv4Cidr]
-	if !ok {
-		ds.log.Debugf("Unknown %s CIDR", strIPv4Cidr)
-		return errors.New(UnknownIPError)
-	}
-
-	// SIP case : This runs just once
-	// PD case : if (force is false) then if there are any unassigned IPs, those will get freed but the first assigned IP will
-	//  break the loop, should be fine since freed IPs will be reused for new pods.
-	updateBackingStore := false
-	for _, addr := range deletableCidr.IPAddresses {
-		if addr.Assigned() {
-			if !force {
-				return errors.New(IPInUseError)
-			}
-			prometheusmetrics.ForceRemovedIPs.Inc()
-			ds.unassignPodIPAddressUnsafe(addr)
-			updateBackingStore = true
-		}
-	}
-	if updateBackingStore {
-		if err := ds.writeBackingStoreUnsafe(); err != nil {
-			ds.log.Warnf("Unable to update backing store: %v", err)
-			// Continuing because 'force'
-		}
-	}
-	ds.total -= deletableCidr.Size()
-	if deletableCidr.IsPrefix {
-		ds.allocatedPrefix--
-		prometheusmetrics.TotalPrefixes.Set(float64(ds.allocatedPrefix))
-	}
-	prometheusmetrics.TotalIPs.Set(float64(ds.total))
-	delete(curENI.AvailableIPv4Cidrs, strIPv4Cidr)
-	ds.log.Infof("Deleted ENI(%s)'s IP/Prefix %s from datastore", eniID, strIPv4Cidr)
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// SIP case : This runs just once
+// PD case : if (force is false) then if there are any unassigned IPs, those will get freed but the first assigned IP will
+//  break the loop, should be fine since freed IPs will be reused for new pods.
+
+// Continuing because 'force'
 
 // DelIPv6CidrFromStore deletes IPv6 CIDR from the datastore
 func (ds *DataStore) DelIPv6CidrFromStore(eniID string, cidr net.IPNet, force bool) error {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	curENI, ok := ds.eniPool[eniID]
-	if !ok {
-		ds.log.Debugf("Unknown ENI %s while deleting the IPv6 CIDR", eniID)
-		return errors.New(UnknownENIError)
-	}
-	strIPv6Cidr := cidr.String()
-
-	var deletableCidr *CidrInfo
-	deletableCidr, ok = curENI.IPv6Cidrs[strIPv6Cidr]
-	if !ok {
-		ds.log.Debugf("Unknown IPv6 CIDR %s", strIPv6Cidr)
-		return errors.New(UnknownIPError)
-	}
-
-	// IPv6 only uses prefix delegation, check for any assigned IPs
-	updateBackingStore := false
-	for _, addr := range deletableCidr.IPAddresses {
-		if addr.Assigned() {
-			if !force {
-				return errors.New(IPInUseError)
-			}
-			prometheusmetrics.ForceRemovedIPs.Inc()
-			ds.unassignPodIPAddressUnsafe(addr)
-			updateBackingStore = true
-		}
-	}
-	if updateBackingStore {
-		if err := ds.writeBackingStoreUnsafe(); err != nil {
-			ds.log.Warnf("Unable to update backing store: %v", err)
-			// Continuing because 'force'
-		}
-	}
-	ds.total -= deletableCidr.Size()
-	if deletableCidr.IsPrefix {
-		ds.allocatedPrefix--
-		prometheusmetrics.TotalPrefixes.Set(float64(ds.allocatedPrefix))
-	}
-	prometheusmetrics.TotalIPs.Set(float64(ds.total))
-	delete(curENI.IPv6Cidrs, strIPv6Cidr)
-	ds.log.Infof("Deleted ENI(%s)'s IPv6 Prefix %s from datastore", eniID, strIPv6Cidr)
-
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// IPv6 only uses prefix delegation, check for any assigned IPs
+
+// Continuing because 'force'
 
 // AddIPv6AddressToStore adds IPv6 CIDR of an ENI to data store
 func (ds *DataStore) AddIPv6CidrToStore(eniID string, ipv6Cidr net.IPNet, isPrefix bool) error {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	strIPv6Cidr := ipv6Cidr.String()
-	ds.log.Debugf("Adding %s to DS for %s", strIPv6Cidr, eniID)
-	curENI, ok := ds.eniPool[eniID]
-	ds.log.Debugf("ENI in pool %s", ok)
-
-	if !ok {
-		ds.log.Debugf("unkown ENI")
-		return errors.New("add ENI's IP to datastore: unknown ENI")
-	}
-	// Check if already present in datastore.
-	_, ok = curENI.IPv6Cidrs[strIPv6Cidr]
-	ds.log.Debugf("IP not in DS")
-	if ok {
-		ds.log.Debugf("IPv6 prefix %s already in DS", strIPv6Cidr)
-		return errors.New(IPAlreadyInStoreError)
-	}
-
-	ds.log.Debugf("Assigning IPv6CIDRs")
-	if curENI.IPv6Cidrs == nil {
-		curENI.IPv6Cidrs = make(map[string]*CidrInfo)
-	}
-	curENI.IPv6Cidrs[strIPv6Cidr] = &CidrInfo{
-		Cidr:          ipv6Cidr,
-		IPAddresses:   make(map[string]*AddressInfo),
-		IsPrefix:      isPrefix,
-		AddressFamily: "6",
-	}
-	ds.total += curENI.IPv6Cidrs[strIPv6Cidr].Size()
-	if isPrefix {
-		ds.allocatedPrefix++
-	}
-	prometheusmetrics.TotalIPs.Set(float64(ds.total))
-
-	ds.log.Debugf("Added ENI(%s)'s IP/Prefix %s to datastore", eniID, strIPv6Cidr)
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// Check if already present in datastore.
+
 func (ds *DataStore) AssignPodIPAddress(ipamKey IPAMKey, ipamMetadata IPAMMetadata, isIPv4Enabled bool, isIPv6Enabled bool) (ipv4Address string,
 	ipv6Address string, deviceNumber int, routeTableId int, err error) {
+	_ = "STUB: not implemented"
 	//Currently it's either v4 or v6. Dual Stack mode isn't supported.
-	if isIPv4Enabled {
-		ipv4Address, deviceNumber, routeTableId, err = ds.AssignPodIPv4Address(ipamKey, ipamMetadata)
-	} else if isIPv6Enabled {
-		ipv6Address, deviceNumber, routeTableId, err = ds.AssignPodIPv6Address(ipamKey, ipamMetadata)
-	}
-	return ipv4Address, ipv6Address, deviceNumber, routeTableId, err
+	return "", "", 0, 0, nil
 }
 
 // AssignPodIPv6Address assigns an IPv6 address to a pod.
 // Returns the assigned IPv6 address, device number, route table ID, and an error.
 func (ds *DataStore) AssignPodIPv6Address(ipamKey IPAMKey, ipamMetadata IPAMMetadata) (ipv6Address string, deviceNumber int, routeTableId int, err error) {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	if !ds.isPDEnabled {
-		return "", -1, 0, fmt.Errorf("PD is not enabled. V6 is only supported in PD mode")
-	}
-	ds.log.Debugf("AssignPodIPv6Address: IPv6 address pool stats: assigned %d", ds.assigned)
-
-	if eni, _, addr := ds.eniPool.FindAddressForSandbox(ipamKey); addr != nil {
-		ds.log.Infof("AssignPodIPv6Address: duplicate pod assign for sandbox %s", ipamKey)
-		return addr.Address, eni.DeviceNumber, eni.RouteTableID, nil
-	}
-
-	// In IPv6 Prefix Delegation mode, eniPool will only have Primary ENI.
-	for _, eni := range ds.eniPool {
-		// Skip ENIs that are excluded from pod IP allocation
-		if eni.IsExcludedForPodIPs {
-			ds.log.Debugf("Skipping ENI %s as it is excluded from pod IP allocation", eni.ID)
-			continue
-		}
-
-		if len(eni.IPv6Cidrs) == 0 {
-			continue
-		}
-		for _, V6Cidr := range eni.IPv6Cidrs {
-			if !V6Cidr.IsPrefix {
-				continue
-			}
-			ipv6Address, err = ds.getFreeIPv6AddrFromCidr(V6Cidr)
-			if err != nil {
-				ds.log.Debugf("Unable to get IP address from prefix: %v", err)
-				//In v6 mode, we (should) only have one CIDR/Prefix. So, we can bail out but we will let the loop
-				//exit instead.
-				continue
-			}
-			ds.log.Debugf("New v6 IP from PD pool- %s", ipv6Address)
-			addr := &AddressInfo{Address: ipv6Address}
-			V6Cidr.IPAddresses[ipv6Address] = addr
-
-			ds.assignPodIPAddressUnsafe(addr, ipamKey, ipamMetadata, time.Now())
-			if err := ds.writeBackingStoreUnsafe(); err != nil {
-				ds.log.Warnf("Failed to update backing store: %v", err)
-				// Important! Unwind assignment
-				ds.unassignPodIPAddressUnsafe(addr)
-				//Remove the IP from eni DB
-				delete(V6Cidr.IPAddresses, addr.Address)
-				return "", -1, 0, err
-			}
-			// Increment ENI IP usage on pod IPv6 allocation
-			prometheusmetrics.EniIPsInUse.WithLabelValues(eni.ID).Inc()
-			return addr.Address, eni.DeviceNumber, eni.RouteTableID, nil
-		}
-	}
-	prometheusmetrics.NoAvailableIPAddrs.Inc()
-	return "", -1, 0, ErrNoAvailableIPInDataStore
+	_ = "STUB: not implemented"
+	return "", 0, 0, nil
 }
+
+// In IPv6 Prefix Delegation mode, eniPool will only have Primary ENI.
+
+// Skip ENIs that are excluded from pod IP allocation
+
+//In v6 mode, we (should) only have one CIDR/Prefix. So, we can bail out but we will let the loop
+//exit instead.
+
+// Important! Unwind assignment
+
+//Remove the IP from eni DB
+
+// Increment ENI IP usage on pod IPv6 allocation
 
 // AssignPodIPv4Address assigns an IPv4 address to pod
 // It returns the assigned IPv4 address, device number, route table ID, and error
 func (ds *DataStore) AssignPodIPv4Address(ipamKey IPAMKey, ipamMetadata IPAMMetadata) (ipv4address string, deviceNumber int, routeTableId int, err error) {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	ds.log.Debugf("AssignPodIPv4Address: IP address pool stats: total %d, assigned %d", ds.total, ds.assigned)
-
-	if eni, _, addr := ds.eniPool.FindAddressForSandbox(ipamKey); addr != nil {
-		ds.log.Infof("AssignPodIPv4Address: duplicate pod assign for sandbox %s", ipamKey)
-		return addr.Address, eni.DeviceNumber, eni.RouteTableID, nil
-	}
-
-	for _, eni := range ds.eniPool {
-		// Skip ENIs that are excluded from pod IP allocation
-		if eni.IsExcludedForPodIPs {
-			ds.log.Debugf("Skipping ENI %s as it is excluded from pod IP allocation", eni.ID)
-			continue
-		}
-
-		for _, availableCidr := range eni.AvailableIPv4Cidrs {
-			var addr *AddressInfo
-			var strPrivateIPv4 string
-			var err error
-
-			if (ds.isPDEnabled && availableCidr.IsPrefix) || (!ds.isPDEnabled && !availableCidr.IsPrefix) {
-				strPrivateIPv4, err = ds.getFreeIPv4AddrfromCidr(availableCidr)
-				if err != nil {
-					ds.log.Debugf("Unable to get IP address from CIDR: %v", err)
-					// Check in next CIDR
-					continue
-				}
-				ds.log.Debugf("New IP from CIDR pool- %s", strPrivateIPv4)
-				if availableCidr.IPAddresses == nil {
-					availableCidr.IPAddresses = make(map[string]*AddressInfo)
-				}
-				// Update prometheus for ips per cidr
-				// Secondary IP mode will have /32:1 and Prefix mode will have /28:<number of /32s>
-				prometheusmetrics.IpsPerCidr.With(prometheus.Labels{"cidr": availableCidr.Cidr.String()}).Inc()
-			} else {
-				// This can happen during upgrade or PD enable/disable knob toggle
-				// ENI can have prefixes attached and no space for SIPs or vice versa
-				continue
-			}
-
-			addr = availableCidr.IPAddresses[strPrivateIPv4]
-			if addr == nil {
-				// addr is nil when we are using a new IP from prefix or SIP pool
-				// if addr is out of cooldown or not assigned, we can reuse addr
-				addr = &AddressInfo{Address: strPrivateIPv4}
-				ds.log.Debugf("Allocating new IP %s from CIDR %s for pod", strPrivateIPv4, availableCidr.Cidr.String())
-			} else if !addr.UnassignedTime.IsZero() {
-				// IP was previously used and is being reassigned
-				timeSinceFree := time.Since(addr.UnassignedTime)
-				ds.log.Debugf("Reassigning IP %s (was free for %v)", addr.Address, timeSinceFree.Round(time.Second))
-			}
-
-			availableCidr.IPAddresses[strPrivateIPv4] = addr
-			ds.assignPodIPAddressUnsafe(addr, ipamKey, ipamMetadata, time.Now())
-
-			if err := ds.writeBackingStoreUnsafe(); err != nil {
-				ds.log.Warnf("Failed to update backing store: %v", err)
-				// Important! Unwind assignment
-				ds.unassignPodIPAddressUnsafe(addr)
-				// Remove the IP from eni DB
-				delete(availableCidr.IPAddresses, addr.Address)
-				// Update prometheus for ips per cidr
-				prometheusmetrics.IpsPerCidr.With(prometheus.Labels{"cidr": availableCidr.Cidr.String()}).Dec()
-				return "", -1, 0, err
-			}
-			// Increment ENI IP usage on pod IPv4 allocation
-			prometheusmetrics.EniIPsInUse.WithLabelValues(eni.ID).Inc()
-			return addr.Address, eni.DeviceNumber, eni.RouteTableID, nil
-		}
-		ds.log.Debugf("AssignPodIPv4Address: ENI %s does not have available addresses", eni.ID)
-	}
-
-	prometheusmetrics.NoAvailableIPAddrs.Inc()
-	ds.log.Errorf("DataStore has no available IP/Prefix addresses")
-	return "", -1, 0, ErrNoAvailableIPInDataStore
+	_ = "STUB: not implemented"
+	return "", 0, 0, nil
 }
+
+// Skip ENIs that are excluded from pod IP allocation
+
+// Check in next CIDR
+
+// Update prometheus for ips per cidr
+// Secondary IP mode will have /32:1 and Prefix mode will have /28:<number of /32s>
+
+// This can happen during upgrade or PD enable/disable knob toggle
+// ENI can have prefixes attached and no space for SIPs or vice versa
+
+// addr is nil when we are using a new IP from prefix or SIP pool
+// if addr is out of cooldown or not assigned, we can reuse addr
+
+// IP was previously used and is being reassigned
+
+// Important! Unwind assignment
+
+// Remove the IP from eni DB
+
+// Update prometheus for ips per cidr
+
+// Increment ENI IP usage on pod IPv4 allocation
 
 // assignPodIPAddressUnsafe mark Address as assigned.
 func (ds *DataStore) assignPodIPAddressUnsafe(addr *AddressInfo, ipamKey IPAMKey, ipamMetadata IPAMMetadata, assignedTime time.Time) {
-	ds.log.Infof("assignPodIPAddressUnsafe: Assign IP %v to sandbox %s with metadata %+v",
-		addr.Address, ipamKey, ipamMetadata)
-
-	if addr.Assigned() {
-		panic("addr already assigned")
-	}
-	addr.IPAMKey = ipamKey // This marks the addr as assigned
-	addr.IPAMMetadata = ipamMetadata
-	addr.AssignedTime = assignedTime
-
-	ds.assigned++
-	// Prometheus gauge
-	prometheusmetrics.AssignedIPs.Set(float64(ds.assigned))
+	_ = "STUB: not implemented"
+	return
 }
+
+// This marks the addr as assigned
+
+// Prometheus gauge
 
 // unassignPodIPAddressUnsafe mark Address as unassigned.
 func (ds *DataStore) unassignPodIPAddressUnsafe(addr *AddressInfo) {
-	if !addr.Assigned() {
-		// Already unassigned
-		return
-	}
-	ds.log.Infof("unassignPodIPAddressUnsafe: Unassign IP %v from sandbox %s",
-		addr.Address, addr.IPAMKey)
-	addr.IPAMKey = IPAMKey{} // unassign the addr
-	addr.IPAMMetadata = IPAMMetadata{}
-	ds.assigned--
-	// Prometheus gauge
-	prometheusmetrics.AssignedIPs.Set(float64(ds.assigned))
+	_ = "STUB: not implemented"
+	return
+
+	// Already unassigned
 }
+
+// unassign the addr
+
+// Prometheus gauge
 
 type DataStoreStats struct {
 	// Total number of addresses allocated
@@ -903,328 +443,100 @@ type DataStoreStats struct {
 	CooldownIPs int
 }
 
-func (stats *DataStoreStats) String() string {
-	return fmt.Sprintf("Total IPs/Prefixes = %d/%d, AssignedIPs/CooldownIPs: %d/%d",
-		stats.TotalIPs, stats.TotalPrefixes, stats.AssignedIPs, stats.CooldownIPs)
-}
+func (stats *DataStoreStats) String() string { _ = "STUB: not implemented"; return "" }
 
-func (stats *DataStoreStats) AvailableAddresses() int {
-	return stats.TotalIPs - stats.AssignedIPs
-}
+func (stats *DataStoreStats) AvailableAddresses() int { _ = "STUB: not implemented"; return 0 }
 
 // GetIPStats returns DataStoreStats for addressFamily
 func (ds *DataStore) GetIPStats(addressFamily string) *DataStoreStats {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	stats := &DataStoreStats{
-		TotalPrefixes: ds.allocatedPrefix,
-	}
-	for _, eni := range ds.eniPool {
-		// Skip excluded ENIs when calculating available IPs for pod allocation
-		if eni.IsExcludedForPodIPs {
-			continue
-		}
-
-		AssignedCIDRs := eni.AvailableIPv4Cidrs
-		if addressFamily == "6" {
-			AssignedCIDRs = eni.IPv6Cidrs
-		}
-		for _, cidr := range AssignedCIDRs {
-			if addressFamily == "4" && ((ds.isPDEnabled && cidr.IsPrefix) || (!ds.isPDEnabled && !cidr.IsPrefix)) {
-				cidrStats := cidr.GetIPStatsFromCidr(ds.ipCooldownPeriod)
-				stats.AssignedIPs += cidrStats.AssignedIPs
-				stats.CooldownIPs += cidrStats.CooldownIPs
-				stats.TotalIPs += cidr.Size()
-			} else if addressFamily == "6" {
-				stats.AssignedIPs += cidr.AssignedIPAddressesInCidr()
-				stats.TotalIPs += cidr.Size()
-			}
-		}
-	}
-	return stats
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// Skip excluded ENIs when calculating available IPs for pod allocation
 
 // GetTrunkENI returns the trunk ENI ID or an empty string
-func (ds *DataStore) GetTrunkENI() string {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-	for _, eni := range ds.eniPool {
-		if eni.IsTrunk {
-			return eni.ID
-		}
-	}
-	return ""
-}
+func (ds *DataStore) GetTrunkENI() string { _ = "STUB: not implemented"; return "" }
 
 // GetEFAENIs returns the a map containing all attached EFA ENIs
-func (ds *DataStore) GetEFAENIs() map[string]bool {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-	ret := make(map[string]bool)
-	for _, eni := range ds.eniPool {
-		if eni.IsEFA {
-			ret[eni.ID] = true
-		}
-	}
-	return ret
-}
+func (ds *DataStore) GetEFAENIs() map[string]bool { _ = "STUB: not implemented"; return nil }
 
 // IsRequiredForWarmIPTarget determines if this ENI has warm IPs that are required to fulfill whatever WARM_IP_TARGET is set to.
 func (ds *DataStore) isRequiredForWarmIPTarget(warmIPTarget int, eni *ENI) bool {
-	otherWarmIPs := 0
-	for _, other := range ds.eniPool {
-		if other.ID != eni.ID {
-			// Skip excluded ENIs when calculating warm IPs for pod allocation
-			if other.IsExcludedForPodIPs {
-				continue
-			}
-			for _, otherPrefixes := range other.AvailableIPv4Cidrs {
-				if (ds.isPDEnabled && otherPrefixes.IsPrefix) || (!ds.isPDEnabled && !otherPrefixes.IsPrefix) {
-					otherWarmIPs += otherPrefixes.Size() - otherPrefixes.AssignedIPAddressesInCidr()
-				}
-			}
-		}
-	}
-
-	if ds.isPDEnabled {
-		_, numIPsPerPrefix, _ := GetPrefixDelegationDefaults()
-		numPrefixNeeded := DivCeil(warmIPTarget, numIPsPerPrefix)
-		warmIPTarget = numPrefixNeeded * numIPsPerPrefix
-	}
-	return otherWarmIPs < warmIPTarget
+	_ = "STUB: not implemented"
+	return false
 }
+
+// Skip excluded ENIs when calculating warm IPs for pod allocation
 
 // IsRequiredForMinimumIPTarget determines if this ENI is necessary to fulfill whatever MINIMUM_IP_TARGET is set to.
 func (ds *DataStore) isRequiredForMinimumIPTarget(minimumIPTarget int, eni *ENI) bool {
-	otherIPs := 0
-	for _, other := range ds.eniPool {
-		if other.ID != eni.ID {
-			// Skip excluded ENIs when calculating total IPs for pod allocation
-			if other.IsExcludedForPodIPs {
-				continue
-			}
-			for _, otherPrefixes := range other.AvailableIPv4Cidrs {
-				if (ds.isPDEnabled && otherPrefixes.IsPrefix) || (!ds.isPDEnabled && !otherPrefixes.IsPrefix) {
-					otherIPs += otherPrefixes.Size()
-				}
-			}
-		}
-	}
-
-	if ds.isPDEnabled {
-		_, numIPsPerPrefix, _ := GetPrefixDelegationDefaults()
-		numPrefixNeeded := DivCeil(minimumIPTarget, numIPsPerPrefix)
-		minimumIPTarget = numPrefixNeeded * numIPsPerPrefix
-	}
-	return otherIPs < minimumIPTarget
+	_ = "STUB: not implemented"
+	return false
 }
+
+// Skip excluded ENIs when calculating total IPs for pod allocation
 
 // IsRequiredForWarmPrefixTarget determines if this ENI is necessary to fulfill whatever WARM_PREFIX_TARGET is set to.
 func (ds *DataStore) isRequiredForWarmPrefixTarget(warmPrefixTarget int, eni *ENI) bool {
-	freePrefixes := 0
-	for _, other := range ds.eniPool {
-		if other.ID != eni.ID {
-			// Skip excluded ENIs when calculating free prefixes for pod allocation
-			if other.IsExcludedForPodIPs {
-				continue
-			}
-			for _, otherPrefixes := range other.AvailableIPv4Cidrs {
-				if otherPrefixes.AssignedIPAddressesInCidr() == 0 {
-					freePrefixes++
-				}
-			}
-		}
-	}
-	return freePrefixes < warmPrefixTarget
+	_ = "STUB: not implemented"
+	return false
 }
 
+// Skip excluded ENIs when calculating free prefixes for pod allocation
+
 func (ds *DataStore) getDeletableENI(warmIPTarget, minimumIPTarget, warmPrefixTarget int) *ENI {
-	for _, eni := range ds.eniPool {
-		if eni.IsPrimary {
-			ds.log.Debugf("ENI %s cannot be deleted because it is primary", eni.ID)
-			continue
-		}
-
-		if eni.isTooYoung() {
-			ds.log.Debugf("ENI %s cannot be deleted because it is too young", eni.ID)
-			continue
-		}
-
-		if eni.hasIPInCooling(ds.ipCooldownPeriod) {
-			ds.log.Debugf("ENI %s cannot be deleted because has IPs in cooling", eni.ID)
-			continue
-		}
-
-		if eni.hasPods() {
-			ds.log.Debugf("ENI %s cannot be deleted because it has pods assigned", eni.ID)
-			continue
-		}
-
-		if warmIPTarget != 0 && ds.isRequiredForWarmIPTarget(warmIPTarget, eni) {
-			ds.log.Debugf("ENI %s cannot be deleted because it is required for WARM_IP_TARGET: %d", eni.ID, warmIPTarget)
-			continue
-		}
-
-		if minimumIPTarget != 0 && ds.isRequiredForMinimumIPTarget(minimumIPTarget, eni) {
-			ds.log.Debugf("ENI %s cannot be deleted because it is required for MINIMUM_IP_TARGET: %d", eni.ID, minimumIPTarget)
-			continue
-		}
-
-		if ds.isPDEnabled && warmPrefixTarget != 0 && ds.isRequiredForWarmPrefixTarget(warmPrefixTarget, eni) {
-			ds.log.Debugf("ENI %s cannot be deleted because it is required for WARM_PREFIX_TARGET: %d", eni.ID, warmPrefixTarget)
-			continue
-		}
-
-		if eni.IsTrunk {
-			ds.log.Debugf("ENI %s cannot be deleted because it is a trunk ENI", eni.ID)
-			continue
-		}
-
-		if eni.IsEFA {
-			ds.log.Debugf("ENI %s cannot be deleted because it is an EFA ENI", eni.ID)
-			continue
-		}
-
-		ds.log.Debugf("getDeletableENI: found a deletable ENI %s", eni.ID)
-		return eni
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // IsTooYoung returns true if the ENI hasn't been around long enough to be deleted.
-func (e *ENI) isTooYoung() bool {
-	return time.Since(e.createTime) < minENILifeTime
-}
+func (e *ENI) isTooYoung() bool { _ = "STUB: not implemented"; return false }
 
 // HasIPInCooling returns true if an IP address was unassigned recently.
 func (e *ENI) hasIPInCooling(ipCooldownPeriod time.Duration) bool {
-	for _, assignedaddr := range e.AvailableIPv4Cidrs {
-		for _, addr := range assignedaddr.IPAddresses {
-			if addr.inCoolingPeriod(ipCooldownPeriod) {
-				return true
-			}
-		}
-	}
+	_ = "STUB: not implemented"
 	return false
 }
 
 // HasPods returns true if the ENI has pods assigned to it.
-func (e *ENI) hasPods() bool {
-	return e.AssignedIPv4Addresses() != 0
-}
+func (e *ENI) hasPods() bool { _ = "STUB: not implemented"; return false }
 
 // GetAllocatableENIs finds ENIs in the datastore that needs more IP addresses allocated
 func (ds *DataStore) GetAllocatableENIs(maxIPperENI int, skipPrimary bool) []*ENI {
-	var enis []*ENI
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-	for _, eni := range ds.eniPool {
-		if (skipPrimary && eni.IsPrimary) || eni.IsTrunk {
-			ds.log.Debugf("Skip needs IP check for trunk ENI of primary ENI when Custom Networking is enabled")
-			continue
-		}
-		// Skip ENIs that are excluded from pod IP allocation
-		if eni.IsExcludedForPodIPs {
-			ds.log.Debugf("Skip needs IP check for ENI %s as it is excluded from pod IP allocation", eni.ID)
-			continue
-		}
-		if len(eni.AvailableIPv4Cidrs) < maxIPperENI {
-			ds.log.Debugf("Found ENI %s that has less than the maximum number of IP/Prefixes addresses allocated: cur=%d, max=%d",
-				eni.ID, len(eni.AvailableIPv4Cidrs), maxIPperENI)
-			enis = append(enis, eni)
-		}
-	}
-	return enis
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// Skip ENIs that are excluded from pod IP allocation
 
 // RemoveUnusedENIFromStore removes a deletable ENI from the data store.
 // It returns the name of the ENI which has been removed from the data store and needs to be deleted,
 // or empty string if no ENI could be removed.
 func (ds *DataStore) RemoveUnusedENIFromStore(warmIPTarget, minimumIPTarget, warmPrefixTarget int) string {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	deletableENI := ds.getDeletableENI(warmIPTarget, minimumIPTarget, warmPrefixTarget)
-	if deletableENI == nil {
-		return ""
-	}
-
-	removableENI := deletableENI.ID
-	for _, availableCidr := range ds.eniPool[removableENI].AvailableIPv4Cidrs {
-		ds.total -= availableCidr.Size()
-		if availableCidr.IsPrefix {
-			ds.allocatedPrefix--
-			prometheusmetrics.TotalPrefixes.Set(float64(ds.allocatedPrefix))
-		}
-	}
-	ds.log.Infof("RemoveUnusedENIFromStore %s: IP/Prefix address pool stats: free %d addresses, total: %d, assigned: %d, total prefixes: %d",
-		removableENI, len(ds.eniPool[removableENI].AvailableIPv4Cidrs), ds.total, ds.assigned, ds.allocatedPrefix)
-
-	delete(ds.eniPool, removableENI)
-
-	// Prometheus update
-	prometheusmetrics.Enis.Set(float64(len(ds.eniPool)))
-	// Delete ENI IPs In Use when ENI is removed
-	prometheusmetrics.EniIPsInUse.DeleteLabelValues(removableENI)
-	prometheusmetrics.TotalIPs.Set(float64(ds.total))
-	return removableENI
+	_ = "STUB: not implemented"
+	return ""
 }
+
+// Prometheus update
+
+// Delete ENI IPs In Use when ENI is removed
 
 // RemoveENIFromDataStore removes an ENI from the datastore. It returns nil on success, or an error.
 func (ds *DataStore) RemoveENIFromDataStore(eniID string, force bool) error {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	eni, ok := ds.eniPool[eniID]
-	if !ok {
-		return errors.New(UnknownENIError)
-	}
-
-	if eni.hasPods() {
-		if !force {
-			return errors.New(ENIInUseError)
-		}
-		// This scenario can occur if the reconciliation process discovered this ENI was detached
-		// from the EC2 instance outside of the control of ipamd. If this happens, there's nothing
-		// we can do other than force all pods to be unassigned from the IPs on this ENI.
-		ds.log.Warnf("Force removing eni %s with %d assigned pods", eniID, eni.AssignedIPv4Addresses())
-		prometheusmetrics.ForceRemovedENIs.Inc()
-		prometheusmetrics.ForceRemovedIPs.Add(float64(eni.AssignedIPv4Addresses()))
-		for _, assignedaddr := range eni.AvailableIPv4Cidrs {
-			for _, addr := range assignedaddr.IPAddresses {
-				if addr.Assigned() {
-					ds.unassignPodIPAddressUnsafe(addr)
-				}
-			}
-			ds.total -= assignedaddr.Size()
-			if assignedaddr.IsPrefix {
-				ds.allocatedPrefix--
-			}
-		}
-		if err := ds.writeBackingStoreUnsafe(); err != nil {
-			ds.log.Warnf("Unable to update backing store: %v", err)
-			// Continuing, because 'force'
-		}
-	}
-
-	for _, assignedaddr := range eni.AvailableIPv4Cidrs {
-		ds.total -= assignedaddr.Size()
-		if assignedaddr.IsPrefix {
-			ds.allocatedPrefix--
-		}
-	}
-
-	ds.log.Infof("RemoveENIFromDataStore %s: IP/Prefix address pool stats: free %d addresses, total: %d, assigned: %d, total prefixes: %d",
-		eniID, len(eni.AvailableIPv4Cidrs), ds.total, ds.assigned, ds.allocatedPrefix)
-	delete(ds.eniPool, eniID)
-
-	// Prometheus gauge
-	prometheusmetrics.Enis.Set(float64(len(ds.eniPool)))
-	// Delete ENI IPs In Use when ENI is removed
-	prometheusmetrics.EniIPsInUse.DeleteLabelValues(eniID)
+	_ = "STUB: not implemented"
 	return nil
 }
+
+// This scenario can occur if the reconciliation process discovered this ENI was detached
+// from the EC2 instance outside of the control of ipamd. If this happens, there's nothing
+// we can do other than force all pods to be unassigned from the IPs on this ENI.
+
+// Continuing, because 'force'
+
+// Prometheus gauge
+
+// Delete ENI IPs In Use when ENI is removed
 
 // UnassignPodIPAddress:
 // a) Finds the IP address based on PodName and PodNamespace.
@@ -1237,256 +549,80 @@ func (ds *DataStore) RemoveENIFromDataStore(eniID string, force bool) error {
 //   - routeTableId int: the ENI's route table ID
 //   - err error: error if any occurred during unassignment
 func (ds *DataStore) UnassignPodIPAddress(ipamKey IPAMKey) (e *ENI, ip string, deviceNumber int, interfaces int, routeTableId int, err error) {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-	ds.log.Debugf("UnassignPodIPAddress: IP address pool stats: total %d, assigned %d, sandbox %s", ds.total, ds.assigned, ipamKey)
-
-	eni, availableCidr, addr := ds.eniPool.FindAddressForSandbox(ipamKey)
-	if addr == nil {
-		// If the entry is not present in state file, check if it is present under placeholder value.
-		// This scenario could happen if the pod was created by an older CNI version back when CRI read was done.
-		ds.log.Debugf("UnassignPodIPAddress: Failed to find IPAM entry under full key, trying CRI-migrated version")
-		ipamKey.NetworkName = backfillNetworkName
-		ipamKey.IfName = backfillNetworkIface
-		eni, availableCidr, addr = ds.eniPool.FindAddressForSandbox(ipamKey)
-
-		// If entry is still not found, IPAMD has no knowledge of this pod, so there is nothing to do.
-		if addr == nil {
-			ds.log.Warnf("UnassignPodIPAddress: Failed to find sandbox %s", ipamKey)
-			return nil, "", 0, -1, 0, ErrUnknownPod
-		}
-	}
-
-	originalIPAMMetadata := addr.IPAMMetadata
-	originalAssignedTime := addr.AssignedTime
-	ds.unassignPodIPAddressUnsafe(addr)
-	if err := ds.writeBackingStoreUnsafe(); err != nil {
-		// Unwind un-assignment
-		ds.assignPodIPAddressUnsafe(addr, ipamKey, originalIPAMMetadata, originalAssignedTime)
-		return nil, "", 0, -1, 0, err
-	}
-	addr.UnassignedTime = time.Now()
-
-	// Debug log for IP entering cooldown
-	cooldownExpiry := addr.UnassignedTime.Add(ds.ipCooldownPeriod)
-	ds.log.Debugf("IP %s entering cooldown period of %v (available after %v)",
-		addr.Address, ds.ipCooldownPeriod, cooldownExpiry.Format(time.RFC3339))
-
-	// Interfaces Count 0 means this property did not exist in the datastore when we restored. A Pod entry always have atleast one interface
-	if originalIPAMMetadata.InterfacesCount == 0 {
-		originalIPAMMetadata.InterfacesCount += 1
-	}
-
-	//Update prometheus for ips per cidr
-	prometheusmetrics.IpsPerCidr.With(prometheus.Labels{"cidr": availableCidr.Cidr.String()}).Dec()
-	ds.log.Infof("UnassignPodIPAddress: sandbox %s's ipAddr %s, DeviceNumber %d",
-		ipamKey, addr.Address, eni.DeviceNumber)
-	// Decrement ENI IP usage when a pod is deallocated
-	prometheusmetrics.EniIPsInUse.WithLabelValues(eni.ID).Dec()
-
-	// Check if ENI is excluded and CIDR is now empty - cleanup if needed
-	if eni.IsExcludedForPodIPs && availableCidr.AssignedIPAddressesInCidr() == 0 {
-		ds.log.Infof("CIDR %s on excluded ENI %s is now empty, scheduling for cleanup", availableCidr.Cidr.String(), eni.ID)
-		// Schedule async cleanup of the empty CIDR
-		go ds.deallocateEmptyCIDR(eni.ID, availableCidr)
-	}
-
-	return eni, addr.Address, eni.DeviceNumber, originalIPAMMetadata.InterfacesCount, eni.RouteTableID, nil
+	_ = "STUB: not implemented"
+	return nil, "", 0, 0, 0, nil
 }
+
+// If the entry is not present in state file, check if it is present under placeholder value.
+// This scenario could happen if the pod was created by an older CNI version back when CRI read was done.
+
+// If entry is still not found, IPAMD has no knowledge of this pod, so there is nothing to do.
+
+// Unwind un-assignment
+
+// Debug log for IP entering cooldown
+
+// Interfaces Count 0 means this property did not exist in the datastore when we restored. A Pod entry always have atleast one interface
+
+//Update prometheus for ips per cidr
+
+// Decrement ENI IP usage when a pod is deallocated
+
+// Check if ENI is excluded and CIDR is now empty - cleanup if needed
+
+// Schedule async cleanup of the empty CIDR
 
 // AllocatedIPs returns a recent snapshot of allocated sandbox<->IPs.
 // Note result may already be stale by the time you look at it.
-func (ds *DataStore) AllocatedIPs() []PodIPInfo {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	ret := make([]PodIPInfo, 0, ds.eniPool.AssignedIPv4Addresses())
-	for _, eni := range ds.eniPool {
-		for _, assignedaddr := range eni.AvailableIPv4Cidrs {
-			for _, addr := range assignedaddr.IPAddresses {
-				if addr.Assigned() {
-					info := PodIPInfo{
-						IPAMKey:      addr.IPAMKey,
-						IP:           addr.Address,
-						DeviceNumber: eni.DeviceNumber,
-					}
-					ret = append(ret, info)
-				}
-			}
-		}
-	}
-	return ret
-}
+func (ds *DataStore) AllocatedIPs() []PodIPInfo { _ = "STUB: not implemented"; return nil }
 
 // FreeableIPs returns a list of unused and potentially freeable IPs.
 // Note result may already be stale by the time you look at it.
-func (ds *DataStore) FreeableIPs(eniID string) []net.IPNet {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
+func (ds *DataStore) FreeableIPs(eniID string) []net.IPNet { _ = "STUB: not implemented"; return nil }
 
-	eni := ds.eniPool[eniID]
-	if eni == nil {
-		// Can't free any IPs from an ENI we don't know about...
-		return nil
-	}
-
-	freeable := make([]net.IPNet, 0, len(eni.AvailableIPv4Cidrs))
-	for _, assignedaddr := range eni.AvailableIPv4Cidrs {
-		if !assignedaddr.IsPrefix && assignedaddr.AssignedIPAddressesInCidr() == 0 {
-			freeable = append(freeable, assignedaddr.Cidr)
-		}
-	}
-
-	return freeable
-}
+// Can't free any IPs from an ENI we don't know about...
 
 // FreeablePrefixes returns a list of unused and potentially freeable prefixes (both IPv4 and IPv6).
 // Note result may already be stale by the time you look at it.
 func (ds *DataStore) FreeablePrefixes(eniID string) []net.IPNet {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	eni := ds.eniPool[eniID]
-	if eni == nil {
-		// Can't free any Prefixes from an ENI we don't know about...
-		return nil
-	}
-
-	freeable := make([]net.IPNet, 0, len(eni.AvailableIPv4Cidrs)+len(eni.IPv6Cidrs))
-
-	// Check IPv4 prefixes
-	for _, assignedaddr := range eni.AvailableIPv4Cidrs {
-		if assignedaddr.IsPrefix && assignedaddr.AssignedIPAddressesInCidr() == 0 {
-			freeable = append(freeable, assignedaddr.Cidr)
-		}
-	}
-
-	// Check IPv6 prefixes (IPv6 only uses prefix delegation mode)
-	for _, assignedaddr := range eni.IPv6Cidrs {
-		if assignedaddr.AssignedIPAddressesInCidr() == 0 {
-			freeable = append(freeable, assignedaddr.Cidr)
-		}
-	}
-
-	return freeable
+	_ = "STUB: not implemented"
+	return nil
 }
+
+// Can't free any Prefixes from an ENI we don't know about...
+
+// Check IPv4 prefixes
+
+// Check IPv6 prefixes (IPv6 only uses prefix delegation mode)
 
 // GetENIInfos provides ENI and IP information about the datastore
-func (ds *DataStore) GetENIInfos() *ENIInfos {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
+func (ds *DataStore) GetENIInfos() *ENIInfos { _ = "STUB: not implemented"; return nil }
 
-	var eniInfos = ENIInfos{
-		TotalIPs:    ds.total,
-		AssignedIPs: ds.assigned,
-		ENIs:        make(map[string]ENI, len(ds.eniPool)),
-	}
+// Since IP Addresses might get removed, we need to make a deep copy here.
 
-	for eni, eniInfo := range ds.eniPool {
-		tmpENIInfo := *eniInfo
-		tmpENIInfo.AvailableIPv4Cidrs = make(map[string]*CidrInfo, len(eniInfo.AvailableIPv4Cidrs))
-		tmpENIInfo.IPv6Cidrs = make(map[string]*CidrInfo, len(eniInfo.IPv6Cidrs))
-		for cidr := range eniInfo.AvailableIPv4Cidrs {
-			tmpENIInfo.AvailableIPv4Cidrs[cidr] = &CidrInfo{
-				Cidr:        eniInfo.AvailableIPv4Cidrs[cidr].Cidr,
-				IPAddresses: make(map[string]*AddressInfo, len(eniInfo.AvailableIPv4Cidrs[cidr].IPAddresses)),
-				IsPrefix:    eniInfo.AvailableIPv4Cidrs[cidr].IsPrefix,
-			}
-			// Since IP Addresses might get removed, we need to make a deep copy here.
-			for ip, ipAddrInfoRef := range eniInfo.AvailableIPv4Cidrs[cidr].IPAddresses {
-				ipAddrInfo := *ipAddrInfoRef
-				tmpENIInfo.AvailableIPv4Cidrs[cidr].IPAddresses[ip] = &ipAddrInfo
-			}
-		}
-		for cidr := range eniInfo.IPv6Cidrs {
-			tmpENIInfo.IPv6Cidrs[cidr] = &CidrInfo{
-				Cidr:        eniInfo.IPv6Cidrs[cidr].Cidr,
-				IPAddresses: make(map[string]*AddressInfo, len(eniInfo.IPv6Cidrs[cidr].IPAddresses)),
-				IsPrefix:    eniInfo.IPv6Cidrs[cidr].IsPrefix,
-			}
-			// Since IP Addresses might get removed, we need to make a deep copy here.
-			for ip, ipAddrInfoRef := range eniInfo.IPv6Cidrs[cidr].IPAddresses {
-				ipAddrInfo := *ipAddrInfoRef
-				tmpENIInfo.IPv6Cidrs[cidr].IPAddresses[ip] = &ipAddrInfo
-			}
-		}
-		eniInfos.ENIs[eni] = tmpENIInfo
-	}
-	return &eniInfos
-}
+// Since IP Addresses might get removed, we need to make a deep copy here.
 
 // GetENIs provides the number of ENI in the datastore
-func (ds *DataStore) GetENIs() int {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-	return len(ds.eniPool)
-}
+func (ds *DataStore) GetENIs() int { _ = "STUB: not implemented"; return 0 }
 
 // GetENICIDRs returns the known (allocated & unallocated) ENI secondary IPs and Prefixes
 func (ds *DataStore) GetENICIDRs(eniID string) ([]string, []string, error) {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	eni, ok := ds.eniPool[eniID]
-	if !ok {
-		return nil, nil, errors.New(UnknownENIError)
-	}
-
-	var ipPool []string
-	var prefixPool []string
-	for _, assignedAddr := range eni.AvailableIPv4Cidrs {
-		if !assignedAddr.IsPrefix {
-			ipPool = append(ipPool, assignedAddr.Cidr.IP.String())
-		} else {
-			prefixPool = append(prefixPool, assignedAddr.Cidr.String())
-		}
-	}
-	return ipPool, prefixPool, nil
+	_ = "STUB: not implemented"
+	return nil, nil, nil
 }
 
 // GetFreePrefixes return free prefixes
-func (ds *DataStore) GetFreePrefixes() int {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	freePrefixes := 0
-	for _, other := range ds.eniPool {
-		for _, otherPrefixes := range other.AvailableIPv4Cidrs {
-			if otherPrefixes.IsPrefix && otherPrefixes.AssignedIPAddressesInCidr() == 0 {
-				freePrefixes++
-			}
-		}
-	}
-	return freePrefixes
-}
+func (ds *DataStore) GetFreePrefixes() int { _ = "STUB: not implemented"; return 0 }
 
 // getFreeIPv4AddrfromCidr returs a free IP/32 address from CIDR
 func (ds *DataStore) getFreeIPv4AddrfromCidr(availableCidr *CidrInfo) (string, error) {
-	if availableCidr == nil {
-		ds.log.Errorf("Prefix datastore not initialized")
-		return "", errors.New("Prefix datastore not initialized")
-	}
-	strPrivateIPv4, err := ds.getUnusedIP(availableCidr)
-	if err != nil {
-		ds.log.Debugf("Get free IP from prefix failed %v", err)
-		return "", err
-	}
-	ds.log.Debugf("Returning Free IP %s", strPrivateIPv4)
-	return strPrivateIPv4, nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (ds *DataStore) getFreeIPv6AddrFromCidr(IPv6Cidr *CidrInfo) (string, error) {
-	if IPv6Cidr == nil {
-		ds.log.Errorf("Prefix datastore not initialized")
-		return "", errors.New("Prefix datastore not initialized")
-	}
-	ipv6Address, err := ds.getUnusedIP(IPv6Cidr)
-	if err != nil {
-		ds.log.Debugf("Get free IP from prefix failed %v", err)
-		return "", err
-	}
-	ds.log.Debugf("Returning Free IP %s", ipv6Address)
-	return ipv6Address, nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 /*
@@ -1497,339 +633,119 @@ func (ds *DataStore) getFreeIPv6AddrFromCidr(IPv6Cidr *CidrInfo) (string, error)
 */
 
 func (ds *DataStore) getUnusedIP(availableCidr *CidrInfo) (string, error) {
+	_ = "STUB: not implemented"
 	//Check if there is any IP out of cooldown
-	var cachedIP string
-	for _, addr := range availableCidr.IPAddresses {
-		if !addr.Assigned() && !addr.inCoolingPeriod(ds.ipCooldownPeriod) {
-			//if the IP is out of cooldown and not assigned then cache the first available IP
-			//continue cleaning up the DB, this is to avoid stale entries and a new thread :)
-			if cachedIP == "" {
-				cachedIP = addr.Address
-				// Debug log for IP released from cooldown
-				timeSinceUnassigned := time.Since(addr.UnassignedTime)
-				ds.log.Debugf("IP %s released from cooldown after %v, available for reassignment in CIDR %s",
-					addr.Address, timeSinceUnassigned.Round(time.Second), availableCidr.Cidr.String())
-			}
-			//availableCidr.IPAddresses[addr.Address] = nil //Avoid mem leak - TODO
-			delete(availableCidr.IPAddresses, addr.Address)
-		}
-	}
-
-	if cachedIP != "" {
-		return cachedIP, nil
-	}
-
-	//If not in cooldown then generate next IP
-	ipnet := availableCidr.Cidr
-	ip := availableCidr.Cidr.IP
-
-	for ip := ip.Mask(ipnet.Mask); ipnet.Contains(ip); getNextIPAddr(ip) {
-		strPrivateIPv4 := ip.String()
-		if _, ok := availableCidr.IPAddresses[strPrivateIPv4]; ok {
-			continue
-		}
-		ds.log.Debugf("Found a free IP not in DB - %s", strPrivateIPv4)
-		return strPrivateIPv4, nil
-	}
-
-	return "", fmt.Errorf("no free IP available in the prefix - %s", availableCidr.Cidr.String())
+	return "", nil
 }
 
-func (ds *DataStore) GetNetworkCard() int {
-	return ds.networkCard
-}
+//if the IP is out of cooldown and not assigned then cache the first available IP
+//continue cleaning up the DB, this is to avoid stale entries and a new thread :)
 
-func getNextIPAddr(ip net.IP) {
-	for j := len(ip) - 1; j >= 0; j-- {
-		ip[j]++
-		if ip[j] > 0 {
-			break
-		}
-	}
-}
+// Debug log for IP released from cooldown
+
+//availableCidr.IPAddresses[addr.Address] = nil //Avoid mem leak - TODO
+
+//If not in cooldown then generate next IP
+
+func (ds *DataStore) GetNetworkCard() int { _ = "STUB: not implemented"; return 0 }
+
+func getNextIPAddr(ip net.IP) { _ = "STUB: not implemented"; return }
 
 // Function to return PD defaults supported by VPC
-func GetPrefixDelegationDefaults() (int, int, int) {
-	numPrefixesPerENI := 1
-	numIPsPerPrefix := 16
-	supportedPrefixLen := 28
-
-	return numPrefixesPerENI, numIPsPerPrefix, supportedPrefixLen
-}
+func GetPrefixDelegationDefaults() (int, int, int) { _ = "STUB: not implemented"; return 0, 0, 0 }
 
 // FindFreeableCidrs finds and returns Cidrs that are not assigned to Pods but are attached
 // to ENIs on the node.
 func (ds *DataStore) FindFreeableCidrs(eniID string) []CidrInfo {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	eni := ds.eniPool[eniID]
-	if eni == nil {
-		// Can't free any Cidrs from an ENI we don't know about...
-		return nil
-	}
-
-	var freeable []CidrInfo
-	for _, assignedaddr := range eni.AvailableIPv4Cidrs {
-		if assignedaddr.AssignedIPAddressesInCidr() == 0 {
-			tempFreeable := CidrInfo{
-				Cidr:          assignedaddr.Cidr,
-				IPAddresses:   nil,
-				IsPrefix:      assignedaddr.IsPrefix,
-				AddressFamily: assignedaddr.AddressFamily,
-			}
-			freeable = append(freeable, tempFreeable)
-		}
-	}
-	return freeable
-
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func DivCeil(x, y int) int {
-	return (x + y - 1) / y
-}
+// Can't free any Cidrs from an ENI we don't know about...
+
+func DivCeil(x, y int) int { _ = "STUB: not implemented"; return 0 }
 
 // CheckFreeableENIexists will return true if there is an ENI which is unused.
 // Could have just called getDeletaleENI, this is just to optimize a bit.
-func (ds *DataStore) CheckFreeableENIexists() bool {
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	for _, eni := range ds.eniPool {
-		if eni.IsPrimary {
-			ds.log.Debugf("ENI %s cannot be deleted because it is primary", eni.ID)
-			continue
-		}
-
-		if eni.hasPods() {
-			ds.log.Debugf("ENI %s cannot be deleted because it has pods assigned", eni.ID)
-			continue
-		}
-
-		if eni.IsTrunk {
-			ds.log.Debugf("ENI %s cannot be deleted because it is a trunk ENI", eni.ID)
-			continue
-		}
-
-		if eni.IsEFA {
-			ds.log.Debugf("ENI %s cannot be deleted because it is an EFA ENI", eni.ID)
-			continue
-		}
-
-		ds.log.Debugf("Found a deletable ENI %s and we might be able to free", eni.ID)
-		return true
-	}
-	return false
-}
+func (ds *DataStore) CheckFreeableENIexists() bool { _ = "STUB: not implemented"; return false }
 
 // NormalizeCheckpointDataByPodVethExistence will normalize checkpoint data by removing allocations that do not have a corresponding pod veth.
 // This can happen if pods are deleted while IPAMD is inactive.
 func (ds *DataStore) normalizeCheckpointDataByPodVethExistence(checkpoint CheckpointData) (CheckpointData, error) {
-	hostNSLinks, err := ds.netLink.LinkList()
-	if err != nil {
-		return CheckpointData{}, err
-	}
-	var validatedAllocations []CheckpointEntry
-	var staleAllocations []CheckpointEntry
-	for _, allocation := range checkpoint.Allocations {
-		if err := ds.validateAllocationByPodVethExistence(allocation, hostNSLinks); err != nil {
-			ds.log.Warnf("stale IP allocation for ID(%v): IPv4(%v), IPv6(%v) due to %v", allocation.ContainerID, allocation.IPv4, allocation.IPv6, err)
-			staleAllocations = append(staleAllocations, allocation)
-		} else {
-			validatedAllocations = append(validatedAllocations, allocation)
-		}
-	}
-	checkpoint.Allocations = validatedAllocations
-	// Stale allocations may have dangling IP rules that need cleanup
-	if len(staleAllocations) > 0 {
-		ds.PruneStaleAllocations(staleAllocations)
-	}
-	return checkpoint, nil
+	_ = "STUB: not implemented"
+	return *new(CheckpointData), nil
 }
 
-func (ds *DataStore) validateAllocationByPodVethExistence(allocation CheckpointEntry, hostNSLinks []netlink.Link) error {
-	// for backwards compatibility, we skip the validation when metadata contains empty namespace/name.
-	if allocation.Metadata.K8SPodNamespace == "" || allocation.Metadata.K8SPodName == "" {
-		return nil
-	}
+// Stale allocations may have dangling IP rules that need cleanup
 
-	linkNameSuffix := networkutils.GeneratePodHostVethNameSuffix(allocation.Metadata.K8SPodNamespace, allocation.Metadata.K8SPodName)
-	for _, link := range hostNSLinks {
-		linkName := link.Attrs().Name
-		if strings.HasSuffix(linkName, linkNameSuffix) {
-			return nil
-		}
-	}
-	return errors.Errorf("host-side veth not found for pod %v/%v", allocation.Metadata.K8SPodNamespace, allocation.Metadata.K8SPodName)
+func (ds *DataStore) validateAllocationByPodVethExistence(allocation CheckpointEntry, hostNSLinks []netlink.Link) error {
+	_ = "STUB: not implemented"
+	// for backwards compatibility, we skip the validation when metadata contains empty namespace/name.
+	return nil
 }
 
 // For each stale allocation, cleanup leaked IP rules if they exist
 func (ds *DataStore) PruneStaleAllocations(staleAllocations []CheckpointEntry) {
-	ds.log.Info("Pruning potentially stale IP rules")
-	for _, allocation := range staleAllocations {
-		ds.DeleteToContainerRule(&allocation)
-		ds.DeleteFromContainerRule(&allocation)
-	}
+	_ = "STUB: not implemented"
+	return
 }
 
 func (ds *DataStore) DeleteToContainerRule(entry *CheckpointEntry) {
-	ds.log.Infof("Delete toContainer rule for v4: %s, v6: %s", entry.IPv4, entry.IPv6)
-	// Remove toContainer rule, if it exists. Note that toContainer rule will always be in main routing table.
-	toContainerRule := ds.netLink.NewRule()
-	toContainerRule.Priority = networkutils.ToContainerRulePriority
-	toContainerRule.Table = unix.RT_TABLE_MAIN
-	var addr *net.IPNet
-
-	if entry.IPv4 != "" {
-		addr = &net.IPNet{
-			IP:   net.ParseIP(entry.IPv4),
-			Mask: net.CIDRMask(32, 32),
-		}
-	} else {
-		addr = &net.IPNet{
-			IP:   net.ParseIP(entry.IPv6),
-			Mask: net.CIDRMask(128, 128),
-		}
-	}
-	toContainerRule.Dst = addr
-	if err := ds.netLink.RuleDel(toContainerRule); err != nil && !networkutils.ContainsNoSuchRule(err) {
-		// Continue to prune, even on deletion error
-		ds.log.Errorf("failed to delete toContainer rule, addr=%s", addr.String())
-	}
+	_ = "STUB: not implemented"
+	return
 }
+
+// Remove toContainer rule, if it exists. Note that toContainer rule will always be in main routing table.
+
+// Continue to prune, even on deletion error
 
 func (ds *DataStore) DeleteFromContainerRule(entry *CheckpointEntry) {
-	ds.log.Infof("Delete fromContainer rule for v4: %s, v6: %s", entry.IPv4, entry.IPv6)
-	// Remove fromContainer rule, if it exists. Note that fromContainer rule can be in any routing table,
-	// so no table is set.
-	fromContainerRule := ds.netLink.NewRule()
-	fromContainerRule.Priority = networkutils.FromPodRulePriority
-	fromContainerRule.Table = unix.RT_TABLE_UNSPEC
-	var addr *net.IPNet
-
-	if entry.IPv4 != "" {
-		addr = &net.IPNet{
-			IP:   net.ParseIP(entry.IPv4),
-			Mask: net.CIDRMask(32, 32),
-		}
-	} else {
-		addr = &net.IPNet{
-			IP:   net.ParseIP(entry.IPv6),
-			Mask: net.CIDRMask(128, 128),
-		}
-	}
-	fromContainerRule.Src = addr
-	if err := ds.netLink.RuleDel(fromContainerRule); err != nil && !networkutils.ContainsNoSuchRule(err) {
-		// Continue to prune, even on deletion error
-		ds.log.Errorf("failed to delete fromPod rule, addr=%s", addr.String())
-	}
+	_ = "STUB: not implemented"
+	return
 }
+
+// Remove fromContainer rule, if it exists. Note that fromContainer rule can be in any routing table,
+// so no table is set.
+
+// Continue to prune, even on deletion error
 
 type DataStoreAccess struct {
 	DataStores []*DataStore
 }
 
 func InitializeDataStores(skipNetworkCards []bool, defaultDataStorePath string, enablePD bool, log logger.Logger) *DataStoreAccess {
-
-	var dsList = make([]*DataStore, 0, len(skipNetworkCards))
-	for networkCard, shouldSkip := range skipNetworkCards {
-
-		if !shouldSkip {
-			dsBackingStorePath := defaultDataStorePath
-			if networkCard > 0 {
-				baseName := strings.TrimSuffix(defaultDataStorePath, ".json")
-				dsBackingStorePath = fmt.Sprintf("%s-nic-%d.json", baseName, networkCard)
-			}
-			checkpointer := NewJSONFile(dsBackingStorePath)
-			dsList = append(dsList, NewDataStore(log, checkpointer, enablePD, networkCard))
-			log.Infof("initialized datastore for network cards index %d", networkCard)
-		}
-	}
-
-	return &DataStoreAccess{
-		DataStores: dsList,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (ds *DataStoreAccess) GetDataStore(networkCard int) *DataStore {
-
-	for index, datastore := range ds.DataStores {
-		if datastore.GetNetworkCard() == networkCard {
-			return ds.DataStores[index]
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ds *DataStoreAccess) ReadAllDataStores(enableIPv6 bool) error {
-
-	for _, datastore := range ds.DataStores {
-		if err := datastore.ReadBackingStore(enableIPv6); err != nil {
-			return errors.Wrap(err, "Error while reading datastore")
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // deallocateEmptyCIDR asynchronously deallocates an empty CIDR from an excluded ENI
 func (ds *DataStore) deallocateEmptyCIDR(eniID string, cidrToCleanup *CidrInfo) {
-	cidrStr := cidrToCleanup.Cidr.String()
-	ds.log.Infof("Starting async cleanup for empty CIDR %s on excluded ENI %s", cidrStr, eniID)
-
-	// Add delay to avoid race conditions with pod cleanup
-	time.Sleep(5 * time.Second)
-
-	ds.lock.Lock()
-	defer ds.lock.Unlock()
-
-	// Double-check that the CIDR is still empty and ENI is still excluded
-	eni := ds.eniPool[eniID]
-	if eni == nil {
-		ds.log.Warnf("ENI %s not found during CIDR cleanup", eniID)
-		return
-	}
-
-	if !eni.IsExcludedForPodIPs {
-		ds.log.Infof("ENI %s is no longer excluded, skipping CIDR cleanup", eniID)
-		return
-	}
-
-	// Find the CIDR in the appropriate map using AddressFamily
-	var targetCidr *CidrInfo
-	var isIPv4 bool = cidrToCleanup.AddressFamily == "4"
-
-	if isIPv4 {
-		targetCidr = eni.AvailableIPv4Cidrs[cidrStr]
-	} else {
-		targetCidr = eni.IPv6Cidrs[cidrStr]
-	}
-
-	if targetCidr == nil {
-		ds.log.Warnf("CIDR %s not found on ENI %s during cleanup", cidrStr, eniID)
-		return
-	}
-
-	// Check if CIDR is still empty
-	if targetCidr.AssignedIPAddressesInCidr() > 0 {
-		ds.log.Infof("CIDR %s on ENI %s is no longer empty, skipping cleanup", cidrStr, eniID)
-		return
-	}
-
-	// Remove the empty CIDR from the ENI structure
-	ds.log.Infof("Removing empty CIDR %s from excluded ENI %s in datastore", cidrStr, eniID)
-
-	// Remove the CIDR from the appropriate ENI map
-	if isIPv4 {
-		delete(eni.AvailableIPv4Cidrs, cidrStr)
-	} else {
-		delete(eni.IPv6Cidrs, cidrStr)
-	}
-
-	// Update backing store
-	if err := ds.writeBackingStoreUnsafe(); err != nil {
-		ds.log.Warnf("Failed to write backing store after removing empty CIDR: %v", err)
-		// Note: We continue since the CIDR removal from local state was successful
-	}
-
-	ds.log.Infof("Successfully removed empty CIDR %s from excluded ENI %s", cidrStr, eniID)
+	_ = "STUB: not implemented"
+	return
 }
+
+// Add delay to avoid race conditions with pod cleanup
+
+// Double-check that the CIDR is still empty and ENI is still excluded
+
+// Find the CIDR in the appropriate map using AddressFamily
+
+// Check if CIDR is still empty
+
+// Remove the empty CIDR from the ENI structure
+
+// Remove the CIDR from the appropriate ENI map
+
+// Update backing store
+
+// Note: We continue since the CIDR removal from local state was successful

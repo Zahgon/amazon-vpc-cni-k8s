@@ -14,7 +14,6 @@
 package main
 
 import (
-	"encoding/json"
 	"log"
 	"net/http"
 
@@ -33,27 +32,12 @@ func main() {
 
 // adds the metric to list of metrics
 func submitConnectivityMetric(_ http.ResponseWriter, r *http.Request) {
-	decoder := json.NewDecoder(r.Body)
-
-	var status input.TestStatus
-	err := decoder.Decode(&status)
-
-	if err != nil {
-		log.Printf("failed to decode the request body: %v", err)
-		return
-	}
-
-	log.Printf("received metric %+v", status)
-	connectivityMetric = append(connectivityMetric, status)
+	_ = "STUB: not implemented"
+	return
 }
 
 // returns the list of metrics
 func getConnectivityMetric(w http.ResponseWriter, r *http.Request) {
-	metricByte, err := json.Marshal(connectivityMetric)
-	if err != nil {
-		log.Printf("failed to marshall: %v", err)
-		return
-	}
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(metricByte)
+	_ = "STUB: not implemented"
+	return
 }

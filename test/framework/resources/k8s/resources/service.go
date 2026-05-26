@@ -15,14 +15,8 @@ package resources
 
 import (
 	"context"
-	"time"
-
-	"github.com/aws/amazon-vpc-cni-k8s/test/framework/utils"
 
 	v1 "k8s.io/api/core/v1"
-	"k8s.io/apimachinery/pkg/api/errors"
-	"k8s.io/apimachinery/pkg/types"
-	"k8s.io/apimachinery/pkg/util/wait"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -37,58 +31,24 @@ type defaultServiceManager struct {
 }
 
 func NewDefaultServiceManager(k8sClient client.Client) ServiceManager {
-	return &defaultServiceManager{k8sClient: k8sClient}
+	_ = "STUB: not implemented"
+	return *new(ServiceManager)
 }
 
 func (s *defaultServiceManager) GetService(ctx context.Context, namespace string,
 	name string) (*v1.Service, error) {
-
-	service := &v1.Service{}
-	err := s.k8sClient.Get(ctx, types.NamespacedName{
-		Namespace: namespace,
-		Name:      name,
-	}, service)
-
-	return service, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (s *defaultServiceManager) CreateService(ctx context.Context, service *v1.Service) (*v1.Service, error) {
-	err := s.k8sClient.Create(ctx, service)
-	if err != nil {
-		return nil, err
-	}
-
-	// Wait till the cache is refreshed
-	time.Sleep(utils.PollIntervalShort)
-
-	observedService := &v1.Service{}
-	return observedService, wait.PollImmediateUntil(utils.PollIntervalShort, func() (bool, error) {
-		if err := s.k8sClient.Get(ctx, utils.NamespacedName(service), observedService); err != nil {
-			return false, err
-		}
-		return true, nil
-	}, ctx.Done())
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
+// Wait till the cache is refreshed
+
 func (s *defaultServiceManager) DeleteAndWaitTillServiceDeleted(ctx context.Context, service *v1.Service) error {
-	err := s.k8sClient.Delete(ctx, service)
-
-	if errors.IsNotFound(err) {
-		return nil
-	}
-
-	if err != nil {
-		return err
-	}
-
-	observed := &v1.Service{}
-	return wait.PollImmediateUntil(utils.PollIntervalShort, func() (bool, error) {
-		if err := s.k8sClient.Get(ctx, utils.NamespacedName(service), observed); err != nil {
-			if errors.IsNotFound(err) {
-				return true, nil
-			}
-			return false, err
-		}
-		return false, nil
-	}, ctx.Done())
+	_ = "STUB: not implemented"
+	return nil
 }

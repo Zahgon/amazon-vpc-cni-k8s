@@ -14,10 +14,7 @@
 package resources
 
 import (
-	"context"
-
 	v1 "k8s.io/api/core/v1"
-	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -31,16 +28,16 @@ type defaultConfigMapManager struct {
 }
 
 func (d defaultConfigMapManager) GetConfigMap(namespace string, name string) (*v1.ConfigMap, error) {
-	configMap := v1.ConfigMap{}
-	return &configMap, d.k8sClient.Get(context.Background(), types.
-		NamespacedName{Name: name, Namespace: namespace}, &configMap)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (d defaultConfigMapManager) UpdateConfigMap(oldConfigMap *v1.ConfigMap, newConfigMap *v1.ConfigMap) error {
-	ctx := context.Background()
-	return d.k8sClient.Patch(ctx, newConfigMap, client.MergeFrom(oldConfigMap))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func NewConfigMapManager(k8sClient client.Client) ConfigMapManager {
-	return &defaultConfigMapManager{k8sClient: k8sClient}
+	_ = "STUB: not implemented"
+	return *new(ConfigMapManager)
 }

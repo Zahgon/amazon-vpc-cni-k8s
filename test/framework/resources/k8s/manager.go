@@ -51,61 +51,61 @@ type defaultManager struct {
 }
 
 func NewResourceManager(k8sClient client.Client, k8sClientset *kubernetes.Clientset, scheme *runtime.Scheme, config *rest.Config) ResourceManagers {
-	return &defaultManager{
-		jobManager:            resources.NewDefaultJobManager(k8sClient),
-		deploymentManager:     resources.NewDefaultDeploymentManager(k8sClient),
-		customResourceManager: resources.NewCustomResourceManager(k8sClient),
-		namespaceManager:      resources.NewDefaultNamespaceManager(k8sClient),
-		serviceManager:        resources.NewDefaultServiceManager(k8sClient),
-		nodeManager:           resources.NewDefaultNodeManager(k8sClient),
-		podManager:            resources.NewDefaultPodManager(k8sClient, k8sClientset, scheme, config),
-		daemonSetManager:      resources.NewDefaultDaemonSetManager(k8sClient),
-		configMapManager:      resources.NewConfigMapManager(k8sClient),
-		networkPolicyManager:  resources.NewNetworkPolicyManager(k8sClient),
-		eventManager:          resources.NewEventManager(k8sClient),
-	}
+	_ = "STUB: not implemented"
+	return *new(ResourceManagers)
 }
 
 func (m *defaultManager) JobManager() resources.JobManager {
-	return m.jobManager
+	_ = "STUB: not implemented"
+	return *new(resources.JobManager)
 }
 
 func (m *defaultManager) DeploymentManager() resources.DeploymentManager {
-	return m.deploymentManager
+	_ = "STUB: not implemented"
+	return *new(resources.DeploymentManager)
 }
 
 func (m *defaultManager) CustomResourceManager() resources.CustomResourceManager {
-	return m.customResourceManager
+	_ = "STUB: not implemented"
+	return *new(resources.CustomResourceManager)
 }
 
 func (m *defaultManager) NamespaceManager() resources.NamespaceManager {
-	return m.namespaceManager
+	_ = "STUB: not implemented"
+	return *new(resources.NamespaceManager)
 }
 
 func (m *defaultManager) ServiceManager() resources.ServiceManager {
-	return m.serviceManager
+	_ = "STUB: not implemented"
+	return *new(resources.ServiceManager)
 }
 
 func (m *defaultManager) NodeManager() resources.NodeManager {
-	return m.nodeManager
+	_ = "STUB: not implemented"
+	return *new(resources.NodeManager)
 }
 
 func (m *defaultManager) PodManager() resources.PodManager {
-	return m.podManager
+	_ = "STUB: not implemented"
+	return *new(resources.PodManager)
 }
 
 func (m *defaultManager) DaemonSetManager() resources.DaemonSetManager {
-	return m.daemonSetManager
+	_ = "STUB: not implemented"
+	return *new(resources.DaemonSetManager)
 }
 
 func (m *defaultManager) ConfigMapManager() resources.ConfigMapManager {
-	return m.configMapManager
+	_ = "STUB: not implemented"
+	return *new(resources.ConfigMapManager)
 }
 
 func (m *defaultManager) NetworkPolicyManager() resources.NetworkPolicyManager {
-	return m.networkPolicyManager
+	_ = "STUB: not implemented"
+	return *new(resources.NetworkPolicyManager)
 }
 
 func (m defaultManager) EventManager() resources.EventManager {
-	return m.eventManager
+	_ = "STUB: not implemented"
+	return *new(resources.EventManager)
 }

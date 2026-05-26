@@ -20,7 +20,6 @@ package mock_ipwrapper
 
 import (
 	net "net"
-	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
 	netlink "github.com/vishvananda/netlink"
@@ -38,27 +37,23 @@ type MockIPMockRecorder struct {
 }
 
 // NewMockIP creates a new mock instance.
-func NewMockIP(ctrl *gomock.Controller) *MockIP {
-	mock := &MockIP{ctrl: ctrl}
-	mock.recorder = &MockIPMockRecorder{mock}
-	return mock
-}
+func NewMockIP(ctrl *gomock.Controller) *MockIP { _ = "STUB: not implemented"; return nil }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockIP) EXPECT() *MockIPMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// AddDefaultRoute mocks base method.
+	return nil
 }
 
-// AddDefaultRoute mocks base method.
 func (m *MockIP) AddDefaultRoute(arg0 net.IP, arg1 netlink.Link) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AddDefaultRoute", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // AddDefaultRoute indicates an expected call of AddDefaultRoute.
 func (mr *MockIPMockRecorder) AddDefaultRoute(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddDefaultRoute", reflect.TypeOf((*MockIP)(nil).AddDefaultRoute), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }

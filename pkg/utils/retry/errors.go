@@ -25,15 +25,13 @@ type DefaultRetriable struct {
 
 // Retry does the retry
 func (dr DefaultRetriable) Retry() bool {
-	return dr.retry
+	_ = "STUB: not implemented"
+
+	// NewRetriable creates a new Retriable
+	return false
 }
 
-// NewRetriable creates a new Retriable
-func NewRetriable(retry bool) Retriable {
-	return DefaultRetriable{
-		retry: retry,
-	}
-}
+func NewRetriable(retry bool) Retriable { _ = "STUB: not implemented"; return *new(Retriable) }
 
 // RetriableError interface
 type RetriableError interface {
@@ -49,8 +47,6 @@ type DefaultRetriableError struct {
 
 // NewRetriableError returns a new retriable error
 func NewRetriableError(retriable Retriable, err error) RetriableError {
-	return &DefaultRetriableError{
-		retriable,
-		err,
-	}
+	_ = "STUB: not implemented"
+	return *new(RetriableError)
 }

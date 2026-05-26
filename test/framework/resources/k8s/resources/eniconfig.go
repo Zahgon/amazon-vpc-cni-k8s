@@ -14,8 +14,6 @@
 package resources
 
 import (
-	"context"
-
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -29,15 +27,16 @@ type defaultCustomResourceManager struct {
 }
 
 func NewCustomResourceManager(k8sClient client.Client) CustomResourceManager {
-	return &defaultCustomResourceManager{k8sClient: k8sClient}
+	_ = "STUB: not implemented"
+	return *new(CustomResourceManager)
 }
 
 func (d *defaultCustomResourceManager) CreateResource(resource client.Object) error {
-	ctx := context.Background()
-	return d.k8sClient.Create(ctx, resource)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (d *defaultCustomResourceManager) DeleteResource(resource client.Object) error {
-	ctx := context.Background()
-	return d.k8sClient.Delete(ctx, resource)
+	_ = "STUB: not implemented"
+	return nil
 }

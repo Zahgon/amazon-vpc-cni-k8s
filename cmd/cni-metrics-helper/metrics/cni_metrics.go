@@ -17,7 +17,6 @@ package metrics
 import (
 	"github.com/aws/amazon-vpc-cni-k8s/pkg/utils/logger"
 	"golang.org/x/net/context"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 
 	"github.com/aws/amazon-vpc-cni-k8s/pkg/publisher"
@@ -177,52 +176,35 @@ type CNIMetricsTarget struct {
 // CNIMetricsNew creates a new metricsTarget
 func CNIMetricsNew(k8sClient kubernetes.Interface, cw publisher.Publisher, submitCW bool, submitPrometheus bool, l logger.Logger,
 	watcher *defaultPodWatcher) *CNIMetricsTarget {
-	return &CNIMetricsTarget{
-		interestingMetrics:      InterestingCNIMetrics,
-		cwMetricsPublisher:      cw,
-		kubeClient:              k8sClient,
-		podWatcher:              watcher,
-		submitCW:                submitCW,
-		submitPrometheusMetrics: submitPrometheus,
-		log:                     l,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (t *CNIMetricsTarget) grabMetricsFromTarget(ctx context.Context, cniPod string) ([]byte, error) {
-	output, err := getMetricsFromPod(ctx, t.kubeClient, cniPod, metav1.NamespaceSystem, metricsPort)
-	if err != nil {
-		t.log.Errorf("grabMetricsFromTarget: Failed to grab CNI endpoint: %v", err)
-		return nil, err
-	}
-
-	t.log.Debugf("cni-metrics text output: %s", string(output))
-	return output, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (t *CNIMetricsTarget) getInterestingMetrics() map[string]metricsConvert {
-	return InterestingCNIMetrics
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (t *CNIMetricsTarget) getCWMetricsPublisher() publisher.Publisher {
-	return t.cwMetricsPublisher
+	_ = "STUB: not implemented"
+	return *new(publisher.Publisher)
 }
 
 func (t *CNIMetricsTarget) getTargetList(ctx context.Context) ([]string, error) {
-	pods, err := t.podWatcher.GetCNIPods(ctx)
-	if err != nil {
-		return pods, err
-	}
-	return pods, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (t *CNIMetricsTarget) submitCloudWatch() bool {
-	return t.submitCW
-}
+func (t *CNIMetricsTarget) submitCloudWatch() bool { _ = "STUB: not implemented"; return false }
 
 func (t *CNIMetricsTarget) getLogger() logger.Logger {
-	return t.log
+	_ = "STUB: not implemented"
+	return *new(logger.Logger)
 }
 
-func (t *CNIMetricsTarget) submitPrometheus() bool {
-	return t.submitPrometheusMetrics
-}
+func (t *CNIMetricsTarget) submitPrometheus() bool { _ = "STUB: not implemented"; return false }

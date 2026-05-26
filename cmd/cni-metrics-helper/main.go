@@ -53,12 +53,7 @@ type options struct {
 	submitPrometheus bool
 }
 
-func prometheusRegister() {
-	if !prometheusRegistered {
-		prometheusmetrics.PrometheusRegister()
-		prometheusRegistered = true
-	}
-}
+func prometheusRegister() { _ = "STUB: not implemented"; return }
 
 func main() {
 	// Do not add anything before initializing logger

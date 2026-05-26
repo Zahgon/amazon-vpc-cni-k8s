@@ -22,22 +22,25 @@ type DefaultTime struct{}
 
 // Now returns the current time
 func (*DefaultTime) Now() time.Time {
-	return time.Now()
+	_ = "STUB: not implemented"
+
+	// Sleep sleeps for the given duration
+	return *new(time.Time)
 }
 
-// Sleep sleeps for the given duration
 func (*DefaultTime) Sleep(d time.Duration) {
-	time.Sleep(d)
+	_ = "STUB: not implemented"
+
+	// After sleeps for the given duration and then writes to to the returned channel
+	return
 }
 
-// After sleeps for the given duration and then writes to to the returned channel
-func (*DefaultTime) After(d time.Duration) <-chan time.Time {
-	return time.After(d)
-}
+func (*DefaultTime) After(d time.Duration) <-chan time.Time { _ = "STUB: not implemented"; return nil }
 
 // AfterFunc waits for the duration to elapse and then calls f in its own
 // goroutine. It returns a Timer that can be used to cancel the call using its
 // Stop method.
 func (*DefaultTime) AfterFunc(d time.Duration, f func()) Timer {
-	return time.AfterFunc(d, f)
+	_ = "STUB: not implemented"
+	return *new(Timer)
 }

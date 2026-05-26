@@ -14,11 +14,7 @@
 package aws
 
 import (
-	"context"
-	"fmt"
-
 	"github.com/aws/amazon-vpc-cni-k8s/test/framework/resources/aws/services"
-	awsconfig "github.com/aws/aws-sdk-go-v2/config"
 )
 
 type CloudConfig struct {
@@ -47,50 +43,27 @@ type defaultCloud struct {
 }
 
 func NewCloud(config CloudConfig) (Cloud, error) {
-
-	cfg, err := awsconfig.LoadDefaultConfig(context.TODO(), awsconfig.WithRegion(config.Region))
-
-	if err != nil {
-		return nil, fmt.Errorf("unable to load SDK config, %v", err)
-	}
-
-	eksService, err := services.NewEKS(cfg, config.EKSEndpoint)
-
-	if err != nil {
-		return nil, fmt.Errorf("unable to create EKS service client, %v", err)
-	}
-
-	return &defaultCloud{
-		cfg:            config,
-		ec2:            services.NewEC2(cfg),
-		iam:            services.NewIAM(cfg),
-		eks:            eksService,
-		autoScaling:    services.NewAutoScaling(cfg),
-		cloudFormation: services.NewCloudFormation(cfg),
-		cloudWatch:     services.NewCloudWatch(cfg),
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(Cloud), nil
 }
 
-func (c *defaultCloud) EC2() services.EC2 {
-	return c.ec2
-}
+func (c *defaultCloud) EC2() services.EC2 { _ = "STUB: not implemented"; return *new(services.EC2) }
 
 func (c *defaultCloud) AutoScaling() services.AutoScaling {
-	return c.autoScaling
+	_ = "STUB: not implemented"
+	return *new(services.AutoScaling)
 }
 
 func (c *defaultCloud) CloudFormation() services.CloudFormation {
-	return c.cloudFormation
+	_ = "STUB: not implemented"
+	return *new(services.CloudFormation)
 }
 
-func (c *defaultCloud) EKS() services.EKS {
-	return c.eks
-}
+func (c *defaultCloud) EKS() services.EKS { _ = "STUB: not implemented"; return *new(services.EKS) }
 
-func (c *defaultCloud) IAM() services.IAM {
-	return c.iam
-}
+func (c *defaultCloud) IAM() services.IAM { _ = "STUB: not implemented"; return *new(services.IAM) }
 
 func (c *defaultCloud) CloudWatch() services.CloudWatch {
-	return c.cloudWatch
+	_ = "STUB: not implemented"
+	return *new(services.CloudWatch)
 }

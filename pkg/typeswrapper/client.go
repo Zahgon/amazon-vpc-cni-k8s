@@ -27,14 +27,14 @@ type CNITYPES interface {
 type cniTYPES struct{}
 
 // New returns a new CNITYPES
-func New() CNITYPES {
-	return &cniTYPES{}
-}
+func New() CNITYPES { _ = "STUB: not implemented"; return *new(CNITYPES) }
 
 func (*cniTYPES) LoadArgs(args string, container interface{}) error {
-	return cnitypes.LoadArgs(args, container)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (*cniTYPES) PrintResult(result cnitypes.Result, version string) error {
-	return cnitypes.PrintResult(result, version)
+	_ = "STUB: not implemented"
+	return nil
 }

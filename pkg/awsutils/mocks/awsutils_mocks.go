@@ -21,7 +21,6 @@ package mock_awsutils
 import (
 	context "context"
 	net "net"
-	reflect "reflect"
 
 	awsutils "github.com/aws/amazon-vpc-cni-k8s/pkg/awsutils"
 	datastore "github.com/aws/amazon-vpc-cni-k8s/pkg/ipamd/datastore"
@@ -43,607 +42,437 @@ type MockAPIsMockRecorder struct {
 }
 
 // NewMockAPIs creates a new mock instance.
-func NewMockAPIs(ctrl *gomock.Controller) *MockAPIs {
-	mock := &MockAPIs{ctrl: ctrl}
-	mock.recorder = &MockAPIsMockRecorder{mock}
-	return mock
-}
+func NewMockAPIs(ctrl *gomock.Controller) *MockAPIs { _ = "STUB: not implemented"; return nil }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockAPIs) EXPECT() *MockAPIsMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// AllocENI mocks base method.
+	return nil
 }
 
-// AllocENI mocks base method.
 func (m *MockAPIs) AllocENI(arg0 context.Context, arg1 []*string, arg2 string, arg3, arg4 int) (string, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AllocENI", arg0, arg1, arg2, arg3, arg4)
-	ret0, _ := ret[0].(string)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // AllocENI indicates an expected call of AllocENI.
 func (mr *MockAPIsMockRecorder) AllocENI(arg0, arg1, arg2, arg3, arg4 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AllocENI", reflect.TypeOf((*MockAPIs)(nil).AllocENI), arg0, arg1, arg2, arg3, arg4)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // AllocIPAddress mocks base method.
 func (m *MockAPIs) AllocIPAddress(arg0 context.Context, arg1 string) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AllocIPAddress", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // AllocIPAddress indicates an expected call of AllocIPAddress.
 func (mr *MockAPIsMockRecorder) AllocIPAddress(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AllocIPAddress", reflect.TypeOf((*MockAPIs)(nil).AllocIPAddress), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // AllocIPAddresses mocks base method.
 func (m *MockAPIs) AllocIPAddresses(arg0 context.Context, arg1 string, arg2 int) (*ec2.AssignPrivateIpAddressesOutput, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AllocIPAddresses", arg0, arg1, arg2)
-	ret0, _ := ret[0].(*ec2.AssignPrivateIpAddressesOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // AllocIPAddresses indicates an expected call of AllocIPAddresses.
 func (mr *MockAPIsMockRecorder) AllocIPAddresses(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AllocIPAddresses", reflect.TypeOf((*MockAPIs)(nil).AllocIPAddresses), arg0, arg1, arg2)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // AllocIPv6Prefixes mocks base method.
 func (m *MockAPIs) AllocIPv6Prefixes(arg0 context.Context, arg1 string) ([]*string, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AllocIPv6Prefixes", arg0, arg1)
-	ret0, _ := ret[0].([]*string)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // AllocIPv6Prefixes indicates an expected call of AllocIPv6Prefixes.
 func (mr *MockAPIsMockRecorder) AllocIPv6Prefixes(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AllocIPv6Prefixes", reflect.TypeOf((*MockAPIs)(nil).AllocIPv6Prefixes), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DeallocIPAddresses mocks base method.
 func (m *MockAPIs) DeallocIPAddresses(arg0 context.Context, arg1 string, arg2 []string) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeallocIPAddresses", arg0, arg1, arg2)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DeallocIPAddresses indicates an expected call of DeallocIPAddresses.
 func (mr *MockAPIsMockRecorder) DeallocIPAddresses(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeallocIPAddresses", reflect.TypeOf((*MockAPIs)(nil).DeallocIPAddresses), arg0, arg1, arg2)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DeallocPrefixAddresses mocks base method.
 func (m *MockAPIs) DeallocPrefixAddresses(arg0 context.Context, arg1 string, arg2 []string) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeallocPrefixAddresses", arg0, arg1, arg2)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DeallocPrefixAddresses indicates an expected call of DeallocPrefixAddresses.
 func (mr *MockAPIsMockRecorder) DeallocPrefixAddresses(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeallocPrefixAddresses", reflect.TypeOf((*MockAPIs)(nil).DeallocPrefixAddresses), arg0, arg1, arg2)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DescribeAllENIs mocks base method.
 func (m *MockAPIs) DescribeAllENIs(arg0 context.Context) (awsutils.DescribeAllENIsResult, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DescribeAllENIs", arg0)
-	ret0, _ := ret[0].(awsutils.DescribeAllENIsResult)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return *new(awsutils.DescribeAllENIsResult), nil
 }
 
 // DescribeAllENIs indicates an expected call of DescribeAllENIs.
 func (mr *MockAPIsMockRecorder) DescribeAllENIs(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeAllENIs", reflect.TypeOf((*MockAPIs)(nil).DescribeAllENIs), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // FetchInstanceTypeLimits mocks base method.
 func (m *MockAPIs) FetchInstanceTypeLimits(arg0 context.Context) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "FetchInstanceTypeLimits", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // FetchInstanceTypeLimits indicates an expected call of FetchInstanceTypeLimits.
 func (mr *MockAPIsMockRecorder) FetchInstanceTypeLimits(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FetchInstanceTypeLimits", reflect.TypeOf((*MockAPIs)(nil).FetchInstanceTypeLimits), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // FreeENI mocks base method.
 func (m *MockAPIs) FreeENI(arg0 context.Context, arg1 string) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "FreeENI", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // FreeENI indicates an expected call of FreeENI.
 func (mr *MockAPIsMockRecorder) FreeENI(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FreeENI", reflect.TypeOf((*MockAPIs)(nil).FreeENI), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetAttachedENIs mocks base method.
 func (m *MockAPIs) GetAttachedENIs() ([]awsutils.ENIMetadata, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetAttachedENIs")
-	ret0, _ := ret[0].([]awsutils.ENIMetadata)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetAttachedENIs indicates an expected call of GetAttachedENIs.
 func (mr *MockAPIsMockRecorder) GetAttachedENIs() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAttachedENIs", reflect.TypeOf((*MockAPIs)(nil).GetAttachedENIs))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetENIIPv4Limit mocks base method.
-func (m *MockAPIs) GetENIIPv4Limit() int {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetENIIPv4Limit")
-	ret0, _ := ret[0].(int)
-	return ret0
-}
+func (m *MockAPIs) GetENIIPv4Limit() int { _ = "STUB: not implemented"; return 0 }
 
 // GetENIIPv4Limit indicates an expected call of GetENIIPv4Limit.
 func (mr *MockAPIsMockRecorder) GetENIIPv4Limit() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetENIIPv4Limit", reflect.TypeOf((*MockAPIs)(nil).GetENIIPv4Limit))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetENILimit mocks base method.
-func (m *MockAPIs) GetENILimit() int {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetENILimit")
-	ret0, _ := ret[0].(int)
-	return ret0
-}
+func (m *MockAPIs) GetENILimit() int { _ = "STUB: not implemented"; return 0 }
 
 // GetENILimit indicates an expected call of GetENILimit.
-func (mr *MockAPIsMockRecorder) GetENILimit() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetENILimit", reflect.TypeOf((*MockAPIs)(nil).GetENILimit))
-}
+func (mr *MockAPIsMockRecorder) GetENILimit() *gomock.Call { _ = "STUB: not implemented"; return nil }
 
 // GetENISubnetID mocks base method.
 func (m *MockAPIs) GetENISubnetID(arg0 context.Context, arg1 string) (string, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetENISubnetID", arg0, arg1)
-	ret0, _ := ret[0].(string)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 // GetENISubnetID indicates an expected call of GetENISubnetID.
 func (mr *MockAPIsMockRecorder) GetENISubnetID(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetENISubnetID", reflect.TypeOf((*MockAPIs)(nil).GetENISubnetID), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetIPv4PrefixesFromEC2 mocks base method.
 func (m *MockAPIs) GetIPv4PrefixesFromEC2(arg0 context.Context, arg1 string) ([]types.Ipv4PrefixSpecification, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetIPv4PrefixesFromEC2", arg0, arg1)
-	ret0, _ := ret[0].([]types.Ipv4PrefixSpecification)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetIPv4PrefixesFromEC2 indicates an expected call of GetIPv4PrefixesFromEC2.
 func (mr *MockAPIsMockRecorder) GetIPv4PrefixesFromEC2(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetIPv4PrefixesFromEC2", reflect.TypeOf((*MockAPIs)(nil).GetIPv4PrefixesFromEC2), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetIPv4sFromEC2 mocks base method.
 func (m *MockAPIs) GetIPv4sFromEC2(arg0 context.Context, arg1 string) ([]types.NetworkInterfacePrivateIpAddress, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetIPv4sFromEC2", arg0, arg1)
-	ret0, _ := ret[0].([]types.NetworkInterfacePrivateIpAddress)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetIPv4sFromEC2 indicates an expected call of GetIPv4sFromEC2.
 func (mr *MockAPIsMockRecorder) GetIPv4sFromEC2(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetIPv4sFromEC2", reflect.TypeOf((*MockAPIs)(nil).GetIPv4sFromEC2), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetIPv6PrefixesFromEC2 mocks base method.
 func (m *MockAPIs) GetIPv6PrefixesFromEC2(arg0 context.Context, arg1 string) ([]types.Ipv6PrefixSpecification, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetIPv6PrefixesFromEC2", arg0, arg1)
-	ret0, _ := ret[0].([]types.Ipv6PrefixSpecification)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetIPv6PrefixesFromEC2 indicates an expected call of GetIPv6PrefixesFromEC2.
 func (mr *MockAPIsMockRecorder) GetIPv6PrefixesFromEC2(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetIPv6PrefixesFromEC2", reflect.TypeOf((*MockAPIs)(nil).GetIPv6PrefixesFromEC2), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetInstanceHypervisorFamily mocks base method.
-func (m *MockAPIs) GetInstanceHypervisorFamily() string {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetInstanceHypervisorFamily")
-	ret0, _ := ret[0].(string)
-	return ret0
-}
+func (m *MockAPIs) GetInstanceHypervisorFamily() string { _ = "STUB: not implemented"; return "" }
 
 // GetInstanceHypervisorFamily indicates an expected call of GetInstanceHypervisorFamily.
 func (mr *MockAPIsMockRecorder) GetInstanceHypervisorFamily() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInstanceHypervisorFamily", reflect.TypeOf((*MockAPIs)(nil).GetInstanceHypervisorFamily))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetInstanceID mocks base method.
-func (m *MockAPIs) GetInstanceID() string {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetInstanceID")
-	ret0, _ := ret[0].(string)
-	return ret0
-}
+func (m *MockAPIs) GetInstanceID() string { _ = "STUB: not implemented"; return "" }
 
 // GetInstanceID indicates an expected call of GetInstanceID.
-func (mr *MockAPIsMockRecorder) GetInstanceID() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInstanceID", reflect.TypeOf((*MockAPIs)(nil).GetInstanceID))
-}
+func (mr *MockAPIsMockRecorder) GetInstanceID() *gomock.Call { _ = "STUB: not implemented"; return nil }
 
 // GetInstanceType mocks base method.
-func (m *MockAPIs) GetInstanceType() string {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetInstanceType")
-	ret0, _ := ret[0].(string)
-	return ret0
-}
+func (m *MockAPIs) GetInstanceType() string { _ = "STUB: not implemented"; return "" }
 
 // GetInstanceType indicates an expected call of GetInstanceType.
 func (mr *MockAPIsMockRecorder) GetInstanceType() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInstanceType", reflect.TypeOf((*MockAPIs)(nil).GetInstanceType))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetLocalIPv4 mocks base method.
-func (m *MockAPIs) GetLocalIPv4() net.IP {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetLocalIPv4")
-	ret0, _ := ret[0].(net.IP)
-	return ret0
-}
+func (m *MockAPIs) GetLocalIPv4() net.IP { _ = "STUB: not implemented"; return *new(net.IP) }
 
 // GetLocalIPv4 indicates an expected call of GetLocalIPv4.
-func (mr *MockAPIsMockRecorder) GetLocalIPv4() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLocalIPv4", reflect.TypeOf((*MockAPIs)(nil).GetLocalIPv4))
-}
+func (mr *MockAPIsMockRecorder) GetLocalIPv4() *gomock.Call { _ = "STUB: not implemented"; return nil }
 
 // GetLocalIPv6 mocks base method.
-func (m *MockAPIs) GetLocalIPv6() net.IP {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetLocalIPv6")
-	ret0, _ := ret[0].(net.IP)
-	return ret0
-}
+func (m *MockAPIs) GetLocalIPv6() net.IP { _ = "STUB: not implemented"; return *new(net.IP) }
 
 // GetLocalIPv6 indicates an expected call of GetLocalIPv6.
-func (mr *MockAPIsMockRecorder) GetLocalIPv6() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLocalIPv6", reflect.TypeOf((*MockAPIs)(nil).GetLocalIPv6))
-}
+func (mr *MockAPIsMockRecorder) GetLocalIPv6() *gomock.Call { _ = "STUB: not implemented"; return nil }
 
 // GetNetworkCards mocks base method.
-func (m *MockAPIs) GetNetworkCards() []vpc.NetworkCard {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetNetworkCards")
-	ret0, _ := ret[0].([]vpc.NetworkCard)
-	return ret0
-}
+func (m *MockAPIs) GetNetworkCards() []vpc.NetworkCard { _ = "STUB: not implemented"; return nil }
 
 // GetNetworkCards indicates an expected call of GetNetworkCards.
 func (mr *MockAPIsMockRecorder) GetNetworkCards() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetNetworkCards", reflect.TypeOf((*MockAPIs)(nil).GetNetworkCards))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetPrimaryENI mocks base method.
-func (m *MockAPIs) GetPrimaryENI() string {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetPrimaryENI")
-	ret0, _ := ret[0].(string)
-	return ret0
-}
+func (m *MockAPIs) GetPrimaryENI() string { _ = "STUB: not implemented"; return "" }
 
 // GetPrimaryENI indicates an expected call of GetPrimaryENI.
-func (mr *MockAPIsMockRecorder) GetPrimaryENI() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetPrimaryENI", reflect.TypeOf((*MockAPIs)(nil).GetPrimaryENI))
-}
+func (mr *MockAPIsMockRecorder) GetPrimaryENI() *gomock.Call { _ = "STUB: not implemented"; return nil }
 
 // GetPrimaryENImac mocks base method.
-func (m *MockAPIs) GetPrimaryENImac() string {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetPrimaryENImac")
-	ret0, _ := ret[0].(string)
-	return ret0
-}
+func (m *MockAPIs) GetPrimaryENImac() string { _ = "STUB: not implemented"; return "" }
 
 // GetPrimaryENImac indicates an expected call of GetPrimaryENImac.
 func (mr *MockAPIsMockRecorder) GetPrimaryENImac() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetPrimaryENImac", reflect.TypeOf((*MockAPIs)(nil).GetPrimaryENImac))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetVPCIPv4CIDRs mocks base method.
-func (m *MockAPIs) GetVPCIPv4CIDRs() ([]string, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetVPCIPv4CIDRs")
-	ret0, _ := ret[0].([]string)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
+func (m *MockAPIs) GetVPCIPv4CIDRs() ([]string, error) { _ = "STUB: not implemented"; return nil, nil }
 
 // GetVPCIPv4CIDRs indicates an expected call of GetVPCIPv4CIDRs.
 func (mr *MockAPIsMockRecorder) GetVPCIPv4CIDRs() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVPCIPv4CIDRs", reflect.TypeOf((*MockAPIs)(nil).GetVPCIPv4CIDRs))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetVPCIPv6CIDRs mocks base method.
-func (m *MockAPIs) GetVPCIPv6CIDRs() ([]string, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetVPCIPv6CIDRs")
-	ret0, _ := ret[0].([]string)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
+func (m *MockAPIs) GetVPCIPv6CIDRs() ([]string, error) { _ = "STUB: not implemented"; return nil, nil }
 
 // GetVPCIPv6CIDRs indicates an expected call of GetVPCIPv6CIDRs.
 func (mr *MockAPIsMockRecorder) GetVPCIPv6CIDRs() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVPCIPv6CIDRs", reflect.TypeOf((*MockAPIs)(nil).GetVPCIPv6CIDRs))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetVpcSubnets mocks base method.
 func (m *MockAPIs) GetVpcSubnets(arg0 context.Context) ([]types.Subnet, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetVpcSubnets", arg0)
-	ret0, _ := ret[0].([]types.Subnet)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetVpcSubnets indicates an expected call of GetVpcSubnets.
 func (mr *MockAPIsMockRecorder) GetVpcSubnets(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetVpcSubnets", reflect.TypeOf((*MockAPIs)(nil).GetVpcSubnets), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // InitCachedPrefixDelegation mocks base method.
-func (m *MockAPIs) InitCachedPrefixDelegation(arg0 bool) {
-	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "InitCachedPrefixDelegation", arg0)
-}
+func (m *MockAPIs) InitCachedPrefixDelegation(arg0 bool) { _ = "STUB: not implemented"; return }
 
 // InitCachedPrefixDelegation indicates an expected call of InitCachedPrefixDelegation.
 func (mr *MockAPIsMockRecorder) InitCachedPrefixDelegation(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "InitCachedPrefixDelegation", reflect.TypeOf((*MockAPIs)(nil).InitCachedPrefixDelegation), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // IsTrunkingCompatible mocks base method.
-func (m *MockAPIs) IsTrunkingCompatible() bool {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "IsTrunkingCompatible")
-	ret0, _ := ret[0].(bool)
-	return ret0
-}
+func (m *MockAPIs) IsTrunkingCompatible() bool { _ = "STUB: not implemented"; return false }
 
 // IsTrunkingCompatible indicates an expected call of IsTrunkingCompatible.
 func (mr *MockAPIsMockRecorder) IsTrunkingCompatible() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IsTrunkingCompatible", reflect.TypeOf((*MockAPIs)(nil).IsTrunkingCompatible))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // IsEfaOnlyENI mocks base method.
 func (m *MockAPIs) IsEfaOnlyENI(arg0 int, arg1 string) bool {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "IsEfaOnlyENI", arg0, arg1)
-	ret0, _ := ret[0].(bool)
-	return ret0
+	_ = "STUB: not implemented"
+	return false
 }
 
 // IsEfaOnlyENI indicates an expected call of IsEfaOnlyENI.
 func (mr *MockAPIsMockRecorder) IsEfaOnlyENI(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IsEfaOnlyENI", reflect.TypeOf((*MockAPIs)(nil).IsEfaOnlyENI), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // IsPrefixDelegationSupported mocks base method.
-func (m *MockAPIs) IsPrefixDelegationSupported() bool {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "IsPrefixDelegationSupported")
-	ret0, _ := ret[0].(bool)
-	return ret0
-}
+func (m *MockAPIs) IsPrefixDelegationSupported() bool { _ = "STUB: not implemented"; return false }
 
 // IsPrefixDelegationSupported indicates an expected call of IsPrefixDelegationSupported.
 func (mr *MockAPIsMockRecorder) IsPrefixDelegationSupported() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IsPrefixDelegationSupported", reflect.TypeOf((*MockAPIs)(nil).IsPrefixDelegationSupported))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // IsPrimaryENI mocks base method.
-func (m *MockAPIs) IsPrimaryENI(arg0 string) bool {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "IsPrimaryENI", arg0)
-	ret0, _ := ret[0].(bool)
-	return ret0
-}
+func (m *MockAPIs) IsPrimaryENI(arg0 string) bool { _ = "STUB: not implemented"; return false }
 
 // IsPrimaryENI indicates an expected call of IsPrimaryENI.
 func (mr *MockAPIsMockRecorder) IsPrimaryENI(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IsPrimaryENI", reflect.TypeOf((*MockAPIs)(nil).IsPrimaryENI), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // IsSubnetExcluded mocks base method.
 func (m *MockAPIs) IsSubnetExcluded(arg0 context.Context, arg1 string) (bool, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "IsSubnetExcluded", arg0, arg1)
-	ret0, _ := ret[0].(bool)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
 // IsSubnetExcluded indicates an expected call of IsSubnetExcluded.
 func (mr *MockAPIsMockRecorder) IsSubnetExcluded(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IsSubnetExcluded", reflect.TypeOf((*MockAPIs)(nil).IsSubnetExcluded), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // IsUnmanagedENI mocks base method.
-func (m *MockAPIs) IsUnmanagedENI(arg0 string) bool {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "IsUnmanagedENI", arg0)
-	ret0, _ := ret[0].(bool)
-	return ret0
-}
+func (m *MockAPIs) IsUnmanagedENI(arg0 string) bool { _ = "STUB: not implemented"; return false }
 
 // IsUnmanagedENI indicates an expected call of IsUnmanagedENI.
 func (mr *MockAPIsMockRecorder) IsUnmanagedENI(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IsUnmanagedENI", reflect.TypeOf((*MockAPIs)(nil).IsUnmanagedENI), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // IsUnmanagedNIC mocks base method.
-func (m *MockAPIs) IsUnmanagedNIC(arg0 int) bool {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "IsUnmanagedNIC", arg0)
-	ret0, _ := ret[0].(bool)
-	return ret0
-}
+func (m *MockAPIs) IsUnmanagedNIC(arg0 int) bool { _ = "STUB: not implemented"; return false }
 
 // IsUnmanagedNIC indicates an expected call of IsUnmanagedNIC.
 func (mr *MockAPIsMockRecorder) IsUnmanagedNIC(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IsUnmanagedNIC", reflect.TypeOf((*MockAPIs)(nil).IsUnmanagedNIC), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // RefreshCustomSGIDs mocks base method.
 func (m *MockAPIs) RefreshCustomSGIDs(arg0 context.Context, arg1 *datastore.DataStoreAccess) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RefreshCustomSGIDs", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // RefreshCustomSGIDs indicates an expected call of RefreshCustomSGIDs.
 func (mr *MockAPIsMockRecorder) RefreshCustomSGIDs(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RefreshCustomSGIDs", reflect.TypeOf((*MockAPIs)(nil).RefreshCustomSGIDs), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // RefreshSGIDs mocks base method.
 func (m *MockAPIs) RefreshSGIDs(arg0 context.Context, arg1 string, arg2 *datastore.DataStoreAccess) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RefreshSGIDs", arg0, arg1, arg2)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // RefreshSGIDs indicates an expected call of RefreshSGIDs.
 func (mr *MockAPIsMockRecorder) RefreshSGIDs(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RefreshSGIDs", reflect.TypeOf((*MockAPIs)(nil).RefreshSGIDs), arg0, arg1, arg2)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetEFAOnlyENIs mocks base method.
-func (m *MockAPIs) SetEFAOnlyENIs(arg0 []string) {
-	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "SetEFAOnlyENIs", arg0)
-}
+func (m *MockAPIs) SetEFAOnlyENIs(arg0 []string) { _ = "STUB: not implemented"; return }
 
 // SetEFAOnlyENIs indicates an expected call of SetEFAOnlyENIs.
 func (mr *MockAPIsMockRecorder) SetEFAOnlyENIs(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetEFAOnlyENIs", reflect.TypeOf((*MockAPIs)(nil).SetEFAOnlyENIs), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetUnmanagedENIs mocks base method.
-func (m *MockAPIs) SetUnmanagedENIs(arg0 []string) {
-	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "SetUnmanagedENIs", arg0)
-}
+func (m *MockAPIs) SetUnmanagedENIs(arg0 []string) { _ = "STUB: not implemented"; return }
 
 // SetUnmanagedENIs indicates an expected call of SetUnmanagedENIs.
 func (mr *MockAPIsMockRecorder) SetUnmanagedENIs(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetUnmanagedENIs", reflect.TypeOf((*MockAPIs)(nil).SetUnmanagedENIs), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetUnmanagedNetworkCards mocks base method.
-func (m *MockAPIs) SetUnmanagedNetworkCards(arg0 []bool) {
-	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "SetUnmanagedNetworkCards", arg0)
-}
+func (m *MockAPIs) SetUnmanagedNetworkCards(arg0 []bool) { _ = "STUB: not implemented"; return }
 
 // SetUnmanagedNetworkCards indicates an expected call of SetUnmanagedNetworkCards.
 func (mr *MockAPIsMockRecorder) SetUnmanagedNetworkCards(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetUnmanagedNetworkCards", reflect.TypeOf((*MockAPIs)(nil).SetUnmanagedNetworkCards), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // TagENI mocks base method.
 func (m *MockAPIs) TagENI(arg0 context.Context, arg1 string, arg2 map[string]string) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "TagENI", arg0, arg1, arg2)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // TagENI indicates an expected call of TagENI.
 func (mr *MockAPIsMockRecorder) TagENI(arg0, arg1, arg2 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TagENI", reflect.TypeOf((*MockAPIs)(nil).TagENI), arg0, arg1, arg2)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WaitForENIAndIPsAttached mocks base method.
 func (m *MockAPIs) WaitForENIAndIPsAttached(arg0 string, arg1 int) (awsutils.ENIMetadata, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "WaitForENIAndIPsAttached", arg0, arg1)
-	ret0, _ := ret[0].(awsutils.ENIMetadata)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return *new(awsutils.ENIMetadata), nil
 }
 
 // WaitForENIAndIPsAttached indicates an expected call of WaitForENIAndIPsAttached.
 func (mr *MockAPIsMockRecorder) WaitForENIAndIPsAttached(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "WaitForENIAndIPsAttached", reflect.TypeOf((*MockAPIs)(nil).WaitForENIAndIPsAttached), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }

@@ -15,7 +15,6 @@
 package main
 
 import (
-	"errors"
 	"flag"
 	"fmt"
 	"net"
@@ -23,9 +22,6 @@ import (
 	"time"
 
 	"github.com/aws/amazon-vpc-cni-k8s/pkg/netlinkwrapper"
-	"github.com/google/gopacket"
-	"github.com/google/gopacket/layers"
-	"github.com/google/gopacket/pcap"
 	"github.com/vishvananda/netlink"
 )
 
@@ -198,92 +194,28 @@ func main() {
 
 // monitorPacketOnInterfaces invokes monitorPackets for each interface
 func monitorPacketOnInterfaces(ipToMonitor net.IP, vlanIDToMonitor int, enis []eniConfig) error {
-
-	for _, iface := range enis {
-		fmt.Printf("Verifying interface: %+v\n", iface)
-		err := monitorPackets(ipToMonitor, vlanIDToMonitor, iface)
-		if err != nil {
-			return err
-		}
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // monitorPackets monitors the packets on the interfaces
 func monitorPackets(ipToMonitor net.IP, vlanIDToMonitor int, iface eniConfig) error {
-	handle, err := pcap.OpenLive(iface.name, snapshotLen, promiscuous, timeout)
-	if err != nil {
-		return err
-	}
-	defer handle.Close()
-	var srcPacketsProcessed int
-	var dstPacketsProcessed int
-
-	// Use the handle as a packet source to process all packets
-	packetSource := gopacket.NewPacketSource(handle, handle.LinkType())
-	for packet := range packetSource.Packets() {
-		fmt.Printf("packet: %v\n", packet)
-
-		network := packet.Layer(layers.LayerTypeIPv4)
-		if network != nil {
-			srcIP := net.ParseIP(packet.NetworkLayer().NetworkFlow().Src().String())
-			dstIP := net.ParseIP(packet.NetworkLayer().NetworkFlow().Dst().String())
-
-			if iface.shouldCheckSrc && srcIP.Equal(ipToMonitor) && dstIP.Equal(ipToMonitor) {
-				fmt.Printf("Src/Dst is different. Src %s Dst %s\n", packet.NetworkLayer().NetworkFlow().Src(),
-					packet.NetworkLayer().NetworkFlow().Dst())
-				return errors.New("SRC/Dst is different")
-			}
-
-			// Verify vlan tag (on ENIs we could see other IP pkts as well)
-			if srcIP.Equal(ipToMonitor) || dstIP.Equal(ipToMonitor) {
-				if iface.shouldVerifyVlanTag {
-
-					dot1QPkt := packet.Layer(layers.LayerTypeDot1Q)
-					if dot1QPkt == nil {
-						fmt.Printf("vlan packet not found when expected.\n")
-						return errors.New("vlan packet not found when expected")
-					}
-
-					dot1Q, _ := dot1QPkt.(*layers.Dot1Q)
-					if dot1Q.VLANIdentifier != uint16(vlanIDToMonitor) {
-						fmt.Printf("VlanIDs are different. expected %d but found %d\n", vlanIDToMonitor, dot1Q.VLANIdentifier)
-						return errors.New("vlanIDs are different")
-					}
-				}
-
-				/*icmpPkt := packet.Layer(layers.LayerTypeICMPv4)
-				if icmpPkt != nil {
-					icmpData, _ := icmpPkt.(*layers.ICMPv4)
-					log.Infof("Icmp packet sequence: %d", icmpData.Seq)
-				}*/
-
-				if srcIP.Equal(ipToMonitor) {
-					fmt.Printf("Source pkt is verified on the iface %s\n", iface.name)
-					srcPacketsProcessed++
-				} else {
-					fmt.Printf("Dst pkt is verified on the iface %s\n", iface.name)
-					dstPacketsProcessed++
-				}
-
-				if srcPacketsProcessed >= 5 && dstPacketsProcessed >= 5 {
-					break
-				}
-			}
-		}
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// Use the handle as a packet source to process all packets
+
+// Verify vlan tag (on ENIs we could see other IP pkts as well)
+
+/*icmpPkt := packet.Layer(layers.LayerTypeICMPv4)
+if icmpPkt != nil {
+	icmpData, _ := icmpPkt.(*layers.ICMPv4)
+	log.Infof("Icmp packet sequence: %d", icmpData.Seq)
+}*/
+
 // printVersion prints the binary version to stderr.
-func printVersion() {
-	fmt.Fprintf(os.Stderr, "%s v%s\n", shortDescription, version)
-}
+func printVersion() { _ = "STUB: not implemented"; return }
 
 // printUsage prints usage information to stderr.
-func printUsage() {
-	printVersion()
-	fmt.Fprintln(os.Stderr, longDescription+"\n")
-	flag.PrintDefaults()
-}
+func printUsage() { _ = "STUB: not implemented"; return }

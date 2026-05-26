@@ -17,14 +17,7 @@ package main
 import (
 	"os"
 
-	"github.com/aws/amazon-vpc-cni-k8s/pkg/netlinkwrapper"
 	"github.com/aws/amazon-vpc-cni-k8s/pkg/procsyswrapper"
-	"github.com/aws/amazon-vpc-cni-k8s/utils"
-	"github.com/aws/amazon-vpc-cni-k8s/utils/cp"
-	"github.com/aws/amazon-vpc-cni-k8s/utils/imds"
-
-	"github.com/pkg/errors"
-	log "github.com/sirupsen/logrus"
 )
 
 const (
@@ -41,147 +34,39 @@ const (
 	envEgressV6                 = "ENABLE_V6_EGRESS"
 )
 
-func getNodePrimaryIF() (string, error) {
-	var primaryIF string
-	primaryMAC, err := imds.GetMetaData("mac")
-	if err != nil {
-		return primaryIF, errors.Wrap(err, "Failed to get primary MAC from IMDS")
-	}
-	log.Infof("Found primaryMAC %s", primaryMAC)
-
-	nl := netlinkwrapper.NewNetLink()
-	links, err := nl.LinkList()
-	if err != nil {
-		return primaryIF, errors.Wrap(err, "Failed to list links")
-	}
-	for _, link := range links {
-		if link.Attrs().HardwareAddr.String() == primaryMAC {
-			primaryIF = link.Attrs().Name
-			break
-		}
-	}
-
-	if primaryIF == "" {
-		return primaryIF, errors.Wrap(err, "Failed to retrieve primary IF")
-	}
-	return primaryIF, nil
-}
+func getNodePrimaryIF() (string, error) { _ = "STUB: not implemented"; return "", nil }
 
 func configureSystemParams(procSys procsyswrapper.ProcSys, primaryIF string) error {
-	var err error
-	// Configure rp_filter in loose mode
-	entry := "net/ipv4/conf/" + primaryIF + "/rp_filter"
-	err = procSys.Set(entry, "2")
-	if err != nil {
-		return errors.Wrapf(err, "Failed to set rp_filter for %s", primaryIF)
-	}
-	val, _ := procSys.Get(entry)
-	log.Infof("Updated %s to %s", entry, val)
+	_ = "STUB: not implemented"
 
-	// Enable or disable TCP early demux based on environment variable
-	// Note that older kernels may not support tcp_early_demux, so we must first check that it exists.
-	entry = "net/ipv4/tcp_early_demux"
-	if _, err := procSys.Get(entry); err == nil {
-		disableIPv4EarlyDemux := utils.GetBoolAsStringEnvVar(envDisableIPv4TcpEarlyDemux, defaultDisableIPv4TcpEarlyDemux)
-		if disableIPv4EarlyDemux {
-			err = procSys.Set(entry, "0")
-			if err != nil {
-				return errors.Wrap(err, "Failed to disable tcp_early_demux")
-			}
-		} else {
-			err = procSys.Set(entry, "1")
-			if err != nil {
-				return errors.Wrap(err, "Failed to enable tcp_early_demux")
-			}
-		}
-		val, _ = procSys.Get(entry)
-		log.Infof("Updated %s to %s", entry, val)
-	}
+	// Configure rp_filter in loose mode
 	return nil
 }
+
+// Enable or disable TCP early demux based on environment variable
+// Note that older kernels may not support tcp_early_demux, so we must first check that it exists.
 
 func configureIPv6Settings(procSys procsyswrapper.ProcSys, primaryIF string) error {
-	var err error
+	_ = "STUB: not implemented"
+
 	// Enable IPv6 when environment variable is set
 	// Note that IPv6 is not disabled when environment variable is unset. This is omitted to preserve default host semantics.
-	enableIPv6 := utils.GetBoolAsStringEnvVar(envEnableIPv6, defaultEnableIPv6)
-	if enableIPv6 {
-		entry := "net/ipv6/conf/all/disable_ipv6"
-		err = procSys.Set(entry, "0")
-		if err != nil {
-			return errors.Wrap(err, "Failed to set disable_ipv6 to 0")
-		}
-		val, _ := procSys.Get(entry)
-		log.Infof("Updated %s to %s", entry, val)
-	}
-	// Check if IPv6 egress support is enabled in IPv4 cluster.
-	ipv6EgressEnabled := utils.GetBoolAsStringEnvVar(envEgressV6, defaultEnableIPv6Egress)
-	if enableIPv6 || ipv6EgressEnabled {
-		// Enable IPv6 forwarding on all interfaces by default
-		entry := "net/ipv6/conf/all/forwarding"
-		err = procSys.Set(entry, "1")
-		if err != nil {
-			return errors.Wrap(err, "Failed to enable IPv6 forwarding")
-		}
-		val, _ := procSys.Get(entry)
-		log.Infof("Updated %s to %s", entry, val)
-
-		// For the primary ENI in IPv6, sysctls are set to:
-		// 1. forwarding=1
-		// 2. accept_ra=2
-		// 3. accept_redirects=1
-		entry = "net/ipv6/conf/" + primaryIF + "/accept_ra"
-		err = procSys.Set(entry, "2")
-		if err != nil {
-			return errors.Wrap(err, "Failed to enable IPv6 accept_ra on primary ENI")
-		}
-		val, _ = procSys.Get(entry)
-		log.Infof("Updated %s to %s", entry, val)
-	}
 	return nil
 }
+
+// Check if IPv6 egress support is enabled in IPv4 cluster.
+
+// Enable IPv6 forwarding on all interfaces by default
+
+// For the primary ENI in IPv6, sysctls are set to:
+// 1. forwarding=1
+// 2. accept_ra=2
+// 3. accept_redirects=1
 
 func main() {
 	os.Exit(_main())
 }
 
-func _main() int {
-	log.Debug("Started Initialization")
-	var err error
+func _main() int { _ = "STUB: not implemented"; return 0 }
 
-	log.Infof("Copying CNI plugin binaries ...")
-	hostCNIBinPath := utils.GetEnv(envHostCniBinPath, defaultHostCNIBinPath)
-	excludeBins := map[string]bool{"aws-vpc-cni-init": true}
-	// Copy all binaries from workdir to host bin dir except container init binary
-	err = cp.InstallBinariesFromDir(".", hostCNIBinPath, excludeBins)
-	if err != nil {
-		log.WithError(err).Errorf("Failed to install binaries")
-		return 1
-	}
-	log.Infof("Copied all CNI plugin binaries to %s", hostCNIBinPath)
-
-	var primaryIF string
-	primaryIF, err = getNodePrimaryIF()
-	if err != nil {
-		log.WithError(err).Errorf("Failed to get primary IF")
-		return 1
-	}
-	log.Infof("Found primaryIF %s", primaryIF)
-
-	procSys := procsyswrapper.NewProcSys()
-	err = configureSystemParams(procSys, primaryIF)
-	if err != nil {
-		log.WithError(err).Errorf("Failed to configure system parameters")
-		return 1
-	}
-
-	err = configureIPv6Settings(procSys, primaryIF)
-	if err != nil {
-		log.WithError(err).Errorf("Failed to configure IPv6 settings")
-		return 1
-	}
-
-	log.Infof("CNI init container done")
-
-	return 0
-}
+// Copy all binaries from workdir to host bin dir except container init binary

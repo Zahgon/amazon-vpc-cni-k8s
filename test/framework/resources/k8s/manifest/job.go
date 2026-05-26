@@ -14,12 +14,8 @@
 package manifest
 
 import (
-	"github.com/aws/aws-sdk-go-v2/aws"
 	batchV1 "k8s.io/api/batch/v1"
 	v1 "k8s.io/api/core/v1"
-	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-
-	"github.com/aws/amazon-vpc-cni-k8s/test/framework/utils"
 )
 
 type JobBuilder struct {
@@ -34,85 +30,42 @@ type JobBuilder struct {
 	nodeSelector           map[string]string
 }
 
-func NewDefaultJobBuilder() *JobBuilder {
-	return &JobBuilder{
-		namespace:              utils.DefaultTestNamespace,
-		name:                   "test-job",
-		parallelism:            1,
-		terminationGracePeriod: 1,
-		labels:                 map[string]string{},
-		nodeSelector:           map[string]string{"kubernetes.io/os": "linux"},
-	}
-}
+func NewDefaultJobBuilder() *JobBuilder { _ = "STUB: not implemented"; return nil }
 
-func (j *JobBuilder) Name(name string) *JobBuilder {
-	j.name = name
-	return j
-}
+func (j *JobBuilder) Name(name string) *JobBuilder { _ = "STUB: not implemented"; return nil }
 
 func (j *JobBuilder) NodeSelector(selectorKey string, selectorVal string) *JobBuilder {
-	if selectorKey != "" {
-		j.nodeSelector[selectorKey] = selectorVal
-	}
-	return j
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (j *JobBuilder) Namespace(namespace string) *JobBuilder {
-	j.namespace = namespace
-	return j
-}
+func (j *JobBuilder) Namespace(namespace string) *JobBuilder { _ = "STUB: not implemented"; return nil }
 
 func (j *JobBuilder) Container(container v1.Container) *JobBuilder {
-	j.container = container
-	return j
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (j *JobBuilder) PodLabels(labelKey string, labelVal string) *JobBuilder {
-	j.labels[labelKey] = labelVal
-	return j
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (j *JobBuilder) TerminationGracePeriod(terminationGracePeriod int) *JobBuilder {
-	j.terminationGracePeriod = terminationGracePeriod
-	return j
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (j *JobBuilder) NodeName(nodeName string) *JobBuilder {
-	j.nodeName = nodeName
-	return j
-}
+func (j *JobBuilder) NodeName(nodeName string) *JobBuilder { _ = "STUB: not implemented"; return nil }
 
 func (j *JobBuilder) Parallelism(parallelism int) *JobBuilder {
-	j.parallelism = parallelism
-	return j
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (j *JobBuilder) HostNetwork(hostNetwork bool) *JobBuilder {
-	j.hostNetwork = hostNetwork
-	return j
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (j *JobBuilder) Build() *batchV1.Job {
-	return &batchV1.Job{
-		ObjectMeta: metaV1.ObjectMeta{
-			Name:      j.name,
-			Namespace: j.namespace,
-		},
-		Spec: batchV1.JobSpec{
-			Parallelism: aws.Int32(int32(j.parallelism)),
-			Template: v1.PodTemplateSpec{
-				ObjectMeta: metaV1.ObjectMeta{
-					Labels: j.labels,
-				},
-				Spec: v1.PodSpec{
-					HostNetwork:                   j.hostNetwork,
-					Containers:                    []v1.Container{j.container},
-					TerminationGracePeriodSeconds: aws.Int64(int64(j.terminationGracePeriod)),
-					RestartPolicy:                 v1.RestartPolicyNever,
-					NodeName:                      j.nodeName,
-					NodeSelector:                  j.nodeSelector,
-				},
-			},
-		},
-	}
-}
+func (j *JobBuilder) Build() *batchV1.Job { _ = "STUB: not implemented"; return nil }

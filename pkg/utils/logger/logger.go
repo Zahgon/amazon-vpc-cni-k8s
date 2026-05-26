@@ -46,18 +46,7 @@ type Logger interface {
 }
 
 // Get returns an default instance of the zap logger
-func Get() Logger {
-	if log == nil {
-		logConfig := LoadLogConfig()
-		log = New(logConfig)
-		log.Info("Initialized new logger as an existing instance was not found")
-	}
-	return log
-}
+func Get() Logger { _ = "STUB: not implemented"; return *new(Logger) }
 
 // New logger initializes logger
-func New(inputLogConfig *Configuration) Logger {
-	log = inputLogConfig.newZapLogger()
-	log.Info("Constructed new logger instance")
-	return log
-}
+func New(inputLogConfig *Configuration) Logger { _ = "STUB: not implemented"; return *new(Logger) }

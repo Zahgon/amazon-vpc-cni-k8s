@@ -14,12 +14,9 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
 	"net"
 
 	"github.com/containernetworking/cni/pkg/types"
-	cniversion "github.com/containernetworking/cni/pkg/version"
 
 	"github.com/aws/amazon-vpc-cni-k8s/pkg/utils/logger"
 )
@@ -55,22 +52,6 @@ type NetConf struct {
 
 // LoadConf load stdin and parse to NetConf type, a new log instance is created based on conf settings
 func LoadConf(bytes []byte) (*NetConf, logger.Logger, error) {
-	conf := &NetConf{}
-
-	if err := json.Unmarshal(bytes, conf); err != nil {
-		return nil, nil, err
-	}
-
-	if conf.RawPrevResult != nil {
-		if err := cniversion.ParsePrevResult(&conf.NetConf); err != nil {
-			return nil, nil, fmt.Errorf("could not parse prevResult: %v", err)
-		}
-	}
-
-	logConfig := logger.Configuration{
-		LogLevel:    conf.PluginLogLevel,
-		LogLocation: conf.PluginLogFile,
-	}
-	log := logger.New(&logConfig)
-	return conf, log, nil
+	_ = "STUB: not implemented"
+	return nil, *new(logger.Logger), nil
 }

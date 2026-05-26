@@ -14,12 +14,7 @@
 package utils
 
 import (
-	"strings"
-
 	v1 "k8s.io/api/core/v1"
 )
 
-func GetInstanceIDFromNode(node v1.Node) string {
-	id := strings.Split(node.Spec.ProviderID, "/")
-	return id[len(id)-1]
-}
+func GetInstanceIDFromNode(node v1.Node) string { _ = "STUB: not implemented"; return "" }

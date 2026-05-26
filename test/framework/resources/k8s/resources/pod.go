@@ -14,22 +14,12 @@
 package resources
 
 import (
-	"bytes"
 	"context"
-	"fmt"
-	"net/http"
-	"time"
-
-	"github.com/aws/amazon-vpc-cni-k8s/test/framework/utils"
-	"k8s.io/apimachinery/pkg/api/errors"
-	"k8s.io/apimachinery/pkg/util/wait"
 
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
-	"k8s.io/client-go/tools/remotecommand"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -57,195 +47,66 @@ type defaultPodManager struct {
 }
 
 func NewDefaultPodManager(k8sClient client.Client, k8sClientset *kubernetes.Clientset, k8sSchema *runtime.Scheme, config *rest.Config) PodManager {
-	return &defaultPodManager{
-		k8sClient:    k8sClient,
-		k8sClientset: k8sClientset,
-		k8sSchema:    k8sSchema,
-		config:       config,
-	}
+	_ = "STUB: not implemented"
+	return *new(PodManager)
 }
 
 func (d *defaultPodManager) CreateAndWaitTillRunning(pod *v1.Pod) (*v1.Pod, error) {
-	err := d.k8sClient.Create(context.Background(), pod)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create pod: %v", err)
-	}
-	// Allow the cache to sync
-	time.Sleep(utils.PollIntervalShort)
-
-	observedPod := &v1.Pod{}
-	err = wait.PollImmediate(utils.PollIntervalShort, time.Second*120, func() (done bool, err error) {
-		err = d.k8sClient.Get(context.Background(), utils.NamespacedName(pod), observedPod)
-		if err != nil {
-			return true, err
-		}
-		if observedPod.Status.Phase == v1.PodRunning {
-			return true, nil
-		}
-		return false, nil
-	})
-
-	return observedPod, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
+// Allow the cache to sync
+
 func (d *defaultPodManager) GetPod(podNamespace string, podName string) (*v1.Pod, error) {
-	pod := &v1.Pod{}
-	return pod, d.k8sClient.Get(context.Background(),
-		types.NamespacedName{Name: podName, Namespace: podNamespace}, pod)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (d *defaultPodManager) CreateAndWaitTillPodCompleted(pod *v1.Pod) (*v1.Pod, error) {
-	err := d.k8sClient.Create(context.Background(), pod)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create pod: %v", err)
-	}
-	// Allow the cache to sync
-	time.Sleep(utils.PollIntervalShort)
-
-	observedPod := &v1.Pod{}
-	err = wait.PollImmediate(utils.PollIntervalShort, time.Second*120, func() (done bool, err error) {
-		err = d.k8sClient.Get(context.Background(), utils.NamespacedName(pod), observedPod)
-		if err != nil {
-			return true, err
-		}
-		if observedPod.Status.Phase == v1.PodSucceeded {
-			return true, nil
-		} else if observedPod.Status.Phase == v1.PodFailed {
-			return false, fmt.Errorf("pod failed to run")
-		}
-		return false, nil
-	})
-
-	return observedPod, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
+// Allow the cache to sync
+
 func (d *defaultPodManager) DeleteAndWaitTillPodDeleted(pod *v1.Pod) error {
-	err := d.k8sClient.Delete(context.Background(), pod)
-	if err != nil {
-		return err
-	}
-	observedPod := &v1.Pod{}
-	return wait.PollImmediate(utils.PollIntervalShort, time.Second*120, func() (done bool, err error) {
-		err = d.k8sClient.Get(context.Background(), utils.NamespacedName(pod), observedPod)
-		if err != nil {
-			if errors.IsNotFound(err) {
-				return true, nil
-			}
-			return true, err
-		}
-		return false, nil
-	})
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (d *defaultPodManager) WaitUntilPodRunning(ctx context.Context, pod *v1.Pod) error {
-	observedPod := &v1.Pod{}
-	return wait.PollImmediateUntil(utils.PollIntervalShort, func() (done bool, err error) {
-		if err := d.k8sClient.Get(ctx, utils.NamespacedName(pod), observedPod); err != nil {
-			return false, err
-		}
-		if observedPod.Status.Phase == v1.PodRunning {
-			return true, nil
-		}
-		return false, nil
-	}, ctx.Done())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (d *defaultPodManager) WaitUntilPodDeleted(ctx context.Context, pod *v1.Pod) error {
-	observedPod := &v1.Pod{}
-	return wait.PollImmediateUntil(utils.PollIntervalShort, func() (bool, error) {
-		if err := d.k8sClient.Get(ctx, utils.NamespacedName(pod), observedPod); err != nil {
-			if errors.IsNotFound(err) {
-				return true, nil
-			}
-			return false, err
-		}
-		return false, nil
-	}, ctx.Done())
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Use K8SClientset to return pod logs as a string
 func (d *defaultPodManager) PodLogs(namespace string, name string) (string, error) {
-	podLogOpts := v1.PodLogOptions{}
-	req := d.k8sClientset.CoreV1().Pods(namespace).GetLogs(name, &podLogOpts)
-
-	podLogs, err := req.Stream(context.Background())
-	if err != nil {
-		return "", err
-	}
-	defer podLogs.Close()
-
-	buf := new(bytes.Buffer)
-	buf.ReadFrom(podLogs)
-	return string(buf.Bytes()), err
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func (d *defaultPodManager) PodExec(namespace string, name string, command []string) (string, string, error) {
-	execOptions := &v1.PodExecOptions{
-		Stdout:  true,
-		Stderr:  true,
-		Command: command,
-	}
-
-	req := d.k8sClientset.CoreV1().RESTClient().Post().
-		Resource("pods").
-		Name(name).
-		Namespace(namespace).
-		SubResource("exec").
-		VersionedParams(execOptions, runtime.NewParameterCodec(d.k8sSchema))
-
-	exec, err := remotecommand.NewSPDYExecutor(d.config, http.MethodPost, req.URL())
-	if err != nil {
-		return "", "", err
-	}
-
-	var stdout, stderr bytes.Buffer
-	err = exec.Stream(remotecommand.StreamOptions{
-		Stdout: &stdout,
-		Stderr: &stderr,
-	})
-	return stdout.String(), stderr.String(), err
+	_ = "STUB: not implemented"
+	return "", "", nil
 }
 
 func (d *defaultPodManager) PodExecWithContainer(namespace string, name string, container string, command []string) (string, string, error) {
-	execOptions := &v1.PodExecOptions{
-		Container: container,
-		Stdout:    true,
-		Stderr:    true,
-		Command:   command,
-	}
-
-	req := d.k8sClientset.CoreV1().RESTClient().Post().
-		Resource("pods").
-		Name(name).
-		Namespace(namespace).
-		SubResource("exec").
-		VersionedParams(execOptions, runtime.NewParameterCodec(d.k8sSchema))
-
-	exec, err := remotecommand.NewSPDYExecutor(d.config, http.MethodPost, req.URL())
-	if err != nil {
-		return "", "", err
-	}
-
-	var stdout, stderr bytes.Buffer
-	err = exec.Stream(remotecommand.StreamOptions{
-		Stdout: &stdout,
-		Stderr: &stderr,
-	})
-	return stdout.String(), stderr.String(), err
+	_ = "STUB: not implemented"
+	return "", "", nil
 }
 
 func (d *defaultPodManager) GetPodsWithLabelSelector(labelKey string, labelVal string) (v1.PodList, error) {
-	ctx := context.Background()
-	podList := v1.PodList{}
-	err := d.k8sClient.List(ctx, &podList, client.MatchingLabels{
-		labelKey: labelVal,
-	})
-	return podList, err
+	_ = "STUB: not implemented"
+	return *new(v1.PodList), nil
 }
 
 func (d *defaultPodManager) GetPodsWithLabelSelectorMap(labels map[string]string) (v1.PodList, error) {
-	ctx := context.Background()
-	podList := v1.PodList{}
-	err := d.k8sClient.List(ctx, &podList, client.MatchingLabels(labels))
-	return podList, err
+	_ = "STUB: not implemented"
+	return *new(v1.PodList), nil
 }

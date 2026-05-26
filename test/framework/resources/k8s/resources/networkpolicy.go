@@ -1,8 +1,6 @@
 package resources
 
 import (
-	"context"
-
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -16,13 +14,16 @@ type defaultNetworkPolicyManager struct {
 }
 
 func NewNetworkPolicyManager(client client.Client) NetworkPolicyManager {
-	return &defaultNetworkPolicyManager{client}
+	_ = "STUB: not implemented"
+	return *new(NetworkPolicyManager)
 }
 
 func (d *defaultNetworkPolicyManager) CreateNetworkPolicy(networkPolicy client.Object) error {
-	return d.networkPolicyClient.Create(context.Background(), networkPolicy)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (d *defaultNetworkPolicyManager) DeleteNetworkPolicy(networkPolicy client.Object) error {
-	return d.networkPolicyClient.Delete(context.Background(), networkPolicy)
+	_ = "STUB: not implemented"
+	return nil
 }

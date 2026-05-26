@@ -13,147 +13,70 @@
 
 package mock_iptableswrapper
 
-import (
-	"fmt"
-	"reflect"
-	"slices"
-	"strings"
-
-	"github.com/pkg/errors"
-)
-
 type MockIptables struct {
 	// DataplaneState is a map from table name to chain name to slice of rulespecs
 	DataplaneState map[string]map[string][][]string
 }
 
-func NewMockIptables() *MockIptables {
-	return &MockIptables{DataplaneState: map[string]map[string][][]string{}}
-}
+func NewMockIptables() *MockIptables { _ = "STUB: not implemented"; return nil }
 
 func (ipt *MockIptables) Exists(table, chainName string, rulespec ...string) (bool, error) {
-	chain := ipt.DataplaneState[table][chainName]
-	for _, r := range chain {
-		if reflect.DeepEqual(rulespec, r) {
-			return true, nil
-		}
-	}
+	_ = "STUB: not implemented"
 	return false, nil
 }
 
 func (ipt *MockIptables) Insert(table, chain string, pos int, rulespec ...string) error {
-	if ipt.DataplaneState[table] == nil {
-		ipt.DataplaneState[table] = map[string][][]string{}
-	}
-	if len(ipt.DataplaneState[table][chain]) == pos-1 {
-		ipt.DataplaneState[table][chain] = append(ipt.DataplaneState[table][chain], rulespec)
-	} else {
-		ipt.DataplaneState[table][chain] = append(ipt.DataplaneState[table][chain][:pos], ipt.DataplaneState[table][chain][pos-1:]...)
-		ipt.DataplaneState[table][chain][pos] = rulespec
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ipt *MockIptables) Append(table, chain string, rulespec ...string) error {
-	if ipt.DataplaneState[table] == nil {
-		ipt.DataplaneState[table] = map[string][][]string{}
-	}
-	ipt.DataplaneState[table][chain] = append(ipt.DataplaneState[table][chain], rulespec)
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ipt *MockIptables) AppendUnique(table, chain string, rulespec ...string) error {
-	exists, err := ipt.Exists(table, chain, rulespec...)
-	if err != nil {
-		return err
-	}
-
-	if !exists {
-		return ipt.Append(table, chain, rulespec...)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ipt *MockIptables) Delete(table, chainName string, rulespec ...string) error {
-	chain := ipt.DataplaneState[table][chainName]
-	updatedChain := chain[:0]
-	found := false
-	for _, r := range chain {
-		if !found && reflect.DeepEqual(rulespec, r) {
-			found = true
-			continue
-		}
-		updatedChain = append(updatedChain, r)
-	}
-	if !found {
-		return errors.New("not found")
-	}
-	ipt.DataplaneState[table][chainName] = updatedChain
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ipt *MockIptables) List(table, chain string) ([]string, error) {
-	var chains []string
-	chainContents := ipt.DataplaneState[table][chain]
-	for _, ruleSpec := range chainContents {
-		if slices.Contains(ruleSpec, "-N") {
-			chains = append(chains, strings.Join(ruleSpec, " "))
-			continue
-		}
-		sanitizedRuleSpec := []string{"-A", chain}
-		for _, item := range ruleSpec {
-			if strings.Contains(item, " ") {
-				item = fmt.Sprintf("%q", item)
-			}
-			sanitizedRuleSpec = append(sanitizedRuleSpec, item)
-		}
-		chains = append(chains, strings.Join(sanitizedRuleSpec, " "))
-	}
-	return chains, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (ipt *MockIptables) NewChain(table, chain string) error {
-	exists, _ := ipt.ChainExists(table, chain)
-	if exists {
-		return errors.New("Chain already exists")
-	}
-	// Creating a new chain adds a -N chain rule to iptables
-	ipt.Append(table, chain, "-N", chain)
-	return nil
-}
+func (ipt *MockIptables) NewChain(table, chain string) error { _ = "STUB: not implemented"; return nil }
+
+// Creating a new chain adds a -N chain rule to iptables
 
 func (ipt *MockIptables) ClearChain(table, chain string) error {
+	_ = "STUB: not implemented"
 	return nil
 }
 
 func (ipt *MockIptables) DeleteChain(table, chain string) error {
+	_ = "STUB: not implemented"
 	// More than just the create chain rule
-	if len(ipt.DataplaneState[table][chain]) > 1 {
-		err := fmt.Sprintf("Chain %s is not empty", chain)
-		return errors.New(err)
-	}
-	delete(ipt.DataplaneState[table], chain)
 	return nil
 }
 
 func (ipt *MockIptables) ListChains(table string) ([]string, error) {
-	var chains []string
-	for chain := range ipt.DataplaneState[table] {
-		chains = append(chains, chain)
-	}
-	return chains, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (ipt *MockIptables) ChainExists(table, chain string) (bool, error) {
-	_, ok := ipt.DataplaneState[table][chain]
-	if ok {
-		return true, nil
-	}
+	_ = "STUB: not implemented"
 	return false, nil
 }
 
 func (ipt *MockIptables) HasRandomFully() bool {
+	_ = "STUB: not implemented"
 	// TODO: Work out how to write a test case for this
-	return true
+	return false
 }

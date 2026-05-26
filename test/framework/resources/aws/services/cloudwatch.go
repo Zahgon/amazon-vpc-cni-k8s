@@ -29,16 +29,14 @@ type defaultCloudWatch struct {
 	client *cloudwatch.Client
 }
 
-func NewCloudWatch(cfg aws.Config) CloudWatch {
-	return &defaultCloudWatch{
-		client: cloudwatch.NewFromConfig(cfg),
-	}
-}
+func NewCloudWatch(cfg aws.Config) CloudWatch { _ = "STUB: not implemented"; return *new(CloudWatch) }
 
 func (d *defaultCloudWatch) GetMetricStatistics(ctx context.Context, params *cloudwatch.GetMetricStatisticsInput, optFns ...func(*cloudwatch.Options)) (*cloudwatch.GetMetricStatisticsOutput, error) {
-	return d.client.GetMetricStatistics(ctx, params, optFns...)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (d *defaultCloudWatch) PutMetricData(ctx context.Context, params *cloudwatch.PutMetricDataInput, optFns ...func(*cloudwatch.Options)) (*cloudwatch.PutMetricDataOutput, error) {
-	return d.client.PutMetricData(ctx, params, optFns...)
+	_ = "STUB: not implemented"
+	return nil, nil
 }

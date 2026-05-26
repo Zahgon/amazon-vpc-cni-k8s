@@ -28,14 +28,14 @@ type RPC interface {
 type cniRPC struct{}
 
 // New returns a new RPC
-func New() RPC {
-	return &cniRPC{}
-}
+func New() RPC { _ = "STUB: not implemented"; return *new(RPC) }
 
 func (*cniRPC) NewCNIBackendClient(cc *grpc.ClientConn) rpc.CNIBackendClient {
-	return rpc.NewCNIBackendClient(cc)
+	_ = "STUB: not implemented"
+	return *new(rpc.CNIBackendClient)
 }
 
 func (*cniRPC) NewNPBackendClient(cc *grpc.ClientConn) rpc.NPBackendClient {
-	return rpc.NewNPBackendClient(cc)
+	_ = "STUB: not implemented"
+	return *new(rpc.NPBackendClient)
 }

@@ -19,8 +19,6 @@
 package mock_procsyswrapper
 
 import (
-	reflect "reflect"
-
 	gomock "github.com/golang/mock/gomock"
 )
 
@@ -36,42 +34,29 @@ type MockProcSysMockRecorder struct {
 }
 
 // NewMockProcSys creates a new mock instance.
-func NewMockProcSys(ctrl *gomock.Controller) *MockProcSys {
-	mock := &MockProcSys{ctrl: ctrl}
-	mock.recorder = &MockProcSysMockRecorder{mock}
-	return mock
-}
+func NewMockProcSys(ctrl *gomock.Controller) *MockProcSys { _ = "STUB: not implemented"; return nil }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockProcSys) EXPECT() *MockProcSysMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// Get mocks base method.
+	return nil
 }
 
-// Get mocks base method.
-func (m *MockProcSys) Get(arg0 string) (string, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Get", arg0)
-	ret0, _ := ret[0].(string)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
+func (m *MockProcSys) Get(arg0 string) (string, error) { _ = "STUB: not implemented"; return "", nil }
 
 // Get indicates an expected call of Get.
 func (mr *MockProcSysMockRecorder) Get(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockProcSys)(nil).Get), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Set mocks base method.
-func (m *MockProcSys) Set(arg0, arg1 string) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Set", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
+func (m *MockProcSys) Set(arg0, arg1 string) error { _ = "STUB: not implemented"; return nil }
 
 // Set indicates an expected call of Set.
 func (mr *MockProcSysMockRecorder) Set(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Set", reflect.TypeOf((*MockProcSys)(nil).Set), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }

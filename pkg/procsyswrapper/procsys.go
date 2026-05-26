@@ -14,10 +14,6 @@
 // Package procsyswrapper contains helper functions for doing /proc/sys calls
 package procsyswrapper
 
-import (
-	"os"
-)
-
 // ProcSys is the /proc/sys interface wrapper
 type ProcSys interface {
 	Get(key string) (string, error)
@@ -29,19 +25,10 @@ type procSys struct {
 }
 
 // NewProcSys returns a new ProcSys
-func NewProcSys() ProcSys {
-	return &procSys{prefix: "/proc/sys/"}
-}
+func NewProcSys() ProcSys { _ = "STUB: not implemented"; return *new(ProcSys) }
 
-func (p *procSys) path(key string) string {
-	return p.prefix + key
-}
+func (p *procSys) path(key string) string { _ = "STUB: not implemented"; return "" }
 
-func (p *procSys) Get(key string) (string, error) {
-	data, err := os.ReadFile(p.path(key))
-	return string(data), err
-}
+func (p *procSys) Get(key string) (string, error) { _ = "STUB: not implemented"; return "", nil }
 
-func (p *procSys) Set(key, value string) error {
-	return os.WriteFile(p.path(key), []byte(value), 0644)
-}
+func (p *procSys) Set(key, value string) error { _ = "STUB: not implemented"; return nil }

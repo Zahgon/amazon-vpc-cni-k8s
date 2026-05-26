@@ -40,6 +40,4 @@ type EC2 interface {
 }
 
 // New creates a new EC2 wrapper
-func New(cfg aws.Config) *ec2.Client {
-	return ec2.NewFromConfig(cfg)
-}
+func New(cfg aws.Config) *ec2.Client { _ = "STUB: not implemented"; return nil }

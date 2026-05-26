@@ -45,83 +45,40 @@ var log = logger.Get()
 
 func New(eniLimit int, ipv4Limit int, defaultNetworkCardIndex int, networkCards []NetworkCard,
 	hypervisorType string, isBareMetalInstance bool) InstanceTypeLimits {
-	return InstanceTypeLimits{
-		ENILimit:                eniLimit,
-		IPv4Limit:               ipv4Limit,
-		NetworkCards:            networkCards,
-		HypervisorType:          hypervisorType,
-		IsBareMetal:             isBareMetalInstance,
-		DefaultNetworkCardIndex: defaultNetworkCardIndex,
-	}
+	_ = "STUB: not implemented"
+	return *new(InstanceTypeLimits)
 }
 
-func GetENILimit(instanceType string) (int, error) {
-	instance, ok := GetInstance(instanceType)
-	if !ok {
-		log.Errorf("%s: %s", instanceType, ErrInstanceTypeNotExist)
-		return -1, ErrInstanceTypeNotExist
-	}
-	return instance.ENILimit, nil
-}
+func GetENILimit(instanceType string) (int, error) { _ = "STUB: not implemented"; return 0, nil }
 
-func GetIPv4Limit(instanceType string) (int, error) {
-	instance, ok := GetInstance(instanceType)
-	if !ok {
-		log.Errorf("%s: %s", instanceType, ErrInstanceTypeNotExist)
-		return -1, ErrInstanceTypeNotExist
-	}
-	return instance.IPv4Limit, nil
-}
+func GetIPv4Limit(instanceType string) (int, error) { _ = "STUB: not implemented"; return 0, nil }
 
 func GetDefaultNetworkCardIndex(instanceType string) (int, error) {
-	instance, ok := GetInstance(instanceType)
-	if !ok {
-		log.Errorf("%s: %s", instanceType, ErrInstanceTypeNotExist)
-		return -1, ErrInstanceTypeNotExist
-	}
-	return instance.DefaultNetworkCardIndex, nil
+	_ = "STUB: not implemented"
+	return 0, nil
 }
 
 func GetHypervisorType(instanceType string) (string, error) {
-	instance, ok := GetInstance(instanceType)
-	if !ok {
-		log.Errorf("%s: %s", instanceType, ErrInstanceTypeNotExist)
-		return "", ErrInstanceTypeNotExist
-	}
-	return string(instance.HypervisorType), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }
 
 func GetIsBareMetal(instanceType string) (bool, error) {
-	instance, ok := GetInstance(instanceType)
-	if !ok {
-		log.Errorf("%s: %s", instanceType, ErrInstanceTypeNotExist)
-		return false, ErrInstanceTypeNotExist
-	}
-	return instance.IsBareMetal, nil
+	_ = "STUB: not implemented"
+	return false, nil
 }
 
 func GetNetworkCards(instanceType string) ([]NetworkCard, error) {
-	instance, ok := GetInstance(instanceType)
-	if !ok {
-		log.Errorf("%s: %s", instanceType, ErrInstanceTypeNotExist)
-		return nil, ErrInstanceTypeNotExist
-	}
-	if len(instance.NetworkCards) < 1 {
-		log.Errorf("%s: %s", instanceType, ErrNoInfo)
-		return nil, ErrNoInfo
-	}
-	return instance.NetworkCards, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func GetInstance(instanceType string) (InstanceTypeLimits, bool) {
-	instance, ok := instanceNetworkingLimits[instanceType]
-	if !ok {
-		return InstanceTypeLimits{}, ok
-	}
-	return instance, ok
+	_ = "STUB: not implemented"
+	return *new(InstanceTypeLimits), false
 }
 
 func SetInstance(instanceType ec2types.InstanceType, eniLimit int, ipv4Limit int, defaultNetworkCardIndex int, networkCards []NetworkCard, hypervisorType ec2types.InstanceTypeHypervisor, isBareMetalInstance bool) {
-	instanceNetworkingLimits[string(instanceType)] = New(eniLimit, ipv4Limit, defaultNetworkCardIndex, networkCards,
-		string(hypervisorType), isBareMetalInstance)
+	_ = "STUB: not implemented"
+	return
 }

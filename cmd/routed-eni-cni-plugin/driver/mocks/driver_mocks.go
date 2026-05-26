@@ -19,8 +19,6 @@
 package mock_driver
 
 import (
-	reflect "reflect"
-
 	driver "github.com/aws/amazon-vpc-cni-k8s/cmd/routed-eni-cni-plugin/driver"
 	sgpp "github.com/aws/amazon-vpc-cni-k8s/pkg/sgpp"
 	logger "github.com/aws/amazon-vpc-cni-k8s/pkg/utils/logger"
@@ -40,68 +38,61 @@ type MockNetworkAPIsMockRecorder struct {
 
 // NewMockNetworkAPIs creates a new mock instance.
 func NewMockNetworkAPIs(ctrl *gomock.Controller) *MockNetworkAPIs {
-	mock := &MockNetworkAPIs{ctrl: ctrl}
-	mock.recorder = &MockNetworkAPIsMockRecorder{mock}
-	return mock
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockNetworkAPIs) EXPECT() *MockNetworkAPIsMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// SetupBranchENIPodNetwork mocks base method.
+	return nil
 }
 
-// SetupBranchENIPodNetwork mocks base method.
 func (m *MockNetworkAPIs) SetupBranchENIPodNetwork(arg0 driver.VirtualInterfaceMetadata, arg1 string, arg2 int, arg3, arg4 string, arg5, arg6 int, arg7 sgpp.EnforcingMode, arg8 logger.Logger) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SetupBranchENIPodNetwork", arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetupBranchENIPodNetwork indicates an expected call of SetupBranchENIPodNetwork.
 func (mr *MockNetworkAPIsMockRecorder) SetupBranchENIPodNetwork(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetupBranchENIPodNetwork", reflect.TypeOf((*MockNetworkAPIs)(nil).SetupBranchENIPodNetwork), arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetupPodNetwork mocks base method.
 func (m *MockNetworkAPIs) SetupPodNetwork(arg0 []driver.VirtualInterfaceMetadata, arg1 string, arg2 int, arg3 logger.Logger) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "SetupPodNetwork", arg0, arg1, arg2, arg3)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // SetupPodNetwork indicates an expected call of SetupPodNetwork.
 func (mr *MockNetworkAPIsMockRecorder) SetupPodNetwork(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetupPodNetwork", reflect.TypeOf((*MockNetworkAPIs)(nil).SetupPodNetwork), arg0, arg1, arg2, arg3)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // TeardownBranchENIPodNetwork mocks base method.
 func (m *MockNetworkAPIs) TeardownBranchENIPodNetwork(arg0 driver.VirtualInterfaceMetadata, arg1 int, arg2 sgpp.EnforcingMode, arg3 logger.Logger) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "TeardownBranchENIPodNetwork", arg0, arg1, arg2, arg3)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // TeardownBranchENIPodNetwork indicates an expected call of TeardownBranchENIPodNetwork.
 func (mr *MockNetworkAPIsMockRecorder) TeardownBranchENIPodNetwork(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TeardownBranchENIPodNetwork", reflect.TypeOf((*MockNetworkAPIs)(nil).TeardownBranchENIPodNetwork), arg0, arg1, arg2, arg3)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // TeardownPodNetwork mocks base method.
 func (m *MockNetworkAPIs) TeardownPodNetwork(arg0 []driver.VirtualInterfaceMetadata, arg1 logger.Logger) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "TeardownPodNetwork", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // TeardownPodNetwork indicates an expected call of TeardownPodNetwork.
 func (mr *MockNetworkAPIsMockRecorder) TeardownPodNetwork(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TeardownPodNetwork", reflect.TypeOf((*MockNetworkAPIs)(nil).TeardownPodNetwork), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }

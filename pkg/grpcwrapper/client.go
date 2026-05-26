@@ -29,14 +29,14 @@ type GRPC interface {
 type cniGRPC struct{}
 
 // New creates a new cniGRPC
-func New() GRPC {
-	return &cniGRPC{}
-}
+func New() GRPC { _ = "STUB: not implemented"; return *new(GRPC) }
 
 func (*cniGRPC) Dial(target string, opts ...google_grpc.DialOption) (*google_grpc.ClientConn, error) {
-	return google_grpc.Dial(target, opts...)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (*cniGRPC) DialContext(ctx context.Context, target string, opts ...google_grpc.DialOption) (*google_grpc.ClientConn, error) {
-	return google_grpc.DialContext(ctx, target, opts...)
+	_ = "STUB: not implemented"
+	return nil, nil
 }

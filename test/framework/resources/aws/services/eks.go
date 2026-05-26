@@ -17,9 +17,7 @@ import (
 	"context"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/eks"
-	"github.com/aws/aws-sdk-go-v2/service/eks/types"
 )
 
 type EKS interface {
@@ -46,88 +44,41 @@ type AddonInput struct {
 }
 
 func NewEKS(cfg aws.Config, endpoint string) (EKS, error) {
-	var err error
-	var customResolver aws.EndpointResolverWithOptions
-	if endpoint != "" {
-		// EKS Custom endpoint resolver needs PartitionID, SingingRegion and URL for handling STS requests.
-		// TODO: default to "aws" partition for now as it handled only tests. Provide option to pass partitionID.
-		customResolver = aws.EndpointResolverWithOptionsFunc(func(service, region string, options ...interface{}) (aws.Endpoint, error) {
-			if service == eks.ServiceID {
-				return aws.Endpoint{
-					PartitionID:   "aws",
-					URL:           endpoint,
-					SigningRegion: region,
-				}, nil
-			}
-			// Fallback to default endpoint resolution for non EKS Services.
-			return aws.Endpoint{}, &aws.EndpointNotFoundError{}
-		})
-		cfg, err = config.LoadDefaultConfig(context.Background(),
-			config.WithEndpointResolverWithOptions(customResolver),
-			config.WithRegion(cfg.Region),
-		)
-	} else {
-		cfg, err = config.LoadDefaultConfig(context.Background(),
-			config.WithRegion(cfg.Region),
-		)
-	}
-
-	if err != nil {
-		return &defaultEKS{}, err
-	}
-
-	return &defaultEKS{
-		client: eks.NewFromConfig(cfg),
-	}, nil
+	_ = "STUB: not implemented"
+	return *new(EKS), nil
 }
 
+// EKS Custom endpoint resolver needs PartitionID, SingingRegion and URL for handling STS requests.
+// TODO: default to "aws" partition for now as it handled only tests. Provide option to pass partitionID.
+
+// Fallback to default endpoint resolution for non EKS Services.
+
 func (d *defaultEKS) CreateAddon(ctx context.Context, addonInput AddonInput) (*eks.CreateAddonOutput, error) {
-	createAddonInput := &eks.CreateAddonInput{
-		AddonName:   aws.String(addonInput.AddonName),
-		ClusterName: aws.String(addonInput.ClusterName),
-	}
-	if addonInput.AddonVersion != "" {
-		createAddonInput.AddonVersion = aws.String(addonInput.AddonVersion)
-		createAddonInput.ResolveConflicts = types.ResolveConflictsOverwrite
-	}
-	return d.client.CreateAddon(ctx, createAddonInput)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (d *defaultEKS) DeleteAddon(ctx context.Context, addonInput AddonInput) (*eks.DeleteAddonOutput, error) {
-	deleteAddonInput := &eks.DeleteAddonInput{
-		AddonName:   aws.String(addonInput.AddonName),
-		ClusterName: aws.String(addonInput.ClusterName),
-	}
-	return d.client.DeleteAddon(ctx, deleteAddonInput)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (d *defaultEKS) DescribeAddonVersions(ctx context.Context, addonInput AddonInput) (*eks.DescribeAddonVersionsOutput, error) {
-	describeAddonVersionsInput := &eks.DescribeAddonVersionsInput{
-		AddonName:         aws.String(addonInput.AddonName),
-		KubernetesVersion: aws.String(addonInput.K8sVersion),
-	}
-	return d.client.DescribeAddonVersions(ctx, describeAddonVersionsInput)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (d *defaultEKS) DescribeAddon(ctx context.Context, addonInput AddonInput) (*eks.DescribeAddonOutput, error) {
-	describeAddonInput := &eks.DescribeAddonInput{
-		AddonName:   aws.String(addonInput.AddonName),
-		ClusterName: aws.String(addonInput.ClusterName),
-	}
-	return d.client.DescribeAddon(ctx, describeAddonInput)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (d *defaultEKS) DescribeCluster(ctx context.Context, clusterName string) (*eks.DescribeClusterOutput, error) {
-	describeClusterInput := &eks.DescribeClusterInput{
-		Name: aws.String(clusterName),
-	}
-	return d.client.DescribeCluster(ctx, describeClusterInput)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (d *defaultEKS) GetLatestVersion(ctx context.Context, addonInput AddonInput) (string, error) {
-	addonOutput, err := d.DescribeAddonVersions(ctx, addonInput)
-	if err != nil {
-		return "", err
-	}
-	return aws.ToString(addonOutput.Addons[0].AddonVersions[0].AddonVersion), nil
+	_ = "STUB: not implemented"
+	return "", nil
 }

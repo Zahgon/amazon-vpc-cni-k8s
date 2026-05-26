@@ -10,8 +10,6 @@ import (
 	context "context"
 
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
@@ -40,27 +38,18 @@ type cNIBackendClient struct {
 }
 
 func NewCNIBackendClient(cc grpc.ClientConnInterface) CNIBackendClient {
-	return &cNIBackendClient{cc}
+	_ = "STUB: not implemented"
+	return *new(CNIBackendClient)
 }
 
 func (c *cNIBackendClient) AddNetwork(ctx context.Context, in *AddNetworkRequest, opts ...grpc.CallOption) (*AddNetworkReply, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(AddNetworkReply)
-	err := c.cc.Invoke(ctx, CNIBackend_AddNetwork_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *cNIBackendClient) DelNetwork(ctx context.Context, in *DelNetworkRequest, opts ...grpc.CallOption) (*DelNetworkReply, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DelNetworkReply)
-	err := c.cc.Invoke(ctx, CNIBackend_DelNetwork_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // CNIBackendServer is the server API for CNIBackend service.
@@ -82,66 +71,49 @@ type CNIBackendServer interface {
 type UnimplementedCNIBackendServer struct{}
 
 func (UnimplementedCNIBackendServer) AddNetwork(context.Context, *AddNetworkRequest) (*AddNetworkReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddNetwork not implemented")
+	_ = "STUB: not implemented"
+	return nil, nil
 }
-func (UnimplementedCNIBackendServer) DelNetwork(context.Context, *DelNetworkRequest) (*DelNetworkReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DelNetwork not implemented")
-}
-func (UnimplementedCNIBackendServer) mustEmbedUnimplementedCNIBackendServer() {}
-func (UnimplementedCNIBackendServer) testEmbeddedByValue()                    {}
 
-// UnsafeCNIBackendServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to CNIBackendServer will
-// result in compilation errors.
+func (UnimplementedCNIBackendServer) DelNetwork(context.Context, *DelNetworkRequest) (*DelNetworkReply, error) {
+	_ = "STUB: not implemented"
+	return nil, nil
+}
+
+func (UnimplementedCNIBackendServer) mustEmbedUnimplementedCNIBackendServer() {
+	_ = "STUB: not implemented"
+	return
+}
+func (UnimplementedCNIBackendServer) testEmbeddedByValue() {
+	_ = "STUB: not implemented"
+
+	// UnsafeCNIBackendServer may be embedded to opt out of forward compatibility for this service.
+	// Use of this interface is not recommended, as added methods to CNIBackendServer will
+	// result in compilation errors.
+	return
+}
+
 type UnsafeCNIBackendServer interface {
 	mustEmbedUnimplementedCNIBackendServer()
 }
 
 func RegisterCNIBackendServer(s grpc.ServiceRegistrar, srv CNIBackendServer) {
+	_ = "STUB: not implemented"
 	// If the following call pancis, it indicates UnimplementedCNIBackendServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
-	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
-		t.testEmbeddedByValue()
-	}
-	s.RegisterService(&CNIBackend_ServiceDesc, srv)
+	return
 }
 
 func _CNIBackend_AddNetwork_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddNetworkRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CNIBackendServer).AddNetwork(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: CNIBackend_AddNetwork_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CNIBackendServer).AddNetwork(ctx, req.(*AddNetworkRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func _CNIBackend_DelNetwork_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DelNetworkRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CNIBackendServer).DelNetwork(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: CNIBackend_DelNetwork_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CNIBackendServer).DelNetwork(ctx, req.(*DelNetworkRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // CNIBackend_ServiceDesc is the grpc.ServiceDesc for CNIBackend service.
@@ -184,27 +156,18 @@ type nPBackendClient struct {
 }
 
 func NewNPBackendClient(cc grpc.ClientConnInterface) NPBackendClient {
-	return &nPBackendClient{cc}
+	_ = "STUB: not implemented"
+	return *new(NPBackendClient)
 }
 
 func (c *nPBackendClient) EnforceNpToPod(ctx context.Context, in *EnforceNpRequest, opts ...grpc.CallOption) (*EnforceNpReply, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(EnforceNpReply)
-	err := c.cc.Invoke(ctx, NPBackend_EnforceNpToPod_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (c *nPBackendClient) DeletePodNp(ctx context.Context, in *DeleteNpRequest, opts ...grpc.CallOption) (*DeleteNpReply, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DeleteNpReply)
-	err := c.cc.Invoke(ctx, NPBackend_DeletePodNp_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // NPBackendServer is the server API for NPBackend service.
@@ -226,66 +189,49 @@ type NPBackendServer interface {
 type UnimplementedNPBackendServer struct{}
 
 func (UnimplementedNPBackendServer) EnforceNpToPod(context.Context, *EnforceNpRequest) (*EnforceNpReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EnforceNpToPod not implemented")
+	_ = "STUB: not implemented"
+	return nil, nil
 }
-func (UnimplementedNPBackendServer) DeletePodNp(context.Context, *DeleteNpRequest) (*DeleteNpReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeletePodNp not implemented")
-}
-func (UnimplementedNPBackendServer) mustEmbedUnimplementedNPBackendServer() {}
-func (UnimplementedNPBackendServer) testEmbeddedByValue()                   {}
 
-// UnsafeNPBackendServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to NPBackendServer will
-// result in compilation errors.
+func (UnimplementedNPBackendServer) DeletePodNp(context.Context, *DeleteNpRequest) (*DeleteNpReply, error) {
+	_ = "STUB: not implemented"
+	return nil, nil
+}
+
+func (UnimplementedNPBackendServer) mustEmbedUnimplementedNPBackendServer() {
+	_ = "STUB: not implemented"
+	return
+}
+func (UnimplementedNPBackendServer) testEmbeddedByValue() {
+	_ = "STUB: not implemented"
+
+	// UnsafeNPBackendServer may be embedded to opt out of forward compatibility for this service.
+	// Use of this interface is not recommended, as added methods to NPBackendServer will
+	// result in compilation errors.
+	return
+}
+
 type UnsafeNPBackendServer interface {
 	mustEmbedUnimplementedNPBackendServer()
 }
 
 func RegisterNPBackendServer(s grpc.ServiceRegistrar, srv NPBackendServer) {
+	_ = "STUB: not implemented"
 	// If the following call pancis, it indicates UnimplementedNPBackendServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
-	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
-		t.testEmbeddedByValue()
-	}
-	s.RegisterService(&NPBackend_ServiceDesc, srv)
+	return
 }
 
 func _NPBackend_EnforceNpToPod_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EnforceNpRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(NPBackendServer).EnforceNpToPod(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: NPBackend_EnforceNpToPod_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NPBackendServer).EnforceNpToPod(ctx, req.(*EnforceNpRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func _NPBackend_DeletePodNp_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteNpRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(NPBackendServer).DeletePodNp(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: NPBackend_DeletePodNp_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NPBackendServer).DeletePodNp(ctx, req.(*DeleteNpRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // NPBackend_ServiceDesc is the grpc.ServiceDesc for NPBackend service.
@@ -326,17 +272,13 @@ type configServerBackendClient struct {
 }
 
 func NewConfigServerBackendClient(cc grpc.ClientConnInterface) ConfigServerBackendClient {
-	return &configServerBackendClient{cc}
+	_ = "STUB: not implemented"
+	return *new(ConfigServerBackendClient)
 }
 
 func (c *configServerBackendClient) GetNetworkPolicyConfigs(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*NetworkPolicyAgentConfigReply, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(NetworkPolicyAgentConfigReply)
-	err := c.cc.Invoke(ctx, ConfigServerBackend_GetNetworkPolicyConfigs_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // ConfigServerBackendServer is the server API for ConfigServerBackend service.
@@ -357,10 +299,18 @@ type ConfigServerBackendServer interface {
 type UnimplementedConfigServerBackendServer struct{}
 
 func (UnimplementedConfigServerBackendServer) GetNetworkPolicyConfigs(context.Context, *emptypb.Empty) (*NetworkPolicyAgentConfigReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetNetworkPolicyConfigs not implemented")
+	_ = "STUB: not implemented"
+	return nil, nil
 }
-func (UnimplementedConfigServerBackendServer) mustEmbedUnimplementedConfigServerBackendServer() {}
-func (UnimplementedConfigServerBackendServer) testEmbeddedByValue()                             {}
+
+func (UnimplementedConfigServerBackendServer) mustEmbedUnimplementedConfigServerBackendServer() {
+	_ = "STUB: not implemented"
+	return
+}
+func (UnimplementedConfigServerBackendServer) testEmbeddedByValue() {
+	_ = "STUB: not implemented"
+	return
+}
 
 // UnsafeConfigServerBackendServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to ConfigServerBackendServer will
@@ -370,32 +320,17 @@ type UnsafeConfigServerBackendServer interface {
 }
 
 func RegisterConfigServerBackendServer(s grpc.ServiceRegistrar, srv ConfigServerBackendServer) {
+	_ = "STUB: not implemented"
 	// If the following call pancis, it indicates UnimplementedConfigServerBackendServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
-	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
-		t.testEmbeddedByValue()
-	}
-	s.RegisterService(&ConfigServerBackend_ServiceDesc, srv)
+	return
 }
 
 func _ConfigServerBackend_GetNetworkPolicyConfigs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ConfigServerBackendServer).GetNetworkPolicyConfigs(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ConfigServerBackend_GetNetworkPolicyConfigs_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ConfigServerBackendServer).GetNetworkPolicyConfigs(ctx, req.(*emptypb.Empty))
-	}
-	return interceptor(ctx, in, info, handler)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // ConfigServerBackend_ServiceDesc is the grpc.ServiceDesc for ConfigServerBackend service.

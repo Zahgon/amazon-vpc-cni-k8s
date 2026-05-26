@@ -20,7 +20,6 @@ package mock_publisher
 
 import (
 	context "context"
-	reflect "reflect"
 
 	cloudwatch "github.com/aws/aws-sdk-go-v2/service/cloudwatch"
 	types "github.com/aws/aws-sdk-go-v2/service/cloudwatch/types"
@@ -40,34 +39,27 @@ type MockcloudWatchAPIMockRecorder struct {
 
 // NewMockcloudWatchAPI creates a new mock instance.
 func NewMockcloudWatchAPI(ctrl *gomock.Controller) *MockcloudWatchAPI {
-	mock := &MockcloudWatchAPI{ctrl: ctrl}
-	mock.recorder = &MockcloudWatchAPIMockRecorder{mock}
-	return mock
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockcloudWatchAPI) EXPECT() *MockcloudWatchAPIMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// PutMetricData mocks base method.
+	return nil
 }
 
-// PutMetricData mocks base method.
 func (m *MockcloudWatchAPI) PutMetricData(ctx context.Context, params *cloudwatch.PutMetricDataInput, optFns ...func(*cloudwatch.Options)) (*cloudwatch.PutMetricDataOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{ctx, params}
-	for _, a := range optFns {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "PutMetricData", varargs...)
-	ret0, _ := ret[0].(*cloudwatch.PutMetricDataOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // PutMetricData indicates an expected call of PutMetricData.
 func (mr *MockcloudWatchAPIMockRecorder) PutMetricData(ctx, params interface{}, optFns ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{ctx, params}, optFns...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "PutMetricData", reflect.TypeOf((*MockcloudWatchAPI)(nil).PutMetricData), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // MockPublisher is a mock of Publisher interface.
@@ -83,52 +75,40 @@ type MockPublisherMockRecorder struct {
 
 // NewMockPublisher creates a new mock instance.
 func NewMockPublisher(ctrl *gomock.Controller) *MockPublisher {
-	mock := &MockPublisher{ctrl: ctrl}
-	mock.recorder = &MockPublisherMockRecorder{mock}
-	return mock
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockPublisher) EXPECT() *MockPublisherMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// Publish mocks base method.
+	return nil
 }
 
-// Publish mocks base method.
 func (m *MockPublisher) Publish(metricsDataPoints ...types.MetricDatum) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{}
-	for _, a := range metricsDataPoints {
-		varargs = append(varargs, a)
-	}
-	m.ctrl.Call(m, "Publish", varargs...)
+	_ = "STUB: not implemented"
+	return
 }
 
 // Publish indicates an expected call of Publish.
 func (mr *MockPublisherMockRecorder) Publish(metricsDataPoints ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Publish", reflect.TypeOf((*MockPublisher)(nil).Publish), metricsDataPoints...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Start mocks base method.
-func (m *MockPublisher) Start(publishInterval int) {
-	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "Start", publishInterval)
-}
+func (m *MockPublisher) Start(publishInterval int) { _ = "STUB: not implemented"; return }
 
 // Start indicates an expected call of Start.
 func (mr *MockPublisherMockRecorder) Start(publishInterval interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Start", reflect.TypeOf((*MockPublisher)(nil).Start), publishInterval)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Stop mocks base method.
-func (m *MockPublisher) Stop() {
-	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "Stop")
-}
+func (m *MockPublisher) Stop() { _ = "STUB: not implemented"; return }
 
 // Stop indicates an expected call of Stop.
-func (mr *MockPublisherMockRecorder) Stop() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Stop", reflect.TypeOf((*MockPublisher)(nil).Stop))
-}
+func (mr *MockPublisherMockRecorder) Stop() *gomock.Call { _ = "STUB: not implemented"; return nil }

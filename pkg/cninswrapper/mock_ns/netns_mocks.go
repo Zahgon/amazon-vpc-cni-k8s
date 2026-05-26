@@ -19,8 +19,6 @@
 package mock_ns
 
 import (
-	reflect "reflect"
-
 	ns "github.com/containernetworking/plugins/pkg/ns"
 	gomock "github.com/golang/mock/gomock"
 )
@@ -37,83 +35,44 @@ type MockNetNSMockRecorder struct {
 }
 
 // NewMockNetNS creates a new mock instance.
-func NewMockNetNS(ctrl *gomock.Controller) *MockNetNS {
-	mock := &MockNetNS{ctrl: ctrl}
-	mock.recorder = &MockNetNSMockRecorder{mock}
-	return mock
-}
+func NewMockNetNS(ctrl *gomock.Controller) *MockNetNS { _ = "STUB: not implemented"; return nil }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockNetNS) EXPECT() *MockNetNSMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// Close mocks base method.
+	return nil
 }
 
-// Close mocks base method.
-func (m *MockNetNS) Close() error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Close")
-	ret0, _ := ret[0].(error)
-	return ret0
-}
+func (m *MockNetNS) Close() error { _ = "STUB: not implemented"; return nil }
 
 // Close indicates an expected call of Close.
-func (mr *MockNetNSMockRecorder) Close() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Close", reflect.TypeOf((*MockNetNS)(nil).Close))
-}
+func (mr *MockNetNSMockRecorder) Close() *gomock.Call { _ = "STUB: not implemented"; return nil }
 
 // Do mocks base method.
-func (m *MockNetNS) Do(arg0 func(ns.NetNS) error) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Do", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
+func (m *MockNetNS) Do(arg0 func(ns.NetNS) error) error { _ = "STUB: not implemented"; return nil }
 
 // Do indicates an expected call of Do.
 func (mr *MockNetNSMockRecorder) Do(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Do", reflect.TypeOf((*MockNetNS)(nil).Do), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Fd mocks base method.
-func (m *MockNetNS) Fd() uintptr {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Fd")
-	ret0, _ := ret[0].(uintptr)
-	return ret0
-}
+func (m *MockNetNS) Fd() uintptr { _ = "STUB: not implemented"; return 0 }
 
 // Fd indicates an expected call of Fd.
-func (mr *MockNetNSMockRecorder) Fd() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Fd", reflect.TypeOf((*MockNetNS)(nil).Fd))
-}
+func (mr *MockNetNSMockRecorder) Fd() *gomock.Call { _ = "STUB: not implemented"; return nil }
 
 // Path mocks base method.
-func (m *MockNetNS) Path() string {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Path")
-	ret0, _ := ret[0].(string)
-	return ret0
-}
+func (m *MockNetNS) Path() string { _ = "STUB: not implemented"; return "" }
 
 // Path indicates an expected call of Path.
-func (mr *MockNetNSMockRecorder) Path() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Path", reflect.TypeOf((*MockNetNS)(nil).Path))
-}
+func (mr *MockNetNSMockRecorder) Path() *gomock.Call { _ = "STUB: not implemented"; return nil }
 
 // Set mocks base method.
-func (m *MockNetNS) Set() error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Set")
-	ret0, _ := ret[0].(error)
-	return ret0
-}
+func (m *MockNetNS) Set() error { _ = "STUB: not implemented"; return nil }
 
 // Set indicates an expected call of Set.
-func (mr *MockNetNSMockRecorder) Set() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Set", reflect.TypeOf((*MockNetNS)(nil).Set))
-}
+func (mr *MockNetNSMockRecorder) Set() *gomock.Call { _ = "STUB: not implemented"; return nil }

@@ -19,7 +19,6 @@
 package mock_ttime
 
 import (
-	reflect "reflect"
 	time "time"
 
 	ttime "github.com/aws/amazon-vpc-cni-k8s/pkg/utils/ttime"
@@ -38,69 +37,52 @@ type MockTimeMockRecorder struct {
 }
 
 // NewMockTime creates a new mock instance.
-func NewMockTime(ctrl *gomock.Controller) *MockTime {
-	mock := &MockTime{ctrl: ctrl}
-	mock.recorder = &MockTimeMockRecorder{mock}
-	return mock
-}
+func NewMockTime(ctrl *gomock.Controller) *MockTime { _ = "STUB: not implemented"; return nil }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockTime) EXPECT() *MockTimeMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// After mocks base method.
+	return nil
 }
 
-// After mocks base method.
 func (m *MockTime) After(arg0 time.Duration) <-chan time.Time {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "After", arg0)
-	ret0, _ := ret[0].(<-chan time.Time)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // After indicates an expected call of After.
 func (mr *MockTimeMockRecorder) After(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "After", reflect.TypeOf((*MockTime)(nil).After), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // AfterFunc mocks base method.
 func (m *MockTime) AfterFunc(arg0 time.Duration, arg1 func()) ttime.Timer {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AfterFunc", arg0, arg1)
-	ret0, _ := ret[0].(ttime.Timer)
-	return ret0
+	_ = "STUB: not implemented"
+	return *new(ttime.Timer)
 }
 
 // AfterFunc indicates an expected call of AfterFunc.
 func (mr *MockTimeMockRecorder) AfterFunc(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AfterFunc", reflect.TypeOf((*MockTime)(nil).AfterFunc), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Now mocks base method.
-func (m *MockTime) Now() time.Time {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Now")
-	ret0, _ := ret[0].(time.Time)
-	return ret0
-}
+func (m *MockTime) Now() time.Time { _ = "STUB: not implemented"; return *new(time.Time) }
 
 // Now indicates an expected call of Now.
-func (mr *MockTimeMockRecorder) Now() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Now", reflect.TypeOf((*MockTime)(nil).Now))
-}
+func (mr *MockTimeMockRecorder) Now() *gomock.Call { _ = "STUB: not implemented"; return nil }
 
 // Sleep mocks base method.
-func (m *MockTime) Sleep(arg0 time.Duration) {
-	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "Sleep", arg0)
-}
+func (m *MockTime) Sleep(arg0 time.Duration) { _ = "STUB: not implemented"; return }
 
 // Sleep indicates an expected call of Sleep.
 func (mr *MockTimeMockRecorder) Sleep(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Sleep", reflect.TypeOf((*MockTime)(nil).Sleep), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // MockTimer is a mock of Timer interface.
@@ -115,41 +97,26 @@ type MockTimerMockRecorder struct {
 }
 
 // NewMockTimer creates a new mock instance.
-func NewMockTimer(ctrl *gomock.Controller) *MockTimer {
-	mock := &MockTimer{ctrl: ctrl}
-	mock.recorder = &MockTimerMockRecorder{mock}
-	return mock
-}
+func NewMockTimer(ctrl *gomock.Controller) *MockTimer { _ = "STUB: not implemented"; return nil }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockTimer) EXPECT() *MockTimerMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// Reset mocks base method.
+	return nil
 }
 
-// Reset mocks base method.
-func (m *MockTimer) Reset(arg0 time.Duration) bool {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Reset", arg0)
-	ret0, _ := ret[0].(bool)
-	return ret0
-}
+func (m *MockTimer) Reset(arg0 time.Duration) bool { _ = "STUB: not implemented"; return false }
 
 // Reset indicates an expected call of Reset.
 func (mr *MockTimerMockRecorder) Reset(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Reset", reflect.TypeOf((*MockTimer)(nil).Reset), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // Stop mocks base method.
-func (m *MockTimer) Stop() bool {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Stop")
-	ret0, _ := ret[0].(bool)
-	return ret0
-}
+func (m *MockTimer) Stop() bool { _ = "STUB: not implemented"; return false }
 
 // Stop indicates an expected call of Stop.
-func (mr *MockTimerMockRecorder) Stop() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Stop", reflect.TypeOf((*MockTimer)(nil).Stop))
-}
+func (mr *MockTimerMockRecorder) Stop() *gomock.Call { _ = "STUB: not implemented"; return nil }

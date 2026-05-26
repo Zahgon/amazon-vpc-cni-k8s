@@ -14,24 +14,7 @@
 package utils
 
 import (
-	"context"
-	"fmt"
-	"os"
-	"strconv"
-	"strings"
-	"time"
-
-	"gopkg.in/yaml.v2"
-
-	"github.com/aws/amazon-vpc-cni-k8s/pkg/vpc"
 	"github.com/aws/amazon-vpc-cni-k8s/test/framework"
-	k8sUtils "github.com/aws/amazon-vpc-cni-k8s/test/framework/resources/k8s/utils"
-	"github.com/aws/amazon-vpc-cni-k8s/test/framework/utils"
-	"github.com/aws/aws-sdk-go-v2/aws"
-	cloudformationtypes "github.com/aws/aws-sdk-go-v2/service/cloudformation/types"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/util/wait"
-	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
 const (
@@ -77,356 +60,42 @@ type AWSAuthMapRole struct {
 
 // Create self managed node group stack
 func CreateAndWaitTillSelfManagedNGReady(f *framework.Framework, properties NodeGroupProperties) error {
-	templatePath := utils.GetProjectRoot() + CreateNodeGroupCFNTemplate
-	templateBytes, err := os.ReadFile(templatePath)
-	if err != nil {
-		return fmt.Errorf("failed to read from %s, %v", templatePath, err)
-	}
-	template := string(templateBytes)
-
-	describeClusterOutput, err := f.CloudServices.EKS().DescribeCluster(context.TODO(), f.Options.ClusterName)
-	if err != nil {
-		return fmt.Errorf("failed to describe cluster %s: %v", f.Options.ClusterName, err)
-	}
-
-	var bootstrapArgs = fmt.Sprintf("--apiserver-endpoint %s --b64-cluster-ca %s",
-		*describeClusterOutput.Cluster.Endpoint, *describeClusterOutput.Cluster.CertificateAuthority.Data)
-	var kubeletExtraArgs = fmt.Sprintf("--node-labels=%s=%s", properties.NgLabelKey, properties.NgLabelVal)
-
-	if properties.IsCustomNetworkingEnabled {
-		limit, _ := vpc.GetInstance(properties.InstanceType)
-		maxPods := (limit.ENILimit-1)*(limit.IPv4Limit-1) + 2
-
-		bootstrapArgs += " --use-max-pods false"
-		kubeletExtraArgs += fmt.Sprintf(" --max-pods=%d", maxPods)
-	}
-
-	containerRuntime := properties.ContainerRuntime
-	if containerRuntime != "" {
-		bootstrapArgs += fmt.Sprintf(" --container-runtime %s", containerRuntime)
-	}
-
-	asgSizeString := strconv.Itoa(properties.AsgSize)
-
-	createNgStackParams := []cloudformationtypes.Parameter{
-		{
-			ParameterKey:   aws.String("ClusterName"),
-			ParameterValue: aws.String(f.Options.ClusterName),
-		},
-		{
-			ParameterKey:   aws.String("VpcId"),
-			ParameterValue: aws.String(f.Options.AWSVPCID),
-		},
-		{
-			ParameterKey:   aws.String("Subnets"),
-			ParameterValue: aws.String(strings.Join(properties.Subnet, ",")),
-		},
-		{
-			ParameterKey:   aws.String("ClusterControlPlaneSecurityGroup"),
-			ParameterValue: aws.String(describeClusterOutput.Cluster.ResourcesVpcConfig.SecurityGroupIds[0]),
-		},
-		{
-			ParameterKey:   aws.String("NodeGroupName"),
-			ParameterValue: aws.String(properties.NodeGroupName),
-		},
-		{
-			ParameterKey:   aws.String("NodeImageIdSSMParam"),
-			ParameterValue: aws.String(fmt.Sprintf(NodeImageIdSSMParam, f.Options.NgK8SVersion)),
-		},
-		{
-			ParameterKey:   aws.String("NodeAutoScalingGroupMinSize"),
-			ParameterValue: aws.String(asgSizeString),
-		},
-		{
-			ParameterKey:   aws.String("NodeAutoScalingGroupDesiredCapacity"),
-			ParameterValue: aws.String(asgSizeString),
-		},
-		{
-			ParameterKey:   aws.String("NodeAutoScalingGroupMaxSize"),
-			ParameterValue: aws.String(asgSizeString),
-		},
-		{
-			ParameterKey:   aws.String("NodeInstanceType"),
-			ParameterValue: aws.String(properties.InstanceType),
-		},
-		{
-			ParameterKey:   aws.String("BootstrapArguments"),
-			ParameterValue: aws.String(fmt.Sprintf("%s --kubelet-extra-args '%s'", bootstrapArgs, kubeletExtraArgs)),
-		},
-		{
-			ParameterKey:   aws.String("KeyName"),
-			ParameterValue: aws.String(properties.KeyPairName),
-		},
-		{
-			ParameterKey:   aws.String("DisableIMDSv1"),
-			ParameterValue: aws.String("true"),
-		},
-	}
-
-	if properties.NodeImageId != "" {
-		createNgStackParams = append(createNgStackParams, cloudformationtypes.Parameter{
-			ParameterKey:   aws.String("NodeImageId"),
-			ParameterValue: aws.String(properties.NodeImageId),
-		})
-	}
-
-	describeStackOutput, err := f.CloudServices.CloudFormation().
-		WaitTillStackCreated(context.TODO(), properties.NodeGroupName, createNgStackParams, template)
-	if err != nil {
-		return fmt.Errorf("failed to create node group cfn stack: %v", err)
-	}
-
-	var nodeInstanceRole string
-	for _, stackOutput := range describeStackOutput.Stacks[0].Outputs {
-		if *stackOutput.OutputKey == "NodeInstanceRole" {
-			nodeInstanceRole = *stackOutput.OutputValue
-		}
-	}
-
-	if nodeInstanceRole == "" {
-		return fmt.Errorf("failed to find node instance role in stack %+v", describeStackOutput)
-	}
-
-	// Update the AWS Auth Config with the Node Instance Role
-	awsAuth, err := f.K8sResourceManagers.ConfigMapManager().
-		GetConfigMap("kube-system", "aws-auth")
-	if err != nil {
-		return fmt.Errorf("failed to find aws-auth configmap: %v", err)
-	}
-
-	updatedAWSAuth := awsAuth.DeepCopy()
-	authMapRole := []AWSAuthMapRole{
-		{
-			Groups:   []string{"system:bootstrappers", "system:nodes"},
-			RoleArn:  nodeInstanceRole,
-			UserName: "system:node:{{EC2PrivateDNSName}}",
-		},
-	}
-	yamlBytes, err := yaml.Marshal(authMapRole)
-
-	updatedAWSAuth.Data["mapRoles"] = updatedAWSAuth.Data["mapRoles"] + string(yamlBytes)
-
-	err = f.K8sResourceManagers.ConfigMapManager().UpdateConfigMap(awsAuth, updatedAWSAuth)
-	if err != nil {
-		return fmt.Errorf("failed to update the auth config with new node's instance role: %v", err)
-	}
-
-	// Wait till the node group have joined the cluster and are ready
-	err = f.K8sResourceManagers.NodeManager().
-		WaitTillNodesReady(properties.NgLabelKey, properties.NgLabelVal, properties.AsgSize)
-	if err != nil {
-		return fmt.Errorf("failed to list nodegroup with label key %s:%v: %v",
-			properties.NgLabelKey, properties.NgLabelVal, err)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// Update the AWS Auth Config with the Node Instance Role
+
+// Wait till the node group have joined the cluster and are ready
+
 func DeleteAndWaitTillSelfManagedNGStackDeleted(f *framework.Framework, properties NodeGroupProperties) error {
-	err := f.CloudServices.CloudFormation().WaitTillStackDeleted(context.TODO(), properties.NodeGroupName)
-	if err != nil {
-		return fmt.Errorf("failed to delete node group cfn stack: %v", err)
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
 // Create managed node group stack
 func CreateAndWaitTillManagedNGReady(f *framework.Framework, properties NodeGroupProperties) error {
-	templatePath := utils.GetProjectRoot() + CreateManagedNodeGroupCFNTemplate
-	templateBytes, err := os.ReadFile(templatePath)
-	if err != nil {
-		return fmt.Errorf("failed to read from %s, %v", templatePath, err)
-	}
-	template := string(templateBytes)
-
-	_, err = f.CloudServices.EKS().DescribeCluster(context.TODO(), f.Options.ClusterName)
-	if err != nil {
-		return fmt.Errorf("failed to describe cluster %s: %v", f.Options.ClusterName, err)
-	}
-
-	asgSizeString := strconv.Itoa(properties.AsgSize)
-
-	createNgStackParams := []cloudformationtypes.Parameter{
-		{
-			ParameterKey:   aws.String("ClusterName"),
-			ParameterValue: aws.String(f.Options.ClusterName),
-		},
-		{
-			ParameterKey:   aws.String("Subnets"),
-			ParameterValue: aws.String(strings.Join(properties.Subnet, ",")),
-		},
-		{
-			ParameterKey:   aws.String("NodeGroupName"),
-			ParameterValue: aws.String(properties.NodeGroupName),
-		},
-		{
-			ParameterKey:   aws.String("NodeAutoScalingGroupMinSize"),
-			ParameterValue: aws.String(asgSizeString),
-		},
-		{
-			ParameterKey:   aws.String("NodeAutoScalingGroupDesiredCapacity"),
-			ParameterValue: aws.String(asgSizeString),
-		},
-		{
-			ParameterKey:   aws.String("NodeAutoScalingGroupMaxSize"),
-			ParameterValue: aws.String(asgSizeString),
-		},
-		{
-			ParameterKey:   aws.String("NodeInstanceType"),
-			ParameterValue: aws.String(properties.InstanceType),
-		},
-	}
-
-	_, err = f.CloudServices.CloudFormation().
-		WaitTillStackCreated(context.TODO(), properties.NodeGroupName, createNgStackParams, template)
-	if err != nil {
-		return fmt.Errorf("failed to create node group cfn stack: %v", err)
-	}
-
-	// Wait till the node group have joined the cluster and are ready
-	err = f.K8sResourceManagers.NodeManager().
-		WaitTillNodesReady(ManagedNodeGroupNameLabelKey, properties.NodeGroupName, properties.AsgSize)
-	if err != nil {
-		return fmt.Errorf("failed to list nodegroup with label key %s:%v: %v",
-			ManagedNodeGroupNameLabelKey, properties.NodeGroupName, err)
-	}
-
+	_ = "STUB: not implemented"
 	return nil
 }
 
+// Wait till the node group have joined the cluster and are ready
+
 func GetClusterVPCConfig(f *framework.Framework) (*ClusterVPCConfig, error) {
-	clusterConfig := &ClusterVPCConfig{
-		PublicSubnetList:  []string{},
-		AvailZones:        []string{},
-		PrivateSubnetList: []string{},
-	}
-
-	if len(f.Options.PublicSubnets) > 0 {
-		clusterConfig.PublicSubnetList = strings.Split(f.Options.PublicSubnets, ",")
-	}
-	if len(f.Options.PrivateSubnets) > 0 {
-		clusterConfig.PrivateSubnetList = strings.Split(f.Options.PrivateSubnets, ",")
-	}
-	if len(f.Options.AvailabilityZones) > 0 {
-		clusterConfig.AvailZones = strings.Split(f.Options.AvailabilityZones, ",")
-	}
-	if f.Options.PublicRouteTableID != "" {
-		clusterConfig.PublicRouteTableID = f.Options.PublicRouteTableID
-	}
-
-	// user provided the info so we don't need to look it up
-	if clusterConfig.PublicRouteTableID != "" && len(clusterConfig.PublicSubnetList) > 0 && len(clusterConfig.AvailZones) > 0 {
-		return clusterConfig, nil
-	}
-
-	if clusterConfig.PublicRouteTableID != "" || len(clusterConfig.PublicSubnetList) > 0 ||
-		len(clusterConfig.PrivateSubnetList) > 0 || len(clusterConfig.AvailZones) > 0 {
-		return nil, fmt.Errorf("partial configuration, if supplying config via flags you need to provide at least public route table ID, public subnet list and availibility zone list")
-	}
-
-	describeClusterOutput, err := f.CloudServices.EKS().DescribeCluster(context.TODO(), f.Options.ClusterName)
-	if err != nil {
-		return nil, fmt.Errorf("failed to describe cluster %s: %v", f.Options.ClusterName, err)
-	}
-
-	for _, subnet := range describeClusterOutput.Cluster.ResourcesVpcConfig.SubnetIds {
-		describeRouteOutput, err := f.CloudServices.EC2().DescribeRouteTables(context.TODO(), subnet)
-		if err != nil {
-			return nil, fmt.Errorf("failed to describe subnet %s: %v", subnet, err)
-		}
-
-		isPublic := false
-		for _, route := range describeRouteOutput.RouteTables[0].Routes {
-			if route.GatewayId != nil && strings.Contains(*route.GatewayId, "igw-") {
-				isPublic = true
-				clusterConfig.PublicSubnetList = append(clusterConfig.PublicSubnetList, subnet)
-				clusterConfig.PublicRouteTableID = *describeRouteOutput.RouteTables[0].RouteTableId
-			}
-		}
-		if !isPublic {
-			clusterConfig.PrivateSubnetList = append(clusterConfig.PrivateSubnetList, subnet)
-		}
-	}
-
-	uniqueAZ := map[string]bool{}
-	for _, subnet := range clusterConfig.PublicSubnetList {
-		describeSubnet, err := f.CloudServices.EC2().DescribeSubnets(context.TODO(), []string{subnet})
-		if err != nil {
-			return nil, fmt.Errorf("failed to describe the subnet %s: %v", subnet, err)
-		}
-		if ok := uniqueAZ[*describeSubnet.Subnets[0].AvailabilityZone]; !ok {
-			uniqueAZ[*describeSubnet.Subnets[0].AvailabilityZone] = true
-			clusterConfig.AvailZones =
-				append(clusterConfig.AvailZones, *describeSubnet.Subnets[0].AvailabilityZone)
-		}
-	}
-
-	return clusterConfig, nil
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func TerminateInstances(f *framework.Framework) error {
-	nodeList, err := f.K8sResourceManagers.NodeManager().GetNodes(f.Options.NgNameLabelKey, f.Options.NgNameLabelVal)
-	if err != nil {
-		return fmt.Errorf("failed to get list of nodes created: %v", err)
-	}
-	if len(nodeList.Items) == 0 {
-		return nil
-	}
+// user provided the info so we don't need to look it up
 
-	var instanceIDs []string
-	for _, node := range nodeList.Items {
-		instanceIDs = append(instanceIDs, k8sUtils.GetInstanceIDFromNode(node))
-	}
-	expected := int32(len(instanceIDs))
+func TerminateInstances(f *framework.Framework) error { _ = "STUB: not implemented"; return nil }
 
-	// Find the ASG owning the first instance. Assumes all nodes belong to the same ASG.
-	asgName, err := f.CloudServices.AutoScaling().GetASGForInstance(context.TODO(), instanceIDs[0])
-	if err != nil {
-		return fmt.Errorf("failed to find ASG for instance %s: %v", instanceIDs[0], err)
-	}
+// Find the ASG owning the first instance. Assumes all nodes belong to the same ASG.
 
-	// Scale the ASG to 0 so it terminates all instances through its own lifecycle
-	if err := f.CloudServices.AutoScaling().SetDesiredCapacity(context.TODO(), asgName, 0); err != nil {
-		return fmt.Errorf("failed to set desired capacity to 0 on %s: %v", asgName, err)
-	}
+// Scale the ASG to 0 so it terminates all instances through its own lifecycle
 
-	// Wait until ASG has actually finished terminating its instances before scaling
-	if err := wait.PollUntilContextTimeout(context.TODO(), 10*time.Second, 10*time.Minute, true, func(ctx context.Context) (bool, error) {
-		asgs, derr := f.CloudServices.AutoScaling().DescribeAutoScalingGroup(ctx, asgName)
-		if derr != nil || len(asgs) == 0 {
-			return false, nil
-		}
-		return len(asgs[0].Instances) == 0, nil
-	}); err != nil {
-		return fmt.Errorf("timed out waiting for ASG %s to scale to 0: %v", asgName, err)
-	}
+// Wait until ASG has actually finished terminating its instances before scaling
 
-	// Force-delete stale Node objects so the scheduler/aws-node don't wait on wedged kubelets.
-	zero := int64(0)
-	opts := &client.DeleteOptions{GracePeriodSeconds: &zero, PropagationPolicy: func() *metav1.DeletionPropagation {
-		p := metav1.DeletePropagationBackground
-		return &p
-	}()}
-	for i := range nodeList.Items {
-		_ = f.K8sResourceManagers.NodeManager().DeleteNode(&nodeList.Items[i], opts)
-	}
+// Force-delete stale Node objects so the scheduler/aws-node don't wait on wedged kubelets.
 
-	if err := f.CloudServices.AutoScaling().SetDesiredCapacity(context.TODO(), asgName, expected); err != nil {
-		return fmt.Errorf("failed to set desired capacity back to %d on %s: %v", expected, asgName, err)
-	}
-
-	// Wait until ASG reports `expected` instances InService.
-	return wait.PollUntilContextTimeout(context.TODO(), 10*time.Second, 8*time.Minute, true, func(ctx context.Context) (bool, error) {
-		asgs, derr := f.CloudServices.AutoScaling().DescribeAutoScalingGroup(ctx, asgName)
-		if derr != nil || len(asgs) == 0 {
-			return false, nil
-		}
-		inService := int32(0)
-		for _, inst := range asgs[0].Instances {
-			if inst.LifecycleState == "InService" {
-				inService++
-			}
-		}
-		return inService >= expected, nil
-	})
-}
+// Wait until ASG reports `expected` instances InService.

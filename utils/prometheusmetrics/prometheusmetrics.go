@@ -15,14 +15,9 @@ package prometheusmetrics
 
 import (
 	"net/http"
-	"strconv"
-	"sync"
-	"time"
 
 	"github.com/aws/amazon-vpc-cni-k8s/pkg/utils/logger"
-	"github.com/aws/amazon-vpc-cni-k8s/pkg/utils/retry"
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var log = logger.Get()
@@ -189,70 +184,15 @@ var (
 )
 
 // ServeMetrics sets up ipamd metrics and introspection endpoints
-func ServeMetrics(metricsPort int) {
-	log.Infof("Serving metrics on port %d", metricsPort)
-	server := SetupMetricsServer(metricsPort)
-	for {
-		once := sync.Once{}
-		_ = retry.WithBackoff(retry.NewSimpleBackoff(time.Second, time.Minute, 0.2, 2), func() error {
-			err := server.ListenAndServe()
-			once.Do(func() {
-				log.Warnf("Error running http API: %v", err)
-			})
-			return err
-		})
-	}
-}
+func ServeMetrics(metricsPort int) { _ = "STUB: not implemented"; return }
 
-func SetupMetricsServer(metricsPort int) *http.Server {
-	serveMux := http.NewServeMux()
-	serveMux.Handle("/metrics", promhttp.Handler())
-	server := &http.Server{
-		Addr:         ":" + strconv.Itoa(metricsPort),
-		Handler:      serveMux,
-		ReadTimeout:  5 * time.Second,
-		WriteTimeout: 5 * time.Second,
-	}
-	return server
-}
+func SetupMetricsServer(metricsPort int) *http.Server { _ = "STUB: not implemented"; return nil }
 
-func PrometheusRegister() {
-	prometheus.MustRegister(IpamdErr)
-	prometheus.MustRegister(IpamdActionsInprogress)
-	prometheus.MustRegister(EnisMax)
-	prometheus.MustRegister(IpMax)
-	prometheus.MustRegister(ReconcileCnt)
-	prometheus.MustRegister(AddIPCnt)
-	prometheus.MustRegister(DelIPCnt)
-	prometheus.MustRegister(PodENIErr)
-	prometheus.MustRegister(AwsAPILatency)
-	prometheus.MustRegister(AwsAPIErr)
-	prometheus.MustRegister(AwsUtilsErr)
-	prometheus.MustRegister(Ec2ApiReq)
-	prometheus.MustRegister(Ec2ApiErr)
-	prometheus.MustRegister(Enis)
-	prometheus.MustRegister(TotalIPs)
-	prometheus.MustRegister(AssignedIPs)
-	prometheus.MustRegister(ForceRemovedENIs)
-	prometheus.MustRegister(ForceRemovedIPs)
-	prometheus.MustRegister(TotalPrefixes)
-	prometheus.MustRegister(IpsPerCidr)
-	prometheus.MustRegister(NoAvailableIPAddrs)
-	prometheus.MustRegister(EniIPsInUse)
-	prometheus.MustRegister(IpamdStartupDuration)
-	prometheus.MustRegister(IpamdNodeInitDuration)
-}
+func PrometheusRegister() { _ = "STUB: not implemented"; return }
 
 // This can be enhanced to get it programatically.
 // Initial CNI metrics helper enhancement includes only Gauge. Doesn't support GaugeVec, Counter, CounterVec and Summary
 func GetSupportedPrometheusCNIMetricsMapping() map[string]prometheus.Collector {
-	prometheusCNIMetrics := map[string]prometheus.Collector{
-		"awscni_eni_max":               EnisMax,
-		"awscni_ip_max":                IpMax,
-		"awscni_eni_allocated":         Enis,
-		"awscni_total_ip_addresses":    TotalIPs,
-		"awscni_assigned_ip_addresses": AssignedIPs,
-		"awscni_total_ipv4_prefixes":   TotalPrefixes,
-	}
-	return prometheusCNIMetrics
+	_ = "STUB: not implemented"
+	return nil
 }

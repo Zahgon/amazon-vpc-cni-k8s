@@ -14,10 +14,7 @@
 package manifest
 
 import (
-	"fmt"
-
 	"github.com/aws/amazon-vpc-cni-k8s/pkg/apis/crd/v1alpha1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 type ENIConfigBuilder struct {
@@ -26,50 +23,24 @@ type ENIConfigBuilder struct {
 	securityGroup []string
 }
 
-func NewENIConfigBuilder() *ENIConfigBuilder {
-	return &ENIConfigBuilder{
-		name: "eniConfig-test",
-	}
-}
+func NewENIConfigBuilder() *ENIConfigBuilder { _ = "STUB: not implemented"; return nil }
 
 func (e *ENIConfigBuilder) Name(name string) *ENIConfigBuilder {
-	e.name = name
-	return e
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (e *ENIConfigBuilder) SubnetID(subnetID string) *ENIConfigBuilder {
-	e.subnetID = subnetID
-	return e
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (e *ENIConfigBuilder) SecurityGroup(securityGroup []string) *ENIConfigBuilder {
-	e.securityGroup = securityGroup
-	return e
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (e *ENIConfigBuilder) Build() (*v1alpha1.ENIConfig, error) {
-	if e.subnetID == "" {
-		return nil, fmt.Errorf("subnet id is a required field")
-	}
-
-	if e.securityGroup == nil {
-		return &v1alpha1.ENIConfig{
-			ObjectMeta: v1.ObjectMeta{
-				Name: e.name,
-			},
-			Spec: v1alpha1.ENIConfigSpec{
-				Subnet: e.subnetID,
-			},
-		}, nil
-	} else {
-		return &v1alpha1.ENIConfig{
-			ObjectMeta: v1.ObjectMeta{
-				Name: e.name,
-			},
-			Spec: v1alpha1.ENIConfigSpec{
-				SecurityGroups: e.securityGroup,
-				Subnet:         e.subnetID,
-			},
-		}, nil
-	}
+	_ = "STUB: not implemented"
+	return nil, nil
 }

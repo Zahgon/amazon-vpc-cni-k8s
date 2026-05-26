@@ -36,20 +36,10 @@
 package main
 
 import (
-	"encoding/json"
 	"net"
 	"os"
-	"os/exec"
-	"strconv"
-	"strings"
-
-	log "github.com/sirupsen/logrus"
 
 	"github.com/containernetworking/cni/pkg/types"
-
-	"github.com/aws/amazon-vpc-cni-k8s/pkg/utils/cniutils"
-	"github.com/aws/amazon-vpc-cni-k8s/utils"
-	"github.com/aws/amazon-vpc-cni-k8s/utils/cp"
 )
 
 const (
@@ -179,297 +169,69 @@ type Range struct {
 }
 
 // Wait for IPAMD health check to pass. Note that if IPAMD fails to start, wait happens indefinitely until liveness probe kills pod
-func waitForIPAM() bool {
-	for {
-		cmd := exec.Command("./grpc-health-probe", "-addr", "127.0.0.1:50051", ">", "/dev/null", "2>&1")
-		if err := cmd.Run(); err == nil {
-			return true
-		}
-	}
-}
+func waitForIPAM() bool { _ = "STUB: not implemented"; return false }
 
-func getPrimaryIP(ipv4 bool) (string, error) {
-	var hostIP string
-	var err error
-	imdsKey := "local-ipv4"
-	if !ipv4 {
-		imdsKey = "ipv6"
-	}
+func getPrimaryIP(ipv4 bool) (string, error) { _ = "STUB: not implemented"; return "", nil }
 
-	hostIP, err = cniutils.GetNodeMetadata(imdsKey)
-	if err != nil {
-		if ipv4 {
-			log.WithError(err).Fatalf("failed to retrieve local-ipv4 address in imds metadata")
-		} else {
-			log.WithError(err).Debugf("failed to retrieve ipv6 address in imds metadata")
-		}
-		return "", err
-	}
-	return hostIP, nil
-}
+func isValidJSON(inFile string) error { _ = "STUB: not implemented"; return nil }
 
-func isValidJSON(inFile string) error {
-	var result map[string]interface{}
-	return json.Unmarshal([]byte(inFile), &result)
-}
 func generateJSON(jsonFile string, outFile string, getPrimaryIP func(ipv4 bool) (string, error)) error {
-	byteValue, err := os.ReadFile(jsonFile)
-	if err != nil {
-		return err
-	}
-
-	// enabledIPv6 is to determine if EKS cluster is IPv4 or IPv6 cluster
-	// if this EKS cluster is IPv6 cluster, egress-cni-plugin will enable IPv4 egress by default
-	// if this EKS cluster is IPv4 cluster, egress-cni-plugin will only enable IPv6 egress if env var "ENABLE_V6_EGRESS" is "true"
-	enabledIPv6 := utils.GetBoolAsStringEnvVar(envEnIPv6, defaultEnableIPv6)
-	var egressIPAMSubnet string
-	var egressIPAMDst string
-	var egressIPAMDataDir string
-	var egressEnabled bool
-	var egressPluginLogFile string
-	var nodeIP = ""
-	if enabledIPv6 {
-		// EKS IPv6 cluster
-		egressIPAMSubnet = egressPluginIpamSubnetV4
-		egressIPAMDst = egressPluginIpamDstV4
-		egressIPAMDataDir = egressPluginIpamDataDirV4
-		// Enable IPv4 egress when "ENABLE_V4_EGRESS" is "true" (default)
-		egressEnabled = utils.GetBoolAsStringEnvVar(envEnIPv4Egress, defaultEnableIPv4Egress)
-		egressPluginLogFile = utils.GetEnv(envEgressV4PluginLogFile, defaultEgressV4PluginLogFile)
-		nodeIP, err = getPrimaryIP(true)
-		// Node should have a IPv4 address even in IPv6 cluster
-		if err != nil {
-			log.Errorf("Failed to get Node IP, error: %v", err)
-			return err
-		}
-	} else {
-		// EKS IPv4 cluster
-		egressIPAMSubnet = egressPluginIpamSubnetV6
-		egressIPAMDst = egressPluginIpamDstV6
-		egressIPAMDataDir = egressPluginIpamDataDirV6
-		egressPluginLogFile = utils.GetEnv(envEgressV6PluginLogFile, defaultEgressV6PluginLogFile)
-		egressEnabled = utils.GetBoolAsStringEnvVar(envEnIPv6Egress, defaultEnableIPv6Egress)
-		if egressEnabled {
-			nodeIP, err = getPrimaryIP(false)
-			if err != nil {
-				// When ENABLE_V6_EGRESS is set, but the node is lacking an IPv6 address, log a warning and disable the egress-v6-cni plugin.
-				// This allows IPv4-only nodes to function while still alerting the customer to the possibility of a misconfiguration.
-				log.Warnf("To support IPv6 egress, node primary ENI must have a global IPv6 address, error: %v", err)
-				egressEnabled = false
-			}
-		}
-	}
-	vethPrefix := utils.GetEnv(envVethPrefix, defaultVethPrefix)
-	// Derive pod MTU from ENI MTU by default (note that values have already been validated)
-	eniMTU := utils.GetEnv(envEniMTU, strconv.Itoa(defaultMTU))
-	// If pod MTU environment variable is set, overwrite ENI MTU.
-	podMTU := utils.GetEnv(envPodMTU, eniMTU)
-	podSGEnforcingMode := utils.GetEnv(envPodSGEnforcingMode, defaultPodSGEnforcingMode)
-	pluginLogFile := utils.GetEnv(envPluginLogFile, defaultPluginLogFile)
-	pluginLogLevel := utils.GetEnv(envPluginLogLevel, defaultPluginLogLevel)
-	randomizeSNAT := utils.GetEnv(envRandomizeSNAT, defaultRandomizeSNAT)
-
-	netconf := string(byteValue)
-	netconf = strings.Replace(netconf, "__VETHPREFIX__", vethPrefix, -1)
-	netconf = strings.Replace(netconf, "__MTU__", podMTU, -1)
-	netconf = strings.Replace(netconf, "__PODSGENFORCINGMODE__", podSGEnforcingMode, -1)
-	netconf = strings.Replace(netconf, "__PLUGINLOGFILE__", pluginLogFile, -1)
-	netconf = strings.Replace(netconf, "__PLUGINLOGLEVEL__", pluginLogLevel, -1)
-	netconf = strings.Replace(netconf, "__EGRESSPLUGINLOGFILE__", egressPluginLogFile, -1)
-	netconf = strings.Replace(netconf, "__EGRESSPLUGINENABLED__", strconv.FormatBool(egressEnabled), -1)
-	netconf = strings.Replace(netconf, "__EGRESSPLUGINIPAMSUBNET__", egressIPAMSubnet, -1)
-	netconf = strings.Replace(netconf, "__EGRESSPLUGINIPAMDST__", egressIPAMDst, -1)
-	netconf = strings.Replace(netconf, "__EGRESSPLUGINIPAMDATADIR__", egressIPAMDataDir, -1)
-	netconf = strings.Replace(netconf, "__RANDOMIZESNAT__", randomizeSNAT, -1)
-	netconf = strings.Replace(netconf, "__NODEIP__", nodeIP, -1)
-
-	byteValue = []byte(netconf)
-
-	// Chain any requested CNI plugins
-	enBandwidthPlugin := utils.GetBoolAsStringEnvVar(envEnBandwidthPlugin, defaultEnBandwidthPlugin)
-	disablePodV6 := utils.GetBoolAsStringEnvVar(envDisablePodV6, defaultDisablePodV6)
-	if enBandwidthPlugin || disablePodV6 {
-		// Unmarshall current conflist into data
-		data := NetConfList{}
-		err = json.Unmarshal(byteValue, &data)
-		if err != nil {
-			return err
-		}
-
-		// Chain the bandwidth plugin when enabled
-		if enBandwidthPlugin {
-			bwPlugin := NetConf{
-				Type:         "bandwidth",
-				Capabilities: map[string]bool{"bandwidth": true},
-			}
-			data.Plugins = append(data.Plugins, &bwPlugin)
-		}
-
-		// Chain the tuning plugin (configured to disable IPv6 in pod network namespace) when requested
-		if disablePodV6 {
-			tuningPlugin := NetConf{
-				Type: "tuning",
-				Sysctl: map[string]string{
-					"net.ipv6.conf.all.disable_ipv6":     "1",
-					"net.ipv6.conf.default.disable_ipv6": "1",
-					"net.ipv6.conf.lo.disable_ipv6":      "1",
-				},
-			}
-			data.Plugins = append(data.Plugins, &tuningPlugin)
-		}
-
-		// Marshall data back into byteValue
-		byteValue, err = json.MarshalIndent(data, "", "  ")
-		if err != nil {
-			return err
-		}
-	}
-
-	err = isValidJSON(string(byteValue))
-	if err != nil {
-		log.Fatalf("%s is not a valid json object, error: %s", netconf, err)
-	}
-
-	err = os.WriteFile(outFile, byteValue, 0644)
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func validateEnvVars() bool {
-	pluginLogFile := utils.GetEnv(envPluginLogFile, defaultPluginLogFile)
-	if pluginLogFile == "stdout" {
-		log.Errorf("AWS_VPC_K8S_PLUGIN_LOG_FILE cannot be set to stdout")
-		return false
-	}
+// enabledIPv6 is to determine if EKS cluster is IPv4 or IPv6 cluster
+// if this EKS cluster is IPv6 cluster, egress-cni-plugin will enable IPv4 egress by default
+// if this EKS cluster is IPv4 cluster, egress-cni-plugin will only enable IPv6 egress if env var "ENABLE_V6_EGRESS" is "true"
 
-	// Validate that veth prefix is less than or equal to four characters and not in reserved set: (eth, lo, vlan)
-	vethPrefix := utils.GetEnv(envVethPrefix, defaultVethPrefix)
-	if len(vethPrefix) > 4 {
-		log.Errorf("AWS_VPC_K8S_CNI_VETHPREFIX cannot be longer than 4 characters")
-		return false
-	}
+// EKS IPv6 cluster
 
-	if vethPrefix == "eth" || vethPrefix == "lo" || vethPrefix == "vlan" {
-		log.Errorf("AWS_VPC_K8S_CNI_VETHPREFIX cannot be set to reserved values 'eth', 'vlan', or 'lo'")
-		return false
-	}
+// Enable IPv4 egress when "ENABLE_V4_EGRESS" is "true" (default)
 
-	// When ENABLE_POD_ENI is set, validate security group enforcing mode
-	enablePodEni := utils.GetBoolAsStringEnvVar(envEnablePodEni, defaultEnablePodEni)
-	if enablePodEni {
-		podSGEnforcingMode := utils.GetEnv(envPodSGEnforcingMode, defaultPodSGEnforcingMode)
-		if podSGEnforcingMode != "strict" && podSGEnforcingMode != "standard" {
-			log.Errorf("%s must be set to either 'strict' or 'standard'", envPodSGEnforcingMode)
-			return false
-		}
-	}
+// Node should have a IPv4 address even in IPv6 cluster
 
-	// Validate that IP_COOLDOWN_PERIOD is a valid integer
-	ipCooldownPeriod, err, input := utils.GetIntFromStringEnvVar(envIPCooldownPeriod, defaultIPCooldownPeriod)
-	if err != nil || ipCooldownPeriod < 0 {
-		log.Errorf("IP_COOLDOWN_PERIOD MUST be a valid positive integer. %s is invalid", input)
-		return false
-	}
+// EKS IPv4 cluster
 
-	// Validate MTU value for ENIs and pods
-	if !validateMTU(envEniMTU) || !validateMTU(envPodMTU) {
-		return false
-	}
+// When ENABLE_V6_EGRESS is set, but the node is lacking an IPv6 address, log a warning and disable the egress-v6-cni plugin.
+// This allows IPv4-only nodes to function while still alerting the customer to the possibility of a misconfiguration.
 
-	prefixDelegationEn := utils.GetBoolAsStringEnvVar(envEnPrefixDelegation, defaultEnPrefixDelegation)
-	warmIPTarget := utils.GetEnv(envWarmIPTarget, "0")
-	warmPrefixTarget := utils.GetEnv(envWarmPrefixTarget, "0")
-	minimumIPTarget := utils.GetEnv(envMinIPTarget, "0")
+// Derive pod MTU from ENI MTU by default (note that values have already been validated)
 
-	// Note that these string values should probably be cast to integers, but the comparison for values greater than 0 works either way
-	if prefixDelegationEn && (warmIPTarget <= "0" && warmPrefixTarget <= "0" && minimumIPTarget <= "0") {
-		log.Errorf("Setting WARM_PREFIX_TARGET = 0 is not supported while WARM_IP_TARGET/MINIMUM_IP_TARGET is not set. Please configure either one of the WARM_{PREFIX/IP}_TARGET or MINIMUM_IP_TARGET env variables")
-		return false
-	}
-	return true
-}
+// If pod MTU environment variable is set, overwrite ENI MTU.
+
+// Chain any requested CNI plugins
+
+// Unmarshall current conflist into data
+
+// Chain the bandwidth plugin when enabled
+
+// Chain the tuning plugin (configured to disable IPv6 in pod network namespace) when requested
+
+// Marshall data back into byteValue
+
+func validateEnvVars() bool { _ = "STUB: not implemented"; return false }
+
+// Validate that veth prefix is less than or equal to four characters and not in reserved set: (eth, lo, vlan)
+
+// When ENABLE_POD_ENI is set, validate security group enforcing mode
+
+// Validate that IP_COOLDOWN_PERIOD is a valid integer
+
+// Validate MTU value for ENIs and pods
+
+// Note that these string values should probably be cast to integers, but the comparison for values greater than 0 works either way
 
 func validateMTU(envVar string) bool {
+	_ = "STUB: not implemented"
 	// Validate MTU range based on IP address family
-	enabledIPv6 := utils.GetBoolAsStringEnvVar(envEnIPv6, defaultEnableIPv6)
-
-	mtu, err, input := utils.GetIntFromStringEnvVar(envVar, defaultMTU)
-	if err != nil {
-		log.Errorf("%s MUST be a valid integer. %s is invalid", envVar, input)
-		return false
-	}
-	if enabledIPv6 {
-		if mtu < minMTUv6 || mtu > defaultMTU {
-			log.Errorf("%s cannot be less than 1280 or greater than 9001 in IPv6. %s is invalid", envVar, input)
-			return false
-		}
-	} else {
-		if mtu < minMTUv4 || mtu > defaultMTU {
-			log.Errorf("%s cannot be less than 576 or greater than 9001 in IPv4. %s is invalid", envVar, input)
-			return false
-		}
-	}
-	return true
+	return false
 }
 
 func main() {
 	os.Exit(_main())
 }
 
-func _main() int {
-	log.Debug("Started aws-node container")
-	if !validateEnvVars() {
-		return 1
-	}
+func _main() int { _ = "STUB: not implemented"; return 0 }
 
-	pluginBins := []string{"aws-cni", "egress-cni"}
-	hostCNIBinPath := utils.GetEnv(envHostCniBinPath, defaultHostCniBinPath)
-	err := cp.InstallBinaries(pluginBins, hostCNIBinPath)
-	if err != nil {
-		log.WithError(err).Error("Failed to install CNI binaries")
-		return 1
-	}
-
-	log.Infof("Starting IPAM daemon... ")
-
-	cmd := "./aws-k8s-agent"
-	// Exec redirects stdout and stderr to /dev/null, redirecting to os.Stdout and os.Stderr is done explicitly.
-	// This enables the output of the aws-k8s-agent to be displayed in the kubectl logs for the aws-node container via stdout and stderr.
-	ipamdDaemon := exec.Command(cmd)
-	ipamdDaemon.Stdout = os.Stdout
-	ipamdDaemon.Stderr = os.Stderr
-
-	err = ipamdDaemon.Start()
-	if err != nil {
-		log.WithError(err).Errorf("Failed to execute command: %s", cmd)
-		return 1
-	}
-
-	log.Infof("Checking for IPAM connectivity... ")
-	if !waitForIPAM() {
-		log.Errorf("Timed out waiting for IPAM daemon to start")
-		return 1
-	}
-
-	log.Infof("Copying config file... ")
-	err = generateJSON(defaultAWSconflistFile, tmpAWSconflistFile, getPrimaryIP)
-	if err != nil {
-		log.WithError(err).Errorf("Failed to generate 10-awsconflist")
-		return 1
-	}
-
-	hostCniConfDirPath := utils.GetEnv(envHostCniConfDirPath, defaultHostCniConfDirPath)
-	err = cp.CopyFile(tmpAWSconflistFile, hostCniConfDirPath+awsConflistFile)
-	if err != nil {
-		log.WithError(err).Errorf("Failed to copy %s", awsConflistFile)
-		return 1
-	}
-	log.Infof("Successfully copied CNI plugin binary and config file.")
-
-	err = ipamdDaemon.Wait()
-	if err != nil {
-		log.WithError(err).Errorf("Failed to wait for IPAM daemon to complete")
-		return 1
-	}
-	log.Infof("IPAMD stopped hence exiting ...")
-	return 0
-}
+// Exec redirects stdout and stderr to /dev/null, redirecting to os.Stdout and os.Stderr is done explicitly.
+// This enables the output of the aws-k8s-agent to be displayed in the kubectl logs for the aws-node container via stdout and stderr.

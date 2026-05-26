@@ -17,7 +17,6 @@ package vethwrapper
 import (
 	"net"
 
-	"github.com/containernetworking/plugins/pkg/ip"
 	"github.com/containernetworking/plugins/pkg/ns"
 )
 
@@ -30,9 +29,9 @@ type Veth interface {
 type veth struct{}
 
 // NewSetupVeth return a new veth object
-func NewSetupVeth() Veth {
-	return &veth{}
-}
+func NewSetupVeth() Veth { _ = "STUB: not implemented"; return *new(Veth) }
+
 func (v *veth) Setup(contVethName string, mtu int, contVethMac string, hostNS ns.NetNS) (net.Interface, net.Interface, error) {
-	return ip.SetupVeth(contVethName, mtu, contVethMac, hostNS)
+	_ = "STUB: not implemented"
+	return *new(net.Interface), *new(net.Interface), nil
 }

@@ -15,11 +15,6 @@
 package netlinkwrapper
 
 import (
-	"errors"
-	"fmt"
-	"syscall"
-	"time"
-
 	"github.com/aws/amazon-vpc-cni-k8s/pkg/utils/logger"
 	"github.com/vishvananda/netlink"
 )
@@ -75,149 +70,77 @@ type NetLink interface {
 type netLink struct {
 }
 
-func retryOnErrDumpInterrupted(f func() error) error {
-	var lastErr error
-	const maxAttempts = 5
-	for attempt := 0; attempt < maxAttempts; attempt++ {
-		err := f()
-		if err == nil {
-			log.Debugf("netlink operation succeeded on attempt %d of %d", attempt+1, maxAttempts)
-			return nil
-		}
-		if !errors.Is(err, netlink.ErrDumpInterrupted) {
-			log.Errorf("netlink operation failed with unrecoverable error on attempt %d of %d: %v", attempt+1, maxAttempts, err)
-			return fmt.Errorf("netlink operation failed: %w", err)
-		}
-		log.Debugf("netlink operation interrupted on attempt %d of %d", attempt+1, maxAttempts)
-		lastErr = err
-		// Add small delay after first failed attempt to avoid overwhelming the kernel
-		if attempt > 0 {
-			time.Sleep(100 * time.Millisecond)
-		}
-	}
-	log.Errorf("netlink operation interruption persisted after %d attempts: %v", maxAttempts, lastErr)
-	return fmt.Errorf("netlink operation interruption persisted after %d attempts: %w", maxAttempts, lastErr)
-}
+func retryOnErrDumpInterrupted(f func() error) error { _ = "STUB: not implemented"; return nil }
+
+// Add small delay after first failed attempt to avoid overwhelming the kernel
 
 // NewNetLink creates a new NetLink object
-func NewNetLink() NetLink {
-	return &netLink{}
-}
+func NewNetLink() NetLink { _ = "STUB: not implemented"; return *new(NetLink) }
 
-func (*netLink) LinkAdd(link netlink.Link) error {
-	return netlink.LinkAdd(link)
-}
+func (*netLink) LinkAdd(link netlink.Link) error { _ = "STUB: not implemented"; return nil }
 
 func (*netLink) LinkByName(name string) (netlink.Link, error) {
-	return netlink.LinkByName(name)
+	_ = "STUB: not implemented"
+	return *new(netlink.Link), nil
 }
 
-func (*netLink) LinkSetNsFd(link netlink.Link, fd int) error {
-	return netlink.LinkSetNsFd(link, fd)
-}
+func (*netLink) LinkSetNsFd(link netlink.Link, fd int) error { _ = "STUB: not implemented"; return nil }
 
 func (*netLink) ParseAddr(s string) (*netlink.Addr, error) {
-	return netlink.ParseAddr(s)
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (*netLink) AddrAdd(link netlink.Link, addr *netlink.Addr) error {
-	return netlink.AddrAdd(link, addr)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (*netLink) AddrDel(link netlink.Link, addr *netlink.Addr) error {
-	return netlink.AddrDel(link, addr)
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (*netLink) LinkSetUp(link netlink.Link) error {
-	return netlink.LinkSetUp(link)
-}
+func (*netLink) LinkSetUp(link netlink.Link) error { _ = "STUB: not implemented"; return nil }
 
-func (*netLink) LinkList() ([]netlink.Link, error) {
-	var links []netlink.Link
-	var err error
-	err = retryOnErrDumpInterrupted(func() error {
-		links, err = netlink.LinkList()
-		return err
-	})
-	return links, err
-}
+func (*netLink) LinkList() ([]netlink.Link, error) { _ = "STUB: not implemented"; return nil, nil }
 
-func (*netLink) LinkSetDown(link netlink.Link) error {
-	return netlink.LinkSetDown(link)
-}
+func (*netLink) LinkSetDown(link netlink.Link) error { _ = "STUB: not implemented"; return nil }
 
 func (*netLink) RouteList(link netlink.Link, family int) ([]netlink.Route, error) {
-	var routes []netlink.Route
-	var err error
-	err = retryOnErrDumpInterrupted(func() error {
-		routes, err = netlink.RouteList(link, family)
-		return err
-	})
-	return routes, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (*netLink) RouteAdd(route *netlink.Route) error {
-	return netlink.RouteAdd(route)
-}
+func (*netLink) RouteAdd(route *netlink.Route) error { _ = "STUB: not implemented"; return nil }
 
-func (*netLink) RouteReplace(route *netlink.Route) error {
-	return netlink.RouteReplace(route)
-}
+func (*netLink) RouteReplace(route *netlink.Route) error { _ = "STUB: not implemented"; return nil }
 
-func (*netLink) RouteDel(route *netlink.Route) error {
-	return netlink.RouteDel(route)
-}
+func (*netLink) RouteDel(route *netlink.Route) error { _ = "STUB: not implemented"; return nil }
 
 func (*netLink) AddrList(link netlink.Link, family int) ([]netlink.Addr, error) {
-	var addrs []netlink.Addr
-	var err error
-	err = retryOnErrDumpInterrupted(func() error {
-		addrs, err = netlink.AddrList(link, family)
-		return err
-	})
-	return addrs, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (*netLink) NeighAdd(neigh *netlink.Neigh) error {
-	return netlink.NeighAdd(neigh)
-}
+func (*netLink) NeighAdd(neigh *netlink.Neigh) error { _ = "STUB: not implemented"; return nil }
 
-func (*netLink) LinkDel(link netlink.Link) error {
-	return netlink.LinkDel(link)
-}
+func (*netLink) LinkDel(link netlink.Link) error { _ = "STUB: not implemented"; return nil }
 
-func (*netLink) NewRule() *netlink.Rule {
-	return netlink.NewRule()
-}
+func (*netLink) NewRule() *netlink.Rule { _ = "STUB: not implemented"; return nil }
 
-func (*netLink) RuleAdd(rule *netlink.Rule) error {
-	return netlink.RuleAdd(rule)
-}
+func (*netLink) RuleAdd(rule *netlink.Rule) error { _ = "STUB: not implemented"; return nil }
 
-func (*netLink) RuleDel(rule *netlink.Rule) error {
-	return netlink.RuleDel(rule)
-}
+func (*netLink) RuleDel(rule *netlink.Rule) error { _ = "STUB: not implemented"; return nil }
 
 func (*netLink) RuleList(family int) ([]netlink.Rule, error) {
-	var rules []netlink.Rule
-	var err error
-	err = retryOnErrDumpInterrupted(func() error {
-		rules, err = netlink.RuleList(family)
-		return err
-	})
-	return rules, err
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (*netLink) LinkSetMTU(link netlink.Link, mtu int) error {
-	return netlink.LinkSetMTU(link, mtu)
-}
+func (*netLink) LinkSetMTU(link netlink.Link, mtu int) error { _ = "STUB: not implemented"; return nil }
 
 // IsNotExistsError returns true if the error type is syscall.ESRCH
 // This helps us determine if we should ignore this error as the route
 // that we want to cleanup has been deleted already routing table
-func IsNotExistsError(err error) bool {
-	if errno, ok := err.(syscall.Errno); ok {
-		return errno == syscall.ESRCH
-	}
-	return false
-}
+func IsNotExistsError(err error) bool { _ = "STUB: not implemented"; return false }

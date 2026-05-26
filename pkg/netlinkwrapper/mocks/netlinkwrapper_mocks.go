@@ -19,8 +19,6 @@
 package mock_netlinkwrapper
 
 import (
-	reflect "reflect"
-
 	gomock "github.com/golang/mock/gomock"
 	netlink "github.com/vishvananda/netlink"
 )
@@ -37,313 +35,227 @@ type MockNetLinkMockRecorder struct {
 }
 
 // NewMockNetLink creates a new mock instance.
-func NewMockNetLink(ctrl *gomock.Controller) *MockNetLink {
-	mock := &MockNetLink{ctrl: ctrl}
-	mock.recorder = &MockNetLinkMockRecorder{mock}
-	return mock
-}
+func NewMockNetLink(ctrl *gomock.Controller) *MockNetLink { _ = "STUB: not implemented"; return nil }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockNetLink) EXPECT() *MockNetLinkMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// AddrAdd mocks base method.
+	return nil
 }
 
-// AddrAdd mocks base method.
 func (m *MockNetLink) AddrAdd(arg0 netlink.Link, arg1 *netlink.Addr) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AddrAdd", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // AddrAdd indicates an expected call of AddrAdd.
 func (mr *MockNetLinkMockRecorder) AddrAdd(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddrAdd", reflect.TypeOf((*MockNetLink)(nil).AddrAdd), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // AddrDel mocks base method.
 func (m *MockNetLink) AddrDel(arg0 netlink.Link, arg1 *netlink.Addr) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AddrDel", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // AddrDel indicates an expected call of AddrDel.
 func (mr *MockNetLinkMockRecorder) AddrDel(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddrDel", reflect.TypeOf((*MockNetLink)(nil).AddrDel), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // AddrList mocks base method.
 func (m *MockNetLink) AddrList(arg0 netlink.Link, arg1 int) ([]netlink.Addr, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AddrList", arg0, arg1)
-	ret0, _ := ret[0].([]netlink.Addr)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // AddrList indicates an expected call of AddrList.
 func (mr *MockNetLinkMockRecorder) AddrList(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddrList", reflect.TypeOf((*MockNetLink)(nil).AddrList), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // LinkAdd mocks base method.
-func (m *MockNetLink) LinkAdd(arg0 netlink.Link) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "LinkAdd", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
+func (m *MockNetLink) LinkAdd(arg0 netlink.Link) error { _ = "STUB: not implemented"; return nil }
 
 // LinkAdd indicates an expected call of LinkAdd.
 func (mr *MockNetLinkMockRecorder) LinkAdd(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LinkAdd", reflect.TypeOf((*MockNetLink)(nil).LinkAdd), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // LinkByName mocks base method.
 func (m *MockNetLink) LinkByName(arg0 string) (netlink.Link, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "LinkByName", arg0)
-	ret0, _ := ret[0].(netlink.Link)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return *new(netlink.Link), nil
 }
 
 // LinkByName indicates an expected call of LinkByName.
 func (mr *MockNetLinkMockRecorder) LinkByName(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LinkByName", reflect.TypeOf((*MockNetLink)(nil).LinkByName), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // LinkDel mocks base method.
-func (m *MockNetLink) LinkDel(arg0 netlink.Link) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "LinkDel", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
+func (m *MockNetLink) LinkDel(arg0 netlink.Link) error { _ = "STUB: not implemented"; return nil }
 
 // LinkDel indicates an expected call of LinkDel.
 func (mr *MockNetLinkMockRecorder) LinkDel(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LinkDel", reflect.TypeOf((*MockNetLink)(nil).LinkDel), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // LinkList mocks base method.
 func (m *MockNetLink) LinkList() ([]netlink.Link, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "LinkList")
-	ret0, _ := ret[0].([]netlink.Link)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // LinkList indicates an expected call of LinkList.
-func (mr *MockNetLinkMockRecorder) LinkList() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LinkList", reflect.TypeOf((*MockNetLink)(nil).LinkList))
-}
+func (mr *MockNetLinkMockRecorder) LinkList() *gomock.Call { _ = "STUB: not implemented"; return nil }
 
 // LinkSetDown mocks base method.
-func (m *MockNetLink) LinkSetDown(arg0 netlink.Link) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "LinkSetDown", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
+func (m *MockNetLink) LinkSetDown(arg0 netlink.Link) error { _ = "STUB: not implemented"; return nil }
 
 // LinkSetDown indicates an expected call of LinkSetDown.
 func (mr *MockNetLinkMockRecorder) LinkSetDown(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LinkSetDown", reflect.TypeOf((*MockNetLink)(nil).LinkSetDown), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // LinkSetMTU mocks base method.
 func (m *MockNetLink) LinkSetMTU(arg0 netlink.Link, arg1 int) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "LinkSetMTU", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // LinkSetMTU indicates an expected call of LinkSetMTU.
 func (mr *MockNetLinkMockRecorder) LinkSetMTU(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LinkSetMTU", reflect.TypeOf((*MockNetLink)(nil).LinkSetMTU), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // LinkSetNsFd mocks base method.
 func (m *MockNetLink) LinkSetNsFd(arg0 netlink.Link, arg1 int) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "LinkSetNsFd", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // LinkSetNsFd indicates an expected call of LinkSetNsFd.
 func (mr *MockNetLinkMockRecorder) LinkSetNsFd(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LinkSetNsFd", reflect.TypeOf((*MockNetLink)(nil).LinkSetNsFd), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // LinkSetUp mocks base method.
-func (m *MockNetLink) LinkSetUp(arg0 netlink.Link) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "LinkSetUp", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
+func (m *MockNetLink) LinkSetUp(arg0 netlink.Link) error { _ = "STUB: not implemented"; return nil }
 
 // LinkSetUp indicates an expected call of LinkSetUp.
 func (mr *MockNetLinkMockRecorder) LinkSetUp(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LinkSetUp", reflect.TypeOf((*MockNetLink)(nil).LinkSetUp), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NeighAdd mocks base method.
-func (m *MockNetLink) NeighAdd(arg0 *netlink.Neigh) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "NeighAdd", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
+func (m *MockNetLink) NeighAdd(arg0 *netlink.Neigh) error { _ = "STUB: not implemented"; return nil }
 
 // NeighAdd indicates an expected call of NeighAdd.
 func (mr *MockNetLinkMockRecorder) NeighAdd(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NeighAdd", reflect.TypeOf((*MockNetLink)(nil).NeighAdd), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // NewRule mocks base method.
-func (m *MockNetLink) NewRule() *netlink.Rule {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "NewRule")
-	ret0, _ := ret[0].(*netlink.Rule)
-	return ret0
-}
+func (m *MockNetLink) NewRule() *netlink.Rule { _ = "STUB: not implemented"; return nil }
 
 // NewRule indicates an expected call of NewRule.
-func (mr *MockNetLinkMockRecorder) NewRule() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "NewRule", reflect.TypeOf((*MockNetLink)(nil).NewRule))
-}
+func (mr *MockNetLinkMockRecorder) NewRule() *gomock.Call { _ = "STUB: not implemented"; return nil }
 
 // ParseAddr mocks base method.
 func (m *MockNetLink) ParseAddr(arg0 string) (*netlink.Addr, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ParseAddr", arg0)
-	ret0, _ := ret[0].(*netlink.Addr)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // ParseAddr indicates an expected call of ParseAddr.
 func (mr *MockNetLinkMockRecorder) ParseAddr(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ParseAddr", reflect.TypeOf((*MockNetLink)(nil).ParseAddr), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // RouteAdd mocks base method.
-func (m *MockNetLink) RouteAdd(arg0 *netlink.Route) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RouteAdd", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
+func (m *MockNetLink) RouteAdd(arg0 *netlink.Route) error { _ = "STUB: not implemented"; return nil }
 
 // RouteAdd indicates an expected call of RouteAdd.
 func (mr *MockNetLinkMockRecorder) RouteAdd(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RouteAdd", reflect.TypeOf((*MockNetLink)(nil).RouteAdd), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // RouteDel mocks base method.
-func (m *MockNetLink) RouteDel(arg0 *netlink.Route) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RouteDel", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
+func (m *MockNetLink) RouteDel(arg0 *netlink.Route) error { _ = "STUB: not implemented"; return nil }
 
 // RouteDel indicates an expected call of RouteDel.
 func (mr *MockNetLinkMockRecorder) RouteDel(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RouteDel", reflect.TypeOf((*MockNetLink)(nil).RouteDel), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // RouteList mocks base method.
 func (m *MockNetLink) RouteList(arg0 netlink.Link, arg1 int) ([]netlink.Route, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RouteList", arg0, arg1)
-	ret0, _ := ret[0].([]netlink.Route)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // RouteList indicates an expected call of RouteList.
 func (mr *MockNetLinkMockRecorder) RouteList(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RouteList", reflect.TypeOf((*MockNetLink)(nil).RouteList), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // RouteReplace mocks base method.
 func (m *MockNetLink) RouteReplace(arg0 *netlink.Route) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RouteReplace", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // RouteReplace indicates an expected call of RouteReplace.
 func (mr *MockNetLinkMockRecorder) RouteReplace(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RouteReplace", reflect.TypeOf((*MockNetLink)(nil).RouteReplace), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // RuleAdd mocks base method.
-func (m *MockNetLink) RuleAdd(arg0 *netlink.Rule) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RuleAdd", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
+func (m *MockNetLink) RuleAdd(arg0 *netlink.Rule) error { _ = "STUB: not implemented"; return nil }
 
 // RuleAdd indicates an expected call of RuleAdd.
 func (mr *MockNetLinkMockRecorder) RuleAdd(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RuleAdd", reflect.TypeOf((*MockNetLink)(nil).RuleAdd), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // RuleDel mocks base method.
-func (m *MockNetLink) RuleDel(arg0 *netlink.Rule) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RuleDel", arg0)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
+func (m *MockNetLink) RuleDel(arg0 *netlink.Rule) error { _ = "STUB: not implemented"; return nil }
 
 // RuleDel indicates an expected call of RuleDel.
 func (mr *MockNetLinkMockRecorder) RuleDel(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RuleDel", reflect.TypeOf((*MockNetLink)(nil).RuleDel), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // RuleList mocks base method.
 func (m *MockNetLink) RuleList(arg0 int) ([]netlink.Rule, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RuleList", arg0)
-	ret0, _ := ret[0].([]netlink.Rule)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // RuleList indicates an expected call of RuleList.
 func (mr *MockNetLinkMockRecorder) RuleList(arg0 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RuleList", reflect.TypeOf((*MockNetLink)(nil).RuleList), arg0)
+	_ = "STUB: not implemented"
+	return nil
 }

@@ -20,7 +20,6 @@ package mock_ec2metadatawrapper
 
 import (
 	context "context"
-	reflect "reflect"
 
 	imds "github.com/aws/aws-sdk-go-v2/feature/ec2/imds"
 	gomock "github.com/golang/mock/gomock"
@@ -39,54 +38,39 @@ type MockHTTPClientMockRecorder struct {
 
 // NewMockHTTPClient creates a new mock instance.
 func NewMockHTTPClient(ctrl *gomock.Controller) *MockHTTPClient {
-	mock := &MockHTTPClient{ctrl: ctrl}
-	mock.recorder = &MockHTTPClientMockRecorder{mock}
-	return mock
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockHTTPClient) EXPECT() *MockHTTPClientMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// GetInstanceIdentityDocument mocks base method.
+	return nil
 }
 
-// GetInstanceIdentityDocument mocks base method.
 func (m *MockHTTPClient) GetInstanceIdentityDocument(arg0 context.Context, arg1 *imds.GetInstanceIdentityDocumentInput, arg2 ...func(*imds.Options)) (*imds.GetInstanceIdentityDocumentOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "GetInstanceIdentityDocument", varargs...)
-	ret0, _ := ret[0].(*imds.GetInstanceIdentityDocumentOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetInstanceIdentityDocument indicates an expected call of GetInstanceIdentityDocument.
 func (mr *MockHTTPClientMockRecorder) GetInstanceIdentityDocument(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInstanceIdentityDocument", reflect.TypeOf((*MockHTTPClient)(nil).GetInstanceIdentityDocument), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetRegion mocks base method.
 func (m *MockHTTPClient) GetRegion(arg0 context.Context, arg1 *imds.GetRegionInput, arg2 ...func(*imds.Options)) (*imds.GetRegionOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "GetRegion", varargs...)
-	ret0, _ := ret[0].(*imds.GetRegionOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetRegion indicates an expected call of GetRegion.
 func (mr *MockHTTPClientMockRecorder) GetRegion(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetRegion", reflect.TypeOf((*MockHTTPClient)(nil).GetRegion), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // MockEC2MetadataClient is a mock of EC2MetadataClient interface.
@@ -102,52 +86,37 @@ type MockEC2MetadataClientMockRecorder struct {
 
 // NewMockEC2MetadataClient creates a new mock instance.
 func NewMockEC2MetadataClient(ctrl *gomock.Controller) *MockEC2MetadataClient {
-	mock := &MockEC2MetadataClient{ctrl: ctrl}
-	mock.recorder = &MockEC2MetadataClientMockRecorder{mock}
-	return mock
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockEC2MetadataClient) EXPECT() *MockEC2MetadataClientMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// GetInstanceIdentityDocument mocks base method.
+	return nil
 }
 
-// GetInstanceIdentityDocument mocks base method.
 func (m *MockEC2MetadataClient) GetInstanceIdentityDocument(arg0 context.Context, arg1 *imds.GetInstanceIdentityDocumentInput, arg2 ...func(*imds.Options)) (*imds.GetInstanceIdentityDocumentOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "GetInstanceIdentityDocument", varargs...)
-	ret0, _ := ret[0].(*imds.GetInstanceIdentityDocumentOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetInstanceIdentityDocument indicates an expected call of GetInstanceIdentityDocument.
 func (mr *MockEC2MetadataClientMockRecorder) GetInstanceIdentityDocument(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetInstanceIdentityDocument", reflect.TypeOf((*MockEC2MetadataClient)(nil).GetInstanceIdentityDocument), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // GetRegion mocks base method.
 func (m *MockEC2MetadataClient) GetRegion(arg0 context.Context, arg1 *imds.GetRegionInput, arg2 ...func(*imds.Options)) (*imds.GetRegionOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "GetRegion", varargs...)
-	ret0, _ := ret[0].(*imds.GetRegionOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // GetRegion indicates an expected call of GetRegion.
 func (mr *MockEC2MetadataClientMockRecorder) GetRegion(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetRegion", reflect.TypeOf((*MockEC2MetadataClient)(nil).GetRegion), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }

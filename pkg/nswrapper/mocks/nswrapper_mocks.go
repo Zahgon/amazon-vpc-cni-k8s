@@ -19,8 +19,6 @@
 package mock_nswrapper
 
 import (
-	reflect "reflect"
-
 	ns "github.com/containernetworking/plugins/pkg/ns"
 	gomock "github.com/golang/mock/gomock"
 )
@@ -37,27 +35,23 @@ type MockNSMockRecorder struct {
 }
 
 // NewMockNS creates a new mock instance.
-func NewMockNS(ctrl *gomock.Controller) *MockNS {
-	mock := &MockNS{ctrl: ctrl}
-	mock.recorder = &MockNSMockRecorder{mock}
-	return mock
-}
+func NewMockNS(ctrl *gomock.Controller) *MockNS { _ = "STUB: not implemented"; return nil }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockNS) EXPECT() *MockNSMockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// WithNetNSPath mocks base method.
+	return nil
 }
 
-// WithNetNSPath mocks base method.
 func (m *MockNS) WithNetNSPath(arg0 string, arg1 func(ns.NetNS) error) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "WithNetNSPath", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // WithNetNSPath indicates an expected call of WithNetNSPath.
 func (mr *MockNSMockRecorder) WithNetNSPath(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "WithNetNSPath", reflect.TypeOf((*MockNS)(nil).WithNetNSPath), arg0, arg1)
+	_ = "STUB: not implemented"
+	return nil
 }

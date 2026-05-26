@@ -14,11 +14,7 @@
 package manifest
 
 import (
-	"github.com/aws/amazon-vpc-cni-k8s/test/framework/utils"
-
 	v1 "k8s.io/api/core/v1"
-	metaV1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/util/intstr"
 )
 
 type ServiceBuilder struct {
@@ -32,73 +28,40 @@ type ServiceBuilder struct {
 	serviceType v1.ServiceType
 }
 
-func NewHTTPService() *ServiceBuilder {
-	return &ServiceBuilder{
-		namespace:  utils.DefaultTestNamespace,
-		port:       80,
-		protocol:   v1.ProtocolTCP,
-		selector:   map[string]string{},
-		annotation: map[string]string{},
-	}
-}
+func NewHTTPService() *ServiceBuilder { _ = "STUB: not implemented"; return nil }
 
-func (s *ServiceBuilder) Name(name string) *ServiceBuilder {
-	s.name = name
-	return s
-}
+func (s *ServiceBuilder) Name(name string) *ServiceBuilder { _ = "STUB: not implemented"; return nil }
 
 func (s *ServiceBuilder) Namespace(namespace string) *ServiceBuilder {
-	s.namespace = namespace
-	return s
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (s *ServiceBuilder) Port(port int32) *ServiceBuilder {
-	s.port = port
-	return s
-}
+func (s *ServiceBuilder) Port(port int32) *ServiceBuilder { _ = "STUB: not implemented"; return nil }
 
 func (s *ServiceBuilder) NodePort(nodePort int32) *ServiceBuilder {
-	s.nodePort = nodePort
-	return s
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (s *ServiceBuilder) Protocol(protocol v1.Protocol) *ServiceBuilder {
-	s.protocol = protocol
-	return s
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (s *ServiceBuilder) Selector(labelKey string, labelVal string) *ServiceBuilder {
-	s.selector[labelKey] = labelVal
-	return s
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (s *ServiceBuilder) ServiceType(serviceType v1.ServiceType) *ServiceBuilder {
-	s.serviceType = serviceType
-	return s
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (s *ServiceBuilder) Annotations(annotations map[string]string) *ServiceBuilder {
-	s.annotation = annotations
-	return s
+	_ = "STUB: not implemented"
+	return nil
 }
 
-func (s *ServiceBuilder) Build() *v1.Service {
-	return &v1.Service{
-		ObjectMeta: metaV1.ObjectMeta{
-			Name:        s.name,
-			Namespace:   s.namespace,
-			Annotations: s.annotation,
-		},
-		Spec: v1.ServiceSpec{
-			Ports: []v1.ServicePort{{
-				Name:       "",
-				Protocol:   v1.ProtocolTCP,
-				Port:       s.port,
-				TargetPort: intstr.IntOrString{IntVal: s.port},
-				NodePort:   s.nodePort,
-			}},
-			Selector: s.selector,
-			Type:     s.serviceType,
-		},
-	}
-}
+func (s *ServiceBuilder) Build() *v1.Service { _ = "STUB: not implemented"; return nil }

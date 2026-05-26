@@ -14,15 +14,9 @@
 package logger
 
 import (
-	"os"
-	"runtime"
-	"strings"
-
 	"github.com/go-logr/logr"
-	"github.com/go-logr/zapr"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 type structuredLogger struct {
@@ -31,155 +25,85 @@ type structuredLogger struct {
 
 // getZapLevel converts log level string to zapcore.Level.
 func getZapLevel(inputLogLevel string) zapcore.Level {
-	lvl := strings.ToLower(inputLogLevel)
-
-	switch lvl {
-	case "debug":
-		return zapcore.DebugLevel
-	case "info":
-		return zapcore.InfoLevel
-	case "warn":
-		return zapcore.WarnLevel
-	case "error":
-		return zapcore.ErrorLevel
-	case "fatal":
-		return zapcore.FatalLevel
-	default:
-		return zapcore.DebugLevel
-	}
+	_ = "STUB: not implemented"
+	return *new(zapcore.Level)
 }
 
 func (logf *structuredLogger) Debugf(format string, args ...interface{}) {
-	logf.zapLogger.Debugf(format, args...)
+	_ = "STUB: not implemented"
+	return
 }
 
-func (logf *structuredLogger) Debug(format string) {
-	logf.zapLogger.Desugar().Debug(format)
-}
+func (logf *structuredLogger) Debug(format string) { _ = "STUB: not implemented"; return }
 
 func (logf *structuredLogger) Infof(format string, args ...interface{}) {
-	logf.zapLogger.Infof(format, args...)
+	_ = "STUB: not implemented"
+	return
 }
 
-func (logf *structuredLogger) Info(format string) {
-	logf.zapLogger.Desugar().Info(format)
-}
+func (logf *structuredLogger) Info(format string) { _ = "STUB: not implemented"; return }
 
 func (logf *structuredLogger) Warnf(format string, args ...interface{}) {
-	logf.zapLogger.Warnf(format, args...)
+	_ = "STUB: not implemented"
+	return
 }
 
-func (logf *structuredLogger) Warn(format string) {
-	logf.zapLogger.Desugar().Warn(format)
-}
+func (logf *structuredLogger) Warn(format string) { _ = "STUB: not implemented"; return }
 
-func (logf *structuredLogger) Error(format string) {
-	logf.zapLogger.Desugar().Error(format)
-}
+func (logf *structuredLogger) Error(format string) { _ = "STUB: not implemented"; return }
 
 func (logf *structuredLogger) Errorf(format string, args ...interface{}) {
-	logf.zapLogger.Errorf(format, args...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (logf *structuredLogger) Fatalf(format string, args ...interface{}) {
-	logf.zapLogger.Fatalf(format, args...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (logf *structuredLogger) Panicf(format string, args ...interface{}) {
-	logf.zapLogger.Fatalf(format, args...)
+	_ = "STUB: not implemented"
+	return
 }
 
 func (logf *structuredLogger) WithFields(fields Fields) Logger {
-	var f = make([]interface{}, 0)
-	for k, v := range fields {
-		f = append(f, k)
-		f = append(f, v)
-	}
-	newLogger := logf.zapLogger.With(f...)
-	return &structuredLogger{newLogger}
+	_ = "STUB: not implemented"
+	return *new(Logger)
 }
 
-func getEncoder() zapcore.Encoder {
-	encoderConfig := zap.NewProductionEncoderConfig()
-	encoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
-	return zapcore.NewJSONEncoder(encoderConfig)
-}
+func getEncoder() zapcore.Encoder { _ = "STUB: not implemented"; return *new(zapcore.Encoder) }
 
 // createZapLogger creates a zap.Logger with the given configuration and caller skip.
 func (logConfig *Configuration) createZapLogger(callerSkip int) *zap.Logger {
-	var cores []zapcore.Core
-
-	logLevel := getZapLevel(logConfig.LogLevel)
-
-	writer := getPluginLogFilePath(logConfig.LogLocation)
-
-	cores = append(cores, zapcore.NewCore(getEncoder(), writer, logLevel))
-
-	combinedCore := zapcore.NewTee(cores...)
-
-	logger := zap.New(combinedCore,
-		zap.AddCaller(),
-		zap.AddCallerSkip(callerSkip),
-	)
-
-	return logger
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (logConfig *Configuration) newZapLogger() *structuredLogger {
-	logger := logConfig.createZapLogger(2)
-	defer logger.Sync()
-	sugar := logger.Sugar()
-
-	return &structuredLogger{
-		zapLogger: sugar,
-	}
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // getPluginLogFilePath returns the writer.
 func getPluginLogFilePath(logFilePath string) zapcore.WriteSyncer {
-	var writer zapcore.WriteSyncer
-
-	// When path is explicitly empty, write to stderr
-	if logFilePath == "" || strings.ToLower(logFilePath) == "stderr" {
-		writer = zapcore.Lock(os.Stderr)
-	} else if strings.ToLower(logFilePath) == "stdout" {
-		writer = zapcore.Lock(os.Stdout)
-	} else {
-		writer = getLogWriter(logFilePath)
-	}
-	return writer
+	_ = "STUB: not implemented"
+	return *new(zapcore.WriteSyncer)
 }
+
+// When path is explicitly empty, write to stderr
 
 // getLogWriter is for lumberjack.
 func getLogWriter(logFilePath string) zapcore.WriteSyncer {
-	lumberJackLogger := &lumberjack.Logger{
-		Filename:   logFilePath,
-		MaxSize:    100,
-		MaxBackups: 5,
-		MaxAge:     30,
-		Compress:   true,
-	}
-	return zapcore.AddSync(lumberJackLogger)
+	_ = "STUB: not implemented"
+	return *new(zapcore.WriteSyncer)
 }
 
 // DefaultLogger creates and returns a new default logger.
-func DefaultLogger() Logger {
-	productionConfig := zap.NewProductionConfig()
-	productionConfig.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
-	productionConfig.EncoderConfig.EncodeCaller = func(caller zapcore.EntryCaller, enc zapcore.PrimitiveArrayEncoder) {
-		_, caller.File, caller.Line, _ = runtime.Caller(8)
-		enc.AppendString(caller.FullPath())
-	}
-	logger, _ := productionConfig.Build()
-	defer logger.Sync()
-	sugar := logger.Sugar()
-	return &structuredLogger{
-		zapLogger: sugar,
-	}
-}
+func DefaultLogger() Logger { _ = "STUB: not implemented"; return *new(Logger) }
 
 // NewControllerRuntimeLogger creates a logr.Logger compatible with controller-runtime.
 func (logConfig *Configuration) NewControllerRuntimeLogger() logr.Logger {
-	logger := logConfig.createZapLogger(1)
-	return zapr.NewLogger(logger)
+	_ = "STUB: not implemented"
+	return *new(logr.Logger)
 }

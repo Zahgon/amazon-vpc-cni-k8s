@@ -114,62 +114,11 @@ func main() {
 }
 
 func getConnection(serverAddr string, serverMode string) (net.Conn, *input.Failure) {
-	failure := &input.Failure{
-		DestinationIP: serverAddr,
-	}
-
-	if serverMode == "tcp" {
-		conn, err := net.DialTimeout("tcp", serverAddr, TcpTimeout)
-		if err != nil {
-			failure.FailureReason = fmt.Sprintf("failed to connect to server %v", err)
-			return nil, failure
-		}
-		return conn, nil
-	}
-	if serverMode == "udp" {
-		udpAddr, err := net.ResolveUDPAddr("udp", serverAddr)
-		if err != nil {
-			failure.FailureReason = fmt.Sprintf("failed to resolve the server address: %v", err)
-			return nil, failure
-		}
-
-		conn, err := net.DialUDP("udp", nil, udpAddr)
-		if err != nil {
-			failure.FailureReason = fmt.Sprintf("failed to connect to udp server: %v", err)
-			return nil, failure
-		}
-		return conn, nil
-	}
-
-	failure.FailureReason = fmt.Sprintf("invalid server mode provided %s", serverMode)
-	return nil, failure
+	_ = "STUB: not implemented"
+	return *new(net.Conn), nil
 }
 
 func sendAndReceiveResponse(conn net.Conn, serverAddr string) *input.Failure {
-	defer conn.Close()
-
-	failure := &input.Failure{
-		DestinationIP: serverAddr,
-	}
-
-	data := []byte(ClientRequestData)
-
-	_, err := conn.Write(data)
-	if err != nil {
-		failure.FailureReason = fmt.Sprintf("failed to write to server: %v", err)
-		return failure
-	}
-
-	log.Printf("successfully sent data to the server %s", serverAddr)
-
-	buffer := make([]byte, 1024)
-	respLen, err := conn.Read(buffer)
-	if err != nil || respLen == 0 {
-		failure.FailureReason = fmt.Sprintf("failed to read from the server, resp length %d: %v", respLen, err)
-		return failure
-	}
-
-	log.Printf("successfully received response from server %s: %s", serverAddr, string(buffer))
-
+	_ = "STUB: not implemented"
 	return nil
 }

@@ -20,7 +20,6 @@ package mock_ec2wrapper
 
 import (
 	context "context"
-	reflect "reflect"
 
 	ec2 "github.com/aws/aws-sdk-go-v2/service/ec2"
 	gomock "github.com/golang/mock/gomock"
@@ -38,313 +37,191 @@ type MockEC2MockRecorder struct {
 }
 
 // NewMockEC2 creates a new mock instance.
-func NewMockEC2(ctrl *gomock.Controller) *MockEC2 {
-	mock := &MockEC2{ctrl: ctrl}
-	mock.recorder = &MockEC2MockRecorder{mock}
-	return mock
-}
+func NewMockEC2(ctrl *gomock.Controller) *MockEC2 { _ = "STUB: not implemented"; return nil }
 
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockEC2) EXPECT() *MockEC2MockRecorder {
-	return m.recorder
+	_ = "STUB: not implemented"
+
+	// AssignIpv6Addresses mocks base method.
+	return nil
 }
 
-// AssignIpv6Addresses mocks base method.
 func (m *MockEC2) AssignIpv6Addresses(arg0 context.Context, arg1 *ec2.AssignIpv6AddressesInput, arg2 ...func(*ec2.Options)) (*ec2.AssignIpv6AddressesOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "AssignIpv6Addresses", varargs...)
-	ret0, _ := ret[0].(*ec2.AssignIpv6AddressesOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // AssignIpv6Addresses indicates an expected call of AssignIpv6Addresses.
 func (mr *MockEC2MockRecorder) AssignIpv6Addresses(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssignIpv6Addresses", reflect.TypeOf((*MockEC2)(nil).AssignIpv6Addresses), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // AssignPrivateIpAddresses mocks base method.
 func (m *MockEC2) AssignPrivateIpAddresses(arg0 context.Context, arg1 *ec2.AssignPrivateIpAddressesInput, arg2 ...func(*ec2.Options)) (*ec2.AssignPrivateIpAddressesOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "AssignPrivateIpAddresses", varargs...)
-	ret0, _ := ret[0].(*ec2.AssignPrivateIpAddressesOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // AssignPrivateIpAddresses indicates an expected call of AssignPrivateIpAddresses.
 func (mr *MockEC2MockRecorder) AssignPrivateIpAddresses(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssignPrivateIpAddresses", reflect.TypeOf((*MockEC2)(nil).AssignPrivateIpAddresses), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // AttachNetworkInterface mocks base method.
 func (m *MockEC2) AttachNetworkInterface(arg0 context.Context, arg1 *ec2.AttachNetworkInterfaceInput, arg2 ...func(*ec2.Options)) (*ec2.AttachNetworkInterfaceOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "AttachNetworkInterface", varargs...)
-	ret0, _ := ret[0].(*ec2.AttachNetworkInterfaceOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // AttachNetworkInterface indicates an expected call of AttachNetworkInterface.
 func (mr *MockEC2MockRecorder) AttachNetworkInterface(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AttachNetworkInterface", reflect.TypeOf((*MockEC2)(nil).AttachNetworkInterface), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // CreateNetworkInterface mocks base method.
 func (m *MockEC2) CreateNetworkInterface(arg0 context.Context, arg1 *ec2.CreateNetworkInterfaceInput, arg2 ...func(*ec2.Options)) (*ec2.CreateNetworkInterfaceOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "CreateNetworkInterface", varargs...)
-	ret0, _ := ret[0].(*ec2.CreateNetworkInterfaceOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // CreateNetworkInterface indicates an expected call of CreateNetworkInterface.
 func (mr *MockEC2MockRecorder) CreateNetworkInterface(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateNetworkInterface", reflect.TypeOf((*MockEC2)(nil).CreateNetworkInterface), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // CreateTags mocks base method.
 func (m *MockEC2) CreateTags(arg0 context.Context, arg1 *ec2.CreateTagsInput, arg2 ...func(*ec2.Options)) (*ec2.CreateTagsOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "CreateTags", varargs...)
-	ret0, _ := ret[0].(*ec2.CreateTagsOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // CreateTags indicates an expected call of CreateTags.
 func (mr *MockEC2MockRecorder) CreateTags(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateTags", reflect.TypeOf((*MockEC2)(nil).CreateTags), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DeleteNetworkInterface mocks base method.
 func (m *MockEC2) DeleteNetworkInterface(arg0 context.Context, arg1 *ec2.DeleteNetworkInterfaceInput, arg2 ...func(*ec2.Options)) (*ec2.DeleteNetworkInterfaceOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "DeleteNetworkInterface", varargs...)
-	ret0, _ := ret[0].(*ec2.DeleteNetworkInterfaceOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // DeleteNetworkInterface indicates an expected call of DeleteNetworkInterface.
 func (mr *MockEC2MockRecorder) DeleteNetworkInterface(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteNetworkInterface", reflect.TypeOf((*MockEC2)(nil).DeleteNetworkInterface), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DescribeInstanceTypes mocks base method.
 func (m *MockEC2) DescribeInstanceTypes(arg0 context.Context, arg1 *ec2.DescribeInstanceTypesInput, arg2 ...func(*ec2.Options)) (*ec2.DescribeInstanceTypesOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "DescribeInstanceTypes", varargs...)
-	ret0, _ := ret[0].(*ec2.DescribeInstanceTypesOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // DescribeInstanceTypes indicates an expected call of DescribeInstanceTypes.
 func (mr *MockEC2MockRecorder) DescribeInstanceTypes(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeInstanceTypes", reflect.TypeOf((*MockEC2)(nil).DescribeInstanceTypes), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DescribeInstances mocks base method.
 func (m *MockEC2) DescribeInstances(arg0 context.Context, arg1 *ec2.DescribeInstancesInput, arg2 ...func(*ec2.Options)) (*ec2.DescribeInstancesOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "DescribeInstances", varargs...)
-	ret0, _ := ret[0].(*ec2.DescribeInstancesOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // DescribeInstances indicates an expected call of DescribeInstances.
 func (mr *MockEC2MockRecorder) DescribeInstances(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeInstances", reflect.TypeOf((*MockEC2)(nil).DescribeInstances), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DescribeNetworkInterfaces mocks base method.
 func (m *MockEC2) DescribeNetworkInterfaces(arg0 context.Context, arg1 *ec2.DescribeNetworkInterfacesInput, arg2 ...func(*ec2.Options)) (*ec2.DescribeNetworkInterfacesOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "DescribeNetworkInterfaces", varargs...)
-	ret0, _ := ret[0].(*ec2.DescribeNetworkInterfacesOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // DescribeNetworkInterfaces indicates an expected call of DescribeNetworkInterfaces.
 func (mr *MockEC2MockRecorder) DescribeNetworkInterfaces(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeNetworkInterfaces", reflect.TypeOf((*MockEC2)(nil).DescribeNetworkInterfaces), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DescribeSecurityGroups mocks base method.
 func (m *MockEC2) DescribeSecurityGroups(arg0 context.Context, arg1 *ec2.DescribeSecurityGroupsInput, arg2 ...func(*ec2.Options)) (*ec2.DescribeSecurityGroupsOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "DescribeSecurityGroups", varargs...)
-	ret0, _ := ret[0].(*ec2.DescribeSecurityGroupsOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // DescribeSecurityGroups indicates an expected call of DescribeSecurityGroups.
 func (mr *MockEC2MockRecorder) DescribeSecurityGroups(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeSecurityGroups", reflect.TypeOf((*MockEC2)(nil).DescribeSecurityGroups), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DescribeSubnets mocks base method.
 func (m *MockEC2) DescribeSubnets(arg0 context.Context, arg1 *ec2.DescribeSubnetsInput, arg2 ...func(*ec2.Options)) (*ec2.DescribeSubnetsOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "DescribeSubnets", varargs...)
-	ret0, _ := ret[0].(*ec2.DescribeSubnetsOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // DescribeSubnets indicates an expected call of DescribeSubnets.
 func (mr *MockEC2MockRecorder) DescribeSubnets(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DescribeSubnets", reflect.TypeOf((*MockEC2)(nil).DescribeSubnets), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // DetachNetworkInterface mocks base method.
 func (m *MockEC2) DetachNetworkInterface(arg0 context.Context, arg1 *ec2.DetachNetworkInterfaceInput, arg2 ...func(*ec2.Options)) (*ec2.DetachNetworkInterfaceOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "DetachNetworkInterface", varargs...)
-	ret0, _ := ret[0].(*ec2.DetachNetworkInterfaceOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // DetachNetworkInterface indicates an expected call of DetachNetworkInterface.
 func (mr *MockEC2MockRecorder) DetachNetworkInterface(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DetachNetworkInterface", reflect.TypeOf((*MockEC2)(nil).DetachNetworkInterface), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // ModifyNetworkInterfaceAttribute mocks base method.
 func (m *MockEC2) ModifyNetworkInterfaceAttribute(arg0 context.Context, arg1 *ec2.ModifyNetworkInterfaceAttributeInput, arg2 ...func(*ec2.Options)) (*ec2.ModifyNetworkInterfaceAttributeOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "ModifyNetworkInterfaceAttribute", varargs...)
-	ret0, _ := ret[0].(*ec2.ModifyNetworkInterfaceAttributeOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // ModifyNetworkInterfaceAttribute indicates an expected call of ModifyNetworkInterfaceAttribute.
 func (mr *MockEC2MockRecorder) ModifyNetworkInterfaceAttribute(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ModifyNetworkInterfaceAttribute", reflect.TypeOf((*MockEC2)(nil).ModifyNetworkInterfaceAttribute), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // UnassignIpv6Addresses mocks base method.
 func (m *MockEC2) UnassignIpv6Addresses(arg0 context.Context, arg1 *ec2.UnassignIpv6AddressesInput, arg2 ...func(*ec2.Options)) (*ec2.UnassignIpv6AddressesOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "UnassignIpv6Addresses", varargs...)
-	ret0, _ := ret[0].(*ec2.UnassignIpv6AddressesOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // UnassignIpv6Addresses indicates an expected call of UnassignIpv6Addresses.
 func (mr *MockEC2MockRecorder) UnassignIpv6Addresses(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UnassignIpv6Addresses", reflect.TypeOf((*MockEC2)(nil).UnassignIpv6Addresses), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }
 
 // UnassignPrivateIpAddresses mocks base method.
 func (m *MockEC2) UnassignPrivateIpAddresses(arg0 context.Context, arg1 *ec2.UnassignPrivateIpAddressesInput, arg2 ...func(*ec2.Options)) (*ec2.UnassignPrivateIpAddressesOutput, error) {
-	m.ctrl.T.Helper()
-	varargs := []interface{}{arg0, arg1}
-	for _, a := range arg2 {
-		varargs = append(varargs, a)
-	}
-	ret := m.ctrl.Call(m, "UnassignPrivateIpAddresses", varargs...)
-	ret0, _ := ret[0].(*ec2.UnassignPrivateIpAddressesOutput)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 // UnassignPrivateIpAddresses indicates an expected call of UnassignPrivateIpAddresses.
 func (mr *MockEC2MockRecorder) UnassignPrivateIpAddresses(arg0, arg1 interface{}, arg2 ...interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	varargs := append([]interface{}{arg0, arg1}, arg2...)
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UnassignPrivateIpAddresses", reflect.TypeOf((*MockEC2)(nil).UnassignPrivateIpAddresses), varargs...)
+	_ = "STUB: not implemented"
+	return nil
 }

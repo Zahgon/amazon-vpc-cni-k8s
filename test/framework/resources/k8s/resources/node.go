@@ -14,13 +14,7 @@
 package resources
 
 import (
-	"context"
-
-	"github.com/aws/amazon-vpc-cni-k8s/test/framework/utils"
-
 	v1 "k8s.io/api/core/v1"
-	"k8s.io/apimachinery/pkg/api/errors"
-	"k8s.io/apimachinery/pkg/util/wait"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 
@@ -37,68 +31,35 @@ type defaultNodeManager struct {
 }
 
 func NewDefaultNodeManager(k8sClient client.Client) NodeManager {
-	return &defaultNodeManager{k8sClient: k8sClient}
+	_ = "STUB: not implemented"
+	return *new(NodeManager)
 }
 
 func (d *defaultNodeManager) GetNodes(nodeLabelKey string, nodeLabelVal string) (v1.NodeList, error) {
-	if nodeLabelVal == "" {
-		return d.GetAllNodes()
-	}
-	ctx := context.Background()
-	nodeList := v1.NodeList{}
-
-	err := d.k8sClient.List(ctx, &nodeList, client.MatchingLabels{
-		nodeLabelKey: nodeLabelVal,
-	})
-
-	// Filtering control plane nodes from the list of nodes. kOps creates control plane nodes in the
-	// same subnet as worker nodes. Control plane nodes have the label `node-role.kubernetes.io/control-plane`
-	// defined, which can be used to filter out the control plane nodes
-	var workerNodeList v1.NodeList
-	for _, node := range nodeList.Items {
-		if _, ok := node.ObjectMeta.Labels["node-role.kubernetes.io/control-plane"]; !ok {
-			workerNodeList.Items = append(workerNodeList.Items, node)
-		}
-	}
-
-	return workerNodeList, err
+	_ = "STUB: not implemented"
+	return *new(v1.NodeList), nil
 }
 
+// Filtering control plane nodes from the list of nodes. kOps creates control plane nodes in the
+// same subnet as worker nodes. Control plane nodes have the label `node-role.kubernetes.io/control-plane`
+// defined, which can be used to filter out the control plane nodes
+
 func (d *defaultNodeManager) GetAllNodes() (v1.NodeList, error) {
-	ctx := context.Background()
-	nodeList := v1.NodeList{}
-	err := d.k8sClient.List(ctx, &nodeList)
-	return nodeList, err
+	_ = "STUB: not implemented"
+	return *new(v1.NodeList), nil
 }
 
 func (d *defaultNodeManager) UpdateNode(oldNode *v1.Node, newNode *v1.Node) error {
-	return d.k8sClient.Patch(context.Background(), newNode, client.MergeFrom(oldNode))
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (d *defaultNodeManager) DeleteNode(node *v1.Node, opts ...client.DeleteOption) error {
-	err := d.k8sClient.Delete(context.Background(), node, opts...)
-	if errors.IsNotFound(err) {
-		return nil
-	}
-	return err
+	_ = "STUB: not implemented"
+	return nil
 }
 
 func (d *defaultNodeManager) WaitTillNodesReady(nodeLabelKey string, nodeLabelVal string, asgSize int) error {
-	return wait.PollImmediateUntil(utils.PollIntervalLong, func() (done bool, err error) {
-		nodeList, err := d.GetNodes(nodeLabelKey, nodeLabelVal)
-		if err != nil {
-			return false, err
-		}
-		if len(nodeList.Items) != asgSize {
-			return false, nil
-		}
-		for _, node := range nodeList.Items {
-			for _, condition := range node.Status.Conditions {
-				if condition.Type == v1.NodeReady && condition.Status != v1.ConditionTrue {
-					return false, nil
-				}
-			}
-		}
-		return true, nil
-	}, context.Background().Done())
+	_ = "STUB: not implemented"
+	return nil
 }

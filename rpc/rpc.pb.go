@@ -7,11 +7,11 @@
 package rpc
 
 import (
+	sync "sync"
+
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
-	reflect "reflect"
-	sync "sync"
 )
 
 const (
@@ -37,98 +37,41 @@ type AddNetworkRequest struct {
 	RequiresMultiNICAttachment bool   `protobuf:"varint,9,opt,name=RequiresMultiNICAttachment,proto3" json:"RequiresMultiNICAttachment,omitempty"` // next field: 10
 }
 
-func (x *AddNetworkRequest) Reset() {
-	*x = AddNetworkRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_rpc_proto_msgTypes[0]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *AddNetworkRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *AddNetworkRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *AddNetworkRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*AddNetworkRequest) ProtoMessage() {}
+func (*AddNetworkRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *AddNetworkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_rpc_proto_msgTypes[0]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use AddNetworkRequest.ProtoReflect.Descriptor instead.
-func (*AddNetworkRequest) Descriptor() ([]byte, []int) {
-	return file_rpc_rpc_proto_rawDescGZIP(), []int{0}
-}
+func (*AddNetworkRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *AddNetworkRequest) GetClientVersion() string {
-	if x != nil {
-		return x.ClientVersion
-	}
-	return ""
-}
+func (x *AddNetworkRequest) GetClientVersion() string { _ = "STUB: not implemented"; return "" }
 
-func (x *AddNetworkRequest) GetK8S_POD_NAME() string {
-	if x != nil {
-		return x.K8S_POD_NAME
-	}
-	return ""
-}
+func (x *AddNetworkRequest) GetK8S_POD_NAME() string { _ = "STUB: not implemented"; return "" }
 
-func (x *AddNetworkRequest) GetK8S_POD_NAMESPACE() string {
-	if x != nil {
-		return x.K8S_POD_NAMESPACE
-	}
-	return ""
-}
+func (x *AddNetworkRequest) GetK8S_POD_NAMESPACE() string { _ = "STUB: not implemented"; return "" }
 
 func (x *AddNetworkRequest) GetK8S_POD_INFRA_CONTAINER_ID() string {
-	if x != nil {
-		return x.K8S_POD_INFRA_CONTAINER_ID
-	}
+	_ = "STUB: not implemented"
 	return ""
 }
 
-func (x *AddNetworkRequest) GetContainerID() string {
-	if x != nil {
-		return x.ContainerID
-	}
-	return ""
-}
+func (x *AddNetworkRequest) GetContainerID() string { _ = "STUB: not implemented"; return "" }
 
-func (x *AddNetworkRequest) GetIfName() string {
-	if x != nil {
-		return x.IfName
-	}
-	return ""
-}
+func (x *AddNetworkRequest) GetIfName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *AddNetworkRequest) GetNetworkName() string {
-	if x != nil {
-		return x.NetworkName
-	}
-	return ""
-}
+func (x *AddNetworkRequest) GetNetworkName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *AddNetworkRequest) GetNetns() string {
-	if x != nil {
-		return x.Netns
-	}
-	return ""
-}
+func (x *AddNetworkRequest) GetNetns() string { _ = "STUB: not implemented"; return "" }
 
 func (x *AddNetworkRequest) GetRequiresMultiNICAttachment() bool {
-	if x != nil {
-		return x.RequiresMultiNICAttachment
-	}
+	_ = "STUB: not implemented"
 	return false
 }
 
@@ -143,65 +86,30 @@ type IPAllocationMetadata struct {
 	RouteTableId int32  `protobuf:"varint,4,opt,name=RouteTableId,proto3" json:"RouteTableId,omitempty"`
 }
 
-func (x *IPAllocationMetadata) Reset() {
-	*x = IPAllocationMetadata{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_rpc_proto_msgTypes[1]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *IPAllocationMetadata) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *IPAllocationMetadata) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *IPAllocationMetadata) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*IPAllocationMetadata) ProtoMessage() {}
+func (*IPAllocationMetadata) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *IPAllocationMetadata) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_rpc_proto_msgTypes[1]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use IPAllocationMetadata.ProtoReflect.Descriptor instead.
 func (*IPAllocationMetadata) Descriptor() ([]byte, []int) {
-	return file_rpc_rpc_proto_rawDescGZIP(), []int{1}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
-func (x *IPAllocationMetadata) GetIPv4Addr() string {
-	if x != nil {
-		return x.IPv4Addr
-	}
-	return ""
-}
+func (x *IPAllocationMetadata) GetIPv4Addr() string { _ = "STUB: not implemented"; return "" }
 
-func (x *IPAllocationMetadata) GetIPv6Addr() string {
-	if x != nil {
-		return x.IPv6Addr
-	}
-	return ""
-}
+func (x *IPAllocationMetadata) GetIPv6Addr() string { _ = "STUB: not implemented"; return "" }
 
-func (x *IPAllocationMetadata) GetDeviceNumber() int32 {
-	if x != nil {
-		return x.DeviceNumber
-	}
-	return 0
-}
+func (x *IPAllocationMetadata) GetDeviceNumber() int32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *IPAllocationMetadata) GetRouteTableId() int32 {
-	if x != nil {
-		return x.RouteTableId
-	}
-	return 0
-}
+func (x *IPAllocationMetadata) GetRouteTableId() int32 { _ = "STUB: not implemented"; return 0 }
 
 type AddNetworkReply struct {
 	state         protoimpl.MessageState
@@ -221,107 +129,42 @@ type AddNetworkReply struct {
 	NetworkPolicyMode string `protobuf:"bytes,13,opt,name=NetworkPolicyMode,proto3" json:"NetworkPolicyMode,omitempty"` // next field: 14
 }
 
-func (x *AddNetworkReply) Reset() {
-	*x = AddNetworkReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_rpc_proto_msgTypes[2]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *AddNetworkReply) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *AddNetworkReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *AddNetworkReply) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*AddNetworkReply) ProtoMessage() {}
+func (*AddNetworkReply) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *AddNetworkReply) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_rpc_proto_msgTypes[2]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use AddNetworkReply.ProtoReflect.Descriptor instead.
-func (*AddNetworkReply) Descriptor() ([]byte, []int) {
-	return file_rpc_rpc_proto_rawDescGZIP(), []int{2}
-}
+func (*AddNetworkReply) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *AddNetworkReply) GetSuccess() bool {
-	if x != nil {
-		return x.Success
-	}
-	return false
-}
+func (x *AddNetworkReply) GetSuccess() bool { _ = "STUB: not implemented"; return false }
 
 func (x *AddNetworkReply) GetIPAllocationMetadata() []*IPAllocationMetadata {
-	if x != nil {
-		return x.IPAllocationMetadata
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *AddNetworkReply) GetUseExternalSNAT() bool {
-	if x != nil {
-		return x.UseExternalSNAT
-	}
-	return false
-}
+func (x *AddNetworkReply) GetUseExternalSNAT() bool { _ = "STUB: not implemented"; return false }
 
-func (x *AddNetworkReply) GetVPCv4CIDRs() []string {
-	if x != nil {
-		return x.VPCv4CIDRs
-	}
-	return nil
-}
+func (x *AddNetworkReply) GetVPCv4CIDRs() []string { _ = "STUB: not implemented"; return nil }
 
-func (x *AddNetworkReply) GetVPCv6CIDRs() []string {
-	if x != nil {
-		return x.VPCv6CIDRs
-	}
-	return nil
-}
+func (x *AddNetworkReply) GetVPCv6CIDRs() []string { _ = "STUB: not implemented"; return nil }
 
-func (x *AddNetworkReply) GetPodVlanId() int32 {
-	if x != nil {
-		return x.PodVlanId
-	}
-	return 0
-}
+func (x *AddNetworkReply) GetPodVlanId() int32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *AddNetworkReply) GetPodENIMAC() string {
-	if x != nil {
-		return x.PodENIMAC
-	}
-	return ""
-}
+func (x *AddNetworkReply) GetPodENIMAC() string { _ = "STUB: not implemented"; return "" }
 
-func (x *AddNetworkReply) GetPodENISubnetGW() string {
-	if x != nil {
-		return x.PodENISubnetGW
-	}
-	return ""
-}
+func (x *AddNetworkReply) GetPodENISubnetGW() string { _ = "STUB: not implemented"; return "" }
 
-func (x *AddNetworkReply) GetParentIfIndex() int32 {
-	if x != nil {
-		return x.ParentIfIndex
-	}
-	return 0
-}
+func (x *AddNetworkReply) GetParentIfIndex() int32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *AddNetworkReply) GetNetworkPolicyMode() string {
-	if x != nil {
-		return x.NetworkPolicyMode
-	}
-	return ""
-}
+func (x *AddNetworkReply) GetNetworkPolicyMode() string { _ = "STUB: not implemented"; return "" }
 
 type DelNetworkRequest struct {
 	state         protoimpl.MessageState
@@ -339,100 +182,40 @@ type DelNetworkRequest struct {
 	K8S_POD_UID                string `protobuf:"bytes,10,opt,name=K8S_POD_UID,json=K8SPODUID,proto3" json:"K8S_POD_UID,omitempty"` // next field: 11
 }
 
-func (x *DelNetworkRequest) Reset() {
-	*x = DelNetworkRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_rpc_proto_msgTypes[3]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *DelNetworkRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *DelNetworkRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *DelNetworkRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*DelNetworkRequest) ProtoMessage() {}
+func (*DelNetworkRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *DelNetworkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_rpc_proto_msgTypes[3]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use DelNetworkRequest.ProtoReflect.Descriptor instead.
-func (*DelNetworkRequest) Descriptor() ([]byte, []int) {
-	return file_rpc_rpc_proto_rawDescGZIP(), []int{3}
-}
+func (*DelNetworkRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *DelNetworkRequest) GetClientVersion() string {
-	if x != nil {
-		return x.ClientVersion
-	}
-	return ""
-}
+func (x *DelNetworkRequest) GetClientVersion() string { _ = "STUB: not implemented"; return "" }
 
-func (x *DelNetworkRequest) GetK8S_POD_NAME() string {
-	if x != nil {
-		return x.K8S_POD_NAME
-	}
-	return ""
-}
+func (x *DelNetworkRequest) GetK8S_POD_NAME() string { _ = "STUB: not implemented"; return "" }
 
-func (x *DelNetworkRequest) GetK8S_POD_NAMESPACE() string {
-	if x != nil {
-		return x.K8S_POD_NAMESPACE
-	}
-	return ""
-}
+func (x *DelNetworkRequest) GetK8S_POD_NAMESPACE() string { _ = "STUB: not implemented"; return "" }
 
 func (x *DelNetworkRequest) GetK8S_POD_INFRA_CONTAINER_ID() string {
-	if x != nil {
-		return x.K8S_POD_INFRA_CONTAINER_ID
-	}
+	_ = "STUB: not implemented"
 	return ""
 }
 
-func (x *DelNetworkRequest) GetReason() string {
-	if x != nil {
-		return x.Reason
-	}
-	return ""
-}
+func (x *DelNetworkRequest) GetReason() string { _ = "STUB: not implemented"; return "" }
 
-func (x *DelNetworkRequest) GetContainerID() string {
-	if x != nil {
-		return x.ContainerID
-	}
-	return ""
-}
+func (x *DelNetworkRequest) GetContainerID() string { _ = "STUB: not implemented"; return "" }
 
-func (x *DelNetworkRequest) GetIfName() string {
-	if x != nil {
-		return x.IfName
-	}
-	return ""
-}
+func (x *DelNetworkRequest) GetIfName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *DelNetworkRequest) GetNetworkName() string {
-	if x != nil {
-		return x.NetworkName
-	}
-	return ""
-}
+func (x *DelNetworkRequest) GetNetworkName() string { _ = "STUB: not implemented"; return "" }
 
-func (x *DelNetworkRequest) GetK8S_POD_UID() string {
-	if x != nil {
-		return x.K8S_POD_UID
-	}
-	return ""
-}
+func (x *DelNetworkRequest) GetK8S_POD_UID() string { _ = "STUB: not implemented"; return "" }
 
 type DelNetworkReply struct {
 	state         protoimpl.MessageState
@@ -446,65 +229,30 @@ type DelNetworkReply struct {
 	NetworkPolicyMode string `protobuf:"bytes,6,opt,name=NetworkPolicyMode,proto3" json:"NetworkPolicyMode,omitempty"` // next field: 7
 }
 
-func (x *DelNetworkReply) Reset() {
-	*x = DelNetworkReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_rpc_proto_msgTypes[4]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *DelNetworkReply) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *DelNetworkReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *DelNetworkReply) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*DelNetworkReply) ProtoMessage() {}
+func (*DelNetworkReply) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *DelNetworkReply) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_rpc_proto_msgTypes[4]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use DelNetworkReply.ProtoReflect.Descriptor instead.
-func (*DelNetworkReply) Descriptor() ([]byte, []int) {
-	return file_rpc_rpc_proto_rawDescGZIP(), []int{4}
-}
+func (*DelNetworkReply) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *DelNetworkReply) GetSuccess() bool {
-	if x != nil {
-		return x.Success
-	}
-	return false
-}
+func (x *DelNetworkReply) GetSuccess() bool { _ = "STUB: not implemented"; return false }
 
 func (x *DelNetworkReply) GetIPAllocationMetadata() []*IPAllocationMetadata {
-	if x != nil {
-		return x.IPAllocationMetadata
-	}
+	_ = "STUB: not implemented"
 	return nil
 }
 
-func (x *DelNetworkReply) GetPodVlanId() int32 {
-	if x != nil {
-		return x.PodVlanId
-	}
-	return 0
-}
+func (x *DelNetworkReply) GetPodVlanId() int32 { _ = "STUB: not implemented"; return 0 }
 
-func (x *DelNetworkReply) GetNetworkPolicyMode() string {
-	if x != nil {
-		return x.NetworkPolicyMode
-	}
-	return ""
-}
+func (x *DelNetworkReply) GetNetworkPolicyMode() string { _ = "STUB: not implemented"; return "" }
 
 type EnforceNpRequest struct {
 	state         protoimpl.MessageState
@@ -517,65 +265,27 @@ type EnforceNpRequest struct {
 	InterfaceCount      int32  `protobuf:"varint,4,opt,name=InterfaceCount,proto3" json:"InterfaceCount,omitempty"`
 }
 
-func (x *EnforceNpRequest) Reset() {
-	*x = EnforceNpRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_rpc_proto_msgTypes[5]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *EnforceNpRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *EnforceNpRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *EnforceNpRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*EnforceNpRequest) ProtoMessage() {}
+func (*EnforceNpRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *EnforceNpRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_rpc_proto_msgTypes[5]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use EnforceNpRequest.ProtoReflect.Descriptor instead.
-func (*EnforceNpRequest) Descriptor() ([]byte, []int) {
-	return file_rpc_rpc_proto_rawDescGZIP(), []int{5}
-}
+func (*EnforceNpRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *EnforceNpRequest) GetK8S_POD_NAME() string {
-	if x != nil {
-		return x.K8S_POD_NAME
-	}
-	return ""
-}
+func (x *EnforceNpRequest) GetK8S_POD_NAME() string { _ = "STUB: not implemented"; return "" }
 
-func (x *EnforceNpRequest) GetK8S_POD_NAMESPACE() string {
-	if x != nil {
-		return x.K8S_POD_NAMESPACE
-	}
-	return ""
-}
+func (x *EnforceNpRequest) GetK8S_POD_NAMESPACE() string { _ = "STUB: not implemented"; return "" }
 
-func (x *EnforceNpRequest) GetNETWORK_POLICY_MODE() string {
-	if x != nil {
-		return x.NETWORK_POLICY_MODE
-	}
-	return ""
-}
+func (x *EnforceNpRequest) GetNETWORK_POLICY_MODE() string { _ = "STUB: not implemented"; return "" }
 
-func (x *EnforceNpRequest) GetInterfaceCount() int32 {
-	if x != nil {
-		return x.InterfaceCount
-	}
-	return 0
-}
+func (x *EnforceNpRequest) GetInterfaceCount() int32 { _ = "STUB: not implemented"; return 0 }
 
 type EnforceNpReply struct {
 	state         protoimpl.MessageState
@@ -585,44 +295,21 @@ type EnforceNpReply struct {
 	Success bool `protobuf:"varint,1,opt,name=Success,proto3" json:"Success,omitempty"`
 }
 
-func (x *EnforceNpReply) Reset() {
-	*x = EnforceNpReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_rpc_proto_msgTypes[6]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *EnforceNpReply) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *EnforceNpReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *EnforceNpReply) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*EnforceNpReply) ProtoMessage() {}
+func (*EnforceNpReply) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *EnforceNpReply) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_rpc_proto_msgTypes[6]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use EnforceNpReply.ProtoReflect.Descriptor instead.
-func (*EnforceNpReply) Descriptor() ([]byte, []int) {
-	return file_rpc_rpc_proto_rawDescGZIP(), []int{6}
-}
+func (*EnforceNpReply) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *EnforceNpReply) GetSuccess() bool {
-	if x != nil {
-		return x.Success
-	}
-	return false
-}
+func (x *EnforceNpReply) GetSuccess() bool { _ = "STUB: not implemented"; return false }
 
 type DeleteNpRequest struct {
 	state         protoimpl.MessageState
@@ -633,51 +320,23 @@ type DeleteNpRequest struct {
 	K8S_POD_NAMESPACE string `protobuf:"bytes,2,opt,name=K8S_POD_NAMESPACE,json=K8SPODNAMESPACE,proto3" json:"K8S_POD_NAMESPACE,omitempty"`
 }
 
-func (x *DeleteNpRequest) Reset() {
-	*x = DeleteNpRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_rpc_proto_msgTypes[7]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *DeleteNpRequest) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *DeleteNpRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *DeleteNpRequest) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*DeleteNpRequest) ProtoMessage() {}
+func (*DeleteNpRequest) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *DeleteNpRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_rpc_proto_msgTypes[7]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use DeleteNpRequest.ProtoReflect.Descriptor instead.
-func (*DeleteNpRequest) Descriptor() ([]byte, []int) {
-	return file_rpc_rpc_proto_rawDescGZIP(), []int{7}
-}
+func (*DeleteNpRequest) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *DeleteNpRequest) GetK8S_POD_NAME() string {
-	if x != nil {
-		return x.K8S_POD_NAME
-	}
-	return ""
-}
+func (x *DeleteNpRequest) GetK8S_POD_NAME() string { _ = "STUB: not implemented"; return "" }
 
-func (x *DeleteNpRequest) GetK8S_POD_NAMESPACE() string {
-	if x != nil {
-		return x.K8S_POD_NAMESPACE
-	}
-	return ""
-}
+func (x *DeleteNpRequest) GetK8S_POD_NAMESPACE() string { _ = "STUB: not implemented"; return "" }
 
 type DeleteNpReply struct {
 	state         protoimpl.MessageState
@@ -687,44 +346,21 @@ type DeleteNpReply struct {
 	Success bool `protobuf:"varint,1,opt,name=Success,proto3" json:"Success,omitempty"`
 }
 
-func (x *DeleteNpReply) Reset() {
-	*x = DeleteNpReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_rpc_proto_msgTypes[8]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *DeleteNpReply) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *DeleteNpReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *DeleteNpReply) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*DeleteNpReply) ProtoMessage() {}
+func (*DeleteNpReply) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *DeleteNpReply) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_rpc_proto_msgTypes[8]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use DeleteNpReply.ProtoReflect.Descriptor instead.
-func (*DeleteNpReply) Descriptor() ([]byte, []int) {
-	return file_rpc_rpc_proto_rawDescGZIP(), []int{8}
-}
+func (*DeleteNpReply) Descriptor() ([]byte, []int) { _ = "STUB: not implemented"; return nil, nil }
 
-func (x *DeleteNpReply) GetSuccess() bool {
-	if x != nil {
-		return x.Success
-	}
-	return false
-}
+func (x *DeleteNpReply) GetSuccess() bool { _ = "STUB: not implemented"; return false }
 
 type NetworkPolicyAgentConfigReply struct {
 	state         protoimpl.MessageState
@@ -735,49 +371,30 @@ type NetworkPolicyAgentConfigReply struct {
 	MultiNICEnabled   bool   `protobuf:"varint,2,opt,name=MultiNICEnabled,proto3" json:"MultiNICEnabled,omitempty"`
 }
 
-func (x *NetworkPolicyAgentConfigReply) Reset() {
-	*x = NetworkPolicyAgentConfigReply{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_rpc_rpc_proto_msgTypes[9]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
+func (x *NetworkPolicyAgentConfigReply) Reset() { _ = "STUB: not implemented"; return }
 
-func (x *NetworkPolicyAgentConfigReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
+func (x *NetworkPolicyAgentConfigReply) String() string { _ = "STUB: not implemented"; return "" }
 
-func (*NetworkPolicyAgentConfigReply) ProtoMessage() {}
+func (*NetworkPolicyAgentConfigReply) ProtoMessage() { _ = "STUB: not implemented"; return }
 
 func (x *NetworkPolicyAgentConfigReply) ProtoReflect() protoreflect.Message {
-	mi := &file_rpc_rpc_proto_msgTypes[9]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
+	_ = "STUB: not implemented"
+	return *new(protoreflect.Message)
 }
 
 // Deprecated: Use NetworkPolicyAgentConfigReply.ProtoReflect.Descriptor instead.
 func (*NetworkPolicyAgentConfigReply) Descriptor() ([]byte, []int) {
-	return file_rpc_rpc_proto_rawDescGZIP(), []int{9}
+	_ = "STUB: not implemented"
+	return nil, nil
 }
 
 func (x *NetworkPolicyAgentConfigReply) GetNetworkPolicyMode() string {
-	if x != nil {
-		return x.NetworkPolicyMode
-	}
+	_ = "STUB: not implemented"
 	return ""
 }
 
 func (x *NetworkPolicyAgentConfigReply) GetMultiNICEnabled() bool {
-	if x != nil {
-		return x.MultiNICEnabled
-	}
+	_ = "STUB: not implemented"
 	return false
 }
 
@@ -946,12 +563,7 @@ var (
 	file_rpc_rpc_proto_rawDescData = file_rpc_rpc_proto_rawDesc
 )
 
-func file_rpc_rpc_proto_rawDescGZIP() []byte {
-	file_rpc_rpc_proto_rawDescOnce.Do(func() {
-		file_rpc_rpc_proto_rawDescData = protoimpl.X.CompressGZIP(file_rpc_rpc_proto_rawDescData)
-	})
-	return file_rpc_rpc_proto_rawDescData
-}
+func file_rpc_rpc_proto_rawDescGZIP() []byte { _ = "STUB: not implemented"; return nil }
 
 var file_rpc_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_rpc_rpc_proto_goTypes = []interface{}{
@@ -987,149 +599,5 @@ var file_rpc_rpc_proto_depIdxs = []int32{
 	0,  // [0:2] is the sub-list for field type_name
 }
 
-func init() { file_rpc_rpc_proto_init() }
-func file_rpc_rpc_proto_init() {
-	if File_rpc_rpc_proto != nil {
-		return
-	}
-	if !protoimpl.UnsafeEnabled {
-		file_rpc_rpc_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AddNetworkRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_rpc_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*IPAllocationMetadata); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_rpc_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AddNetworkReply); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_rpc_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DelNetworkRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_rpc_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DelNetworkReply); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_rpc_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*EnforceNpRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_rpc_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*EnforceNpReply); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_rpc_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteNpRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_rpc_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DeleteNpReply); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_rpc_rpc_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*NetworkPolicyAgentConfigReply); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-	}
-	type x struct{}
-	out := protoimpl.TypeBuilder{
-		File: protoimpl.DescBuilder{
-			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_rpc_rpc_proto_rawDesc,
-			NumEnums:      0,
-			NumMessages:   10,
-			NumExtensions: 0,
-			NumServices:   3,
-		},
-		GoTypes:           file_rpc_rpc_proto_goTypes,
-		DependencyIndexes: file_rpc_rpc_proto_depIdxs,
-		MessageInfos:      file_rpc_rpc_proto_msgTypes,
-	}.Build()
-	File_rpc_rpc_proto = out.File
-	file_rpc_rpc_proto_rawDesc = nil
-	file_rpc_rpc_proto_goTypes = nil
-	file_rpc_rpc_proto_depIdxs = nil
-}
+func init()                    { file_rpc_rpc_proto_init() }
+func file_rpc_rpc_proto_init() { _ = "STUB: not implemented"; return }
